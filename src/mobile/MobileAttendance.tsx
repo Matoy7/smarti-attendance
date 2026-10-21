@@ -59,17 +59,20 @@ export function MobileAttendance() {
           )}
         </div>
 
-        <footer className="m-location">
-          <span className="m-location-pin" aria-hidden="true">
-            <PinIcon size={16} />
-          </span>
-          <span className="m-location-copy">
-            <strong className="text-caption">מיקום: {LOCATION.name}</strong>
-            <span className="text-micro text-tertiary">{LOCATION.shortAddress}</span>
-          </span>
-          {/* Entry point for changing the work location (no location picker yet). */}
-          <IconButton className="m-location-more" size="touch" label="שינוי מיקום" icon={<MoreVerticalIcon />} />
-        </footer>
+        {/* The day summary does not show the location (mobile). */}
+        {status !== 'summary' && (
+          <footer className="m-location">
+            <span className="m-location-pin" aria-hidden="true">
+              <PinIcon size={16} />
+            </span>
+            <span className="m-location-copy">
+              <strong className="text-caption">מיקום: {LOCATION.name}</strong>
+              <span className="text-micro text-tertiary">{LOCATION.shortAddress}</span>
+            </span>
+            {/* Entry point for changing the work location (no location picker yet). */}
+            <IconButton className="m-location-more" size="touch" label="שינוי מיקום" icon={<MoreVerticalIcon />} />
+          </footer>
+        )}
       </Card>
 
       <p className="sr-only" role="status" aria-live="polite">

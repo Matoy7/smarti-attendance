@@ -95,9 +95,8 @@
   margin-top: var(--space-3);
 }
 
-/* Working / summary end with a button; give the location row the same 24px rhythm. */
-.m-state-working + .m-location,
-.m-state-summary + .m-location {
+/* The working state ends with a button; give the location row the same 24px rhythm. */
+.m-state-working + .m-location {
   margin-top: var(--space-3);
 }
 
