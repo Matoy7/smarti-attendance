@@ -13,7 +13,7 @@ export function MobileShell({ children }: { children: ReactNode }) {
   return (
     <div className="m-app" dir="rtl">
       <header className="m-topbar">
-        <Brand tone="on-light" className="m-topbar-brand" />
+        <Brand tone="on-light" />
         <button className="m-avatar-button" type="button" aria-label={`פרופיל משתמש: ${USER.fullName}`}>
           <img className="avatar" src={asset('assets/e53c0.png')} alt="" />
         </button>

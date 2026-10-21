@@ -1,8 +1,8 @@
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { LOCATION } from '@/lib/profile'
 import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
-import { Button, Card, IconButton } from '@/components/ui'
-import { ClockIcon, LogoutIcon, PencilIcon, PinIcon } from '@/components/icons'
+import { Button, Card } from '@/components/ui'
+import { ClockIcon, LogoutIcon, PinIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { MobileShell } from './MobileShell'
@@ -32,9 +32,7 @@ export function MobileAttendance() {
                 {time}
               </time>
               <button className="punch-orb" type="button" onClick={clockIn}>
-                <ClockIcon size={28} />
-                <strong>דווח כניסה</strong>
-                <span>לחץ לדיווח כניסה</span>
+                דווח כניסה
               </button>
               <Button variant="link" className="m-manual-entry text-body">
                 הכנסה ידנית של שעה
@@ -69,7 +67,6 @@ export function MobileAttendance() {
             <strong className="text-caption">מיקום: {LOCATION.name}</strong>
             <span className="text-micro text-tertiary">{LOCATION.shortAddress}</span>
           </span>
-          <IconButton size="touch" label="ערוך מיקום" icon={<PencilIcon />} />
         </footer>
       </Card>
 
