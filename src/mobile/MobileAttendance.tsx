@@ -1,8 +1,8 @@
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { LOCATION } from '@/lib/profile'
 import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
-import { Button, Card } from '@/components/ui'
-import { ClockIcon, LogoutIcon, PinIcon } from '@/components/icons'
+import { Button, Card, IconButton } from '@/components/ui'
+import { ClockIcon, LogoutIcon, MoreVerticalIcon, PinIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { MobileShell } from './MobileShell'
@@ -67,6 +67,8 @@ export function MobileAttendance() {
             <strong className="text-caption">מיקום: {LOCATION.name}</strong>
             <span className="text-micro text-tertiary">{LOCATION.shortAddress}</span>
           </span>
+          {/* Entry point for changing the work location (no location picker yet). */}
+          <IconButton className="m-location-more" size="touch" label="שינוי מיקום" icon={<MoreVerticalIcon />} />
         </footer>
       </Card>
 

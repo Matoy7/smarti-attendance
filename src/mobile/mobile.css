@@ -155,7 +155,8 @@
   align-items: center;
   gap: var(--space-1-5);
   margin-top: var(--space-1-5);
-  padding: var(--space-2);
+  /* Tighter end padding: the 48px menu button carries its own touch area. */
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-2);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   background: var(--color-surface-subtle);
@@ -173,6 +174,10 @@
 
 .m-location-pin {
   color: var(--color-navy-700);
+}
+
+.m-location-more {
+  flex: 0 0 auto;
 }
 
 .m-location-copy {

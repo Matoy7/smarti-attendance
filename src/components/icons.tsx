@@ -141,3 +141,12 @@ export const LoginIcon = ({ className = '', ...p }: IconProps) => (
     <path d="M12.5 2.5H15.83C16.75 2.5 17.5 3.25 17.5 4.17V15.83C17.5 16.75 16.75 17.5 15.83 17.5H12.5M8.33 14.17L12.5 10L8.33 5.83M12.5 10H2.5" />
   </Icon>
 )
+
+/** Vertical "more" (⋮). Filled dots, same 20px grid as the outline set. */
+export const MoreVerticalIcon = (p: IconProps) => (
+  <Icon stroke="none" fill="currentColor" {...p}>
+    <circle cx="10" cy="4.17" r="1.67" />
+    <circle cx="10" cy="10" r="1.67" />
+    <circle cx="10" cy="15.83" r="1.67" />
+  </Icon>
+)
