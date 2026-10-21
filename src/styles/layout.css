@@ -143,10 +143,6 @@
   color: var(--color-text-on-dark-secondary);
 }
 
-.logout svg {
-  transform: rotate(180deg);
-}
-
 /* ---- Main ---- */
 .main-content {
   display: flex;

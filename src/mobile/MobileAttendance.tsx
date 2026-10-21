@@ -1,15 +1,17 @@
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { LOCATION } from '@/lib/profile'
-import { useNow } from '@/hooks/useNow'
-import { usePunchState } from '@/hooks/usePunchState'
+import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
 import { Button, Card, IconButton } from '@/components/ui'
-import { ClockIcon, PencilIcon, PinIcon } from '@/components/icons'
+import { ClockIcon, LoginIcon, LogoutIcon, PencilIcon, PinIcon } from '@/components/icons'
+import { WorkingStatus } from '@/components/attendance/WorkingStatus'
+import { DaySummary } from '@/components/attendance/DaySummary'
 import { MobileShell } from './MobileShell'
 
-/** Attendance screen — mobile layout. Shares clock-in state with desktop. */
+const TITLE_ID = 'm-state-title'
+
+/** Attendance — mobile. States: before clock-in → working → day summary (shared with desktop). */
 export function MobileAttendance() {
-  const now = useNow()
-  const { punched, toggle } = usePunchState()
+  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, announcement } = useAttendanceFlow()
   const time = toTimeOfDay(now)
 
   return (
@@ -22,19 +24,41 @@ export function MobileAttendance() {
           <p className="text-body text-secondary">{formatLongDate(now)}</p>
         </header>
 
-        <time className="m-clock text-display" dateTime={time}>
-          {time}
-        </time>
+        <div className={`m-state m-state-${status} state-enter`} key={status}>
+          {status === 'idle' && (
+            <>
+              <time className="m-clock text-display" dateTime={time}>
+                {time}
+              </time>
+              <button className="punch-orb" type="button" onClick={clockIn}>
+                <ClockIcon size={28} />
+                <strong>התחלת עבודה</strong>
+                <span>לחץ לדיווח כניסה</span>
+              </button>
+              <Button variant="link" className="m-manual-entry text-body">
+                הכנסה ידנית של שעה
+              </Button>
+            </>
+          )}
 
-        <button className="punch-orb" type="button" aria-pressed={punched} onClick={toggle}>
-          <ClockIcon size={28} />
-          <strong>{punched ? 'סיום עבודה' : 'התחלת עבודה'}</strong>
-          <span>{punched ? 'לחץ לדיווח יציאה' : 'לחץ לדיווח כניסה'}</span>
-        </button>
+          {status === 'working' && firstIn && (
+            <>
+              <WorkingStatus firstIn={firstIn} now={now} workedMs={workedMs} titleId={TITLE_ID} />
+              <Button className="m-state-action" size="lg" block onClick={clockOut} icon={<LogoutIcon strokeWidth={1.8} />}>
+                סיום עבודה
+              </Button>
+            </>
+          )}
 
-        <Button variant="link" className="m-manual-entry text-body">
-          הכנסה ידנית של שעה
-        </Button>
+          {status === 'summary' && firstIn && lastOut && (
+            <>
+              <DaySummary firstIn={firstIn} lastOut={lastOut} workedMs={workedMs} titleId={TITLE_ID} />
+              <Button className="m-state-action" size="lg" block onClick={clockIn} icon={<LoginIcon strokeWidth={1.8} />}>
+                התחלת עבודה
+              </Button>
+            </>
+          )}
+        </div>
 
         <footer className="m-location">
           <span className="m-location-pin" aria-hidden="true">
@@ -47,6 +71,10 @@ export function MobileAttendance() {
           <IconButton size="touch" label="ערוך מיקום" icon={<PencilIcon />} />
         </footer>
       </Card>
+
+      <p className="sr-only" role="status" aria-live="polite">
+        {announcement}
+      </p>
     </MobileShell>
   )
 }

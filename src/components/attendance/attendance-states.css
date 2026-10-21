@@ -1,0 +1,128 @@
+/* Working / day-summary states. Shared by the desktop and mobile attendance cards. */
+
+/* Gentle cross-fade when the card switches state (disabled with reduced motion via tokens). */
+.state-enter {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  animation: state-enter var(--duration-medium) var(--easing) both;
+}
+
+@keyframes state-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-1));
+  }
+}
+
+/* ---- Working ---- */
+.working-status {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.work-stats {
+  display: grid;
+  width: min(400px, 100%);
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+}
+
+.work-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-0-5);
+}
+
+.work-stat dd {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-heading-lg-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-heading-lg-line);
+  font-variant-numeric: tabular-nums;
+}
+
+.state-divider {
+  width: 100%;
+  height: 1px;
+  margin: var(--space-3) 0;
+  background: var(--color-border);
+}
+
+.elapsed-title {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.elapsed {
+  margin-top: var(--space-1);
+  color: var(--color-text);
+  /* Eight characters (HH:MM:SS): one step below the clock-in display size. */
+  font-size: calc(var(--text-display-size) * 0.8);
+  line-height: 1.1;
+  direction: ltr;
+}
+
+/* ---- Summary ---- */
+.day-summary {
+  display: flex;
+  width: min(400px, 100%);
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+
+.day-summary h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.summary-list {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.summary-row {
+  display: flex;
+  min-height: var(--control-height-lg);
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1) var(--space-2);
+}
+
+.summary-row + .summary-row {
+  border-top: 1px solid var(--color-border);
+}
+
+.summary-icon {
+  display: grid;
+  width: var(--space-4);
+  height: var(--space-4);
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--color-navy-700);
+  background: var(--color-canvas);
+}
+
+.summary-row dt {
+  flex: 1 1 auto;
+  text-align: start;
+}
+
+.summary-value {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-heading-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-heading-line);
+  font-variant-numeric: tabular-nums;
+}

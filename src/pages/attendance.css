@@ -7,12 +7,11 @@
   text-align: center;
 }
 
-.punch-card h2,
-.punch-card time {
+.punch-card h2 {
   margin: 0;
 }
 
-.punch-card time {
+.punch-clock {
   margin-top: var(--space-2);
   color: var(--color-text);
 }

@@ -74,8 +74,27 @@
   margin: 0;
 }
 
-.m-clock {
+/* State area between the card header and the location row. */
+.m-state {
   margin-top: var(--space-3);
+}
+
+.m-state .working-status,
+.m-state .day-summary {
+  width: 100%;
+}
+
+.m-state-action {
+  margin-top: var(--space-3);
+}
+
+/* Working / summary end with a button; give the location row the same 24px rhythm. */
+.m-state-working + .m-location,
+.m-state-summary + .m-location {
+  margin-top: var(--space-3);
+}
+
+.m-clock {
   color: var(--color-text);
   direction: ltr;
 }

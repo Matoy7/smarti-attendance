@@ -4,6 +4,7 @@ import type { SVGProps } from 'react'
  * Outline icon set in the desktop sidebar's style (20×20 grid, ~1.6px rounded
  * strokes, currentColor). The first four are the desktop sidebar icons
  * (public/assets/*.svg) inlined so active/inactive states can recolor them.
+ * Direction-sensitive icons (enter/exit arrows) carry .icon-rtl-mirror.
  */
 type IconProps = SVGProps<SVGSVGElement> & { size?: number }
 
@@ -116,8 +117,8 @@ export const SettingsIcon = (p: IconProps) => (
   </Icon>
 )
 
-export const LogoutIcon = (p: IconProps) => (
-  <Icon {...p}>
+export const LogoutIcon = ({ className = '', ...p }: IconProps) => (
+  <Icon className={`icon-rtl-mirror ${className}`.trim()} {...p}>
     <path d="M7.5 17.5H4.17C3.25 17.5 2.5 16.75 2.5 15.83V4.17C2.5 3.25 3.25 2.5 4.17 2.5H7.5M13.33 14.17L17.5 10L13.33 5.83M17.5 10H7.5" />
   </Icon>
 )
@@ -132,5 +133,11 @@ export const PinIcon = (p: IconProps) => (
   <Icon {...p}>
     <circle cx="10" cy="8.33" r="2.5" />
     <path d="M16.25 8.33C16.25 14.17 10 17.92 10 17.92C10 17.92 3.75 14.17 3.75 8.33C3.75 4.88 6.55 2.08 10 2.08C13.45 2.08 16.25 4.88 16.25 8.33Z" />
+  </Icon>
+)
+
+export const LoginIcon = ({ className = '', ...p }: IconProps) => (
+  <Icon className={`icon-rtl-mirror ${className}`.trim()} {...p}>
+    <path d="M12.5 2.5H15.83C16.75 2.5 17.5 3.25 17.5 4.17V15.83C17.5 16.75 16.75 17.5 15.83 17.5H12.5M8.33 14.17L12.5 10L8.33 5.83M12.5 10H2.5" />
   </Icon>
 )
