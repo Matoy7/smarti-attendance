@@ -5,8 +5,8 @@
 Hebrew RTL attendance management web app (React 19 + Vite 8 + Tailwind v4), built from the Figma Make desktop export.
 
 **Status:** only the Attendance screen (נוכחות) is implemented. Flow: before clock-in → **working**
-(start time, current time, live "זמן עבודה עד כה" timer, סיום עבודה) → **day summary** (first in, last out,
-total; התחלת עבודה starts another session that adds to the day's total). State: `src/hooks/useAttendanceDay.ts`.
+(start time, current time, live "זמן עבודה עד כה" in HH:MM, סיום עבודה) → **day summary** (first in, last out,
+total; חזרה למסך נוכחות returns to the clock-in screen — a later clock-in adds to the day's total). State: `src/hooks/useAttendanceDay.ts`.
 Viewports ≤ 760px render the mobile layout (`src/mobile/`: top bar, right-side drawer, persistent bottom
 navigation); wider viewports render the desktop layout. Both share the same clock-in state and design tokens.
 Navigation items other than נוכחות are in place but have no screens yet.

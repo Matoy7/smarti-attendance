@@ -2,7 +2,7 @@ import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { LOCATION, USER } from '@/lib/profile'
 import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
 import { Button, Card, CardBody, CardFooter, IconButton } from '@/components/ui'
-import { ClockIcon, LoginIcon, LogoutIcon, PencilIcon } from '@/components/icons'
+import { ClockIcon, LogoutIcon, PencilIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import './attendance.css'
@@ -11,7 +11,7 @@ const TITLE_ID = 'attendance-title'
 
 /** Attendance (נוכחות) — desktop. States: before clock-in → working → day summary. */
 export function AttendancePage() {
-  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, announcement } = useAttendanceFlow()
+  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, backToAttendance, announcement } = useAttendanceFlow()
   const time = toTimeOfDay(now)
 
   return (
@@ -53,8 +53,8 @@ export function AttendancePage() {
             {status === 'summary' && firstIn && lastOut && (
               <>
                 <DaySummary firstIn={firstIn} lastOut={lastOut} workedMs={workedMs} titleId={TITLE_ID} />
-                <Button className="punch-action" size="lg" onClick={clockIn} icon={<LoginIcon strokeWidth={1.8} />}>
-                  התחלת עבודה
+                <Button className="punch-action" size="lg" onClick={backToAttendance} icon={<ClockIcon strokeWidth={1.8} />}>
+                  חזרה למסך נוכחות
                 </Button>
               </>
             )}

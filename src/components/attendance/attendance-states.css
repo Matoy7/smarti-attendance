@@ -63,9 +63,7 @@
 .elapsed {
   margin-top: var(--space-1);
   color: var(--color-text);
-  /* Eight characters (HH:MM:SS): one step below the clock-in display size. */
-  font-size: calc(var(--text-display-size) * 0.8);
-  line-height: 1.1;
+  /* HH:MM — same display size as the clock on the clock-in screen. */
   direction: ltr;
 }
 

@@ -4,12 +4,18 @@ import { useCallback, useState } from 'react'
  * Today's attendance, as work sessions (clock-in → clock-out pairs).
  * No backend yet: kept in this browser's localStorage only.
  *
- * Flow:  idle ──clock in──▶ working ──clock out──▶ summary ──clock in──▶ working …
+ * Flow:  idle ──clock in──▶ working ──clock out──▶ summary ──back──▶ idle ──clock in──▶ working …
+ * Sessions stay on the day's record after returning to idle, so the day's totals keep accumulating.
  */
 export type Session = { start: string; end: string | null } // ISO timestamps
 export type AttendanceStatus = 'idle' | 'working' | 'summary'
 
-type DayRecord = { date: string; sessions: Session[] } // date = local YYYY-MM-DD of first clock-in
+type DayRecord = {
+  date: string // local YYYY-MM-DD of first clock-in
+  sessions: Session[]
+  /** The user left the day summary and is back on the clock-in screen */
+  summaryDismissed?: boolean
+}
 
 const STORAGE_KEY = 'smartime.day.v1'
 const LEGACY_KEY = 'smartime.clockedInAt' // single open clock-in from the first version
@@ -60,7 +66,7 @@ export function useAttendanceDay(now: Date) {
   const record = currentRecord(stored, now)
   const sessions = record?.sessions ?? []
   const open = sessions.find((s) => s.end === null) ?? null
-  const status: AttendanceStatus = open ? 'working' : sessions.length > 0 ? 'summary' : 'idle'
+  const status: AttendanceStatus = open ? 'working' : sessions.length > 0 && !record?.summaryDismissed ? 'summary' : 'idle'
 
   const clockIn = useCallback(() => {
     setStored((prev) => {
@@ -68,7 +74,7 @@ export function useAttendanceDay(now: Date) {
       const today = currentRecord(prev, at)
       if (today?.sessions.some((s) => s.end === null)) return prev
       const next: DayRecord = today
-        ? { ...today, sessions: [...today.sessions, { start: at.toISOString(), end: null }] }
+        ? { ...today, summaryDismissed: false, sessions: [...today.sessions, { start: at.toISOString(), end: null }] }
         : { date: dayKey(at), sessions: [{ start: at.toISOString(), end: null }] }
       write(next)
       return next
@@ -80,6 +86,15 @@ export function useAttendanceDay(now: Date) {
       if (!prev) return prev
       const at = new Date().toISOString()
       const next: DayRecord = { ...prev, sessions: prev.sessions.map((s) => (s.end === null ? { ...s, end: at } : s)) }
+      write(next)
+      return next
+    })
+  }, [])
+
+  const backToAttendance = useCallback(() => {
+    setStored((prev) => {
+      if (!prev) return prev
+      const next: DayRecord = { ...prev, summaryDismissed: true }
       write(next)
       return next
     })
@@ -97,5 +112,6 @@ export function useAttendanceDay(now: Date) {
     workedMs: workedMs(sessions, now),
     clockIn,
     clockOut,
+    backToAttendance,
   }
 }
