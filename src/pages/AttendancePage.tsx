@@ -1,10 +1,12 @@
 import { asset } from '@/lib/assets'
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
+import { LOCATION, USER } from '@/lib/profile'
 import { useNow } from '@/hooks/useNow'
 import { usePunchState } from '@/hooks/usePunchState'
-import { LOCATION, USER } from '@/lib/profile'
+import { Button, Card, CardBody, CardFooter, IconButton } from '@/components/ui'
+import './attendance.css'
 
-/** Attendance (נוכחות) — clock-in / clock-out screen from the Figma export. */
+/** Attendance (נוכחות) — desktop clock-in / clock-out screen. */
 export function AttendancePage() {
   const now = useNow()
   const { punched, toggle } = usePunchState()
@@ -12,35 +14,44 @@ export function AttendancePage() {
   const label = punched ? 'שעת יציאה' : 'שעת כניסה'
 
   return (
-    <div className="attendance-wrap">
-      <header className="greeting">
-        <p>{formatLongDate(now)}</p>
-        <h1>בוקר טוב, {USER.firstName}</h1>
+    <div className="page">
+      <header className="page-header">
+        <p className="text-body-lg text-secondary">{formatLongDate(now)}</p>
+        <h1 className="text-title">בוקר טוב, {USER.firstName}</h1>
       </header>
 
-      <section className="attendance-card" aria-labelledby="attendance-title">
-        <div className="card-main">
-          <h2 id="attendance-title">{label}</h2>
-          <time dateTime={time}>{time}</time>
-          <button className="punch-button" type="button" onClick={toggle} aria-pressed={punched}>
-            <img src={asset('assets/dd2d5.svg')} alt="" />
-            <span>{label}</span>
-          </button>
-          <button className="manual-entry" type="button">
+      <Card className="punch-card" aria-labelledby="attendance-title">
+        <CardBody>
+          <h2 id="attendance-title" className="text-heading">
+            {label}
+          </h2>
+          <time className="text-display" dateTime={time}>
+            {time}
+          </time>
+          <Button
+            className="punch-action"
+            size="lg"
+            onClick={toggle}
+            aria-pressed={punched}
+            icon={<img src={asset('assets/dd2d5.svg')} alt="" />}
+          >
+            {label}
+          </Button>
+          <Button variant="link" className="manual-entry text-body">
             הכנסה ידנית של שעה
-          </button>
-        </div>
+          </Button>
+        </CardBody>
 
-        <footer className="location-strip">
-          <div className="location-copy">
-            <strong>מיקום: {LOCATION.name}</strong>
-            <span>{LOCATION.address}</span>
+        <CardFooter>
+          <div className="location">
+            <div className="location-copy">
+              <strong className="text-body">מיקום: {LOCATION.name}</strong>
+              <span className="text-small text-tertiary">{LOCATION.address}</span>
+            </div>
+            <IconButton label="ערוך מיקום" icon={asset('assets/7ccc9.svg')} />
           </div>
-          <button className="edit-location" type="button" aria-label="ערוך מיקום">
-            <img src={asset('assets/7ccc9.svg')} alt="" />
-          </button>
-        </footer>
-      </section>
+        </CardFooter>
+      </Card>
     </div>
   )
 }

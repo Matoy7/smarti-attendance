@@ -1,0 +1,200 @@
+/* Shared components, built only from tokens. Used through src/components/ui. */
+
+/* ---- Typography ---- */
+.text-display {
+  font-size: var(--text-display-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--text-display-line);
+  letter-spacing: var(--text-display-tracking);
+  font-variant-numeric: tabular-nums;
+}
+
+.text-title {
+  font-size: var(--text-title-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--text-title-line);
+  letter-spacing: var(--text-title-tracking);
+}
+
+.text-heading {
+  font-size: var(--text-heading-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-heading-line);
+}
+
+.text-body-lg {
+  font-size: var(--text-body-lg-size);
+  line-height: var(--text-body-lg-line);
+}
+
+.text-body {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line);
+}
+
+.text-label {
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-label-line);
+}
+
+.text-small {
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-line);
+}
+
+.text-caption {
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-line);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+/* ---- Button ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1-5);
+  border: 0;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--easing),
+    box-shadow var(--duration-fast) var(--easing),
+    transform var(--duration-fast) var(--easing);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-md {
+  height: var(--control-height-md);
+  padding: 0 var(--space-2);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-line);
+}
+
+.btn-lg {
+  height: var(--control-height-lg);
+  padding: 0 var(--space-4);
+  font-size: var(--text-body-lg-size);
+  line-height: var(--text-body-lg-line);
+  letter-spacing: 0.01em;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-primary {
+  color: var(--color-text-on-dark);
+  background: var(--color-navy-700);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--color-navy-600);
+}
+
+.btn-link {
+  height: auto;
+  padding: 0;
+  color: var(--color-text);
+  background: transparent;
+  font-weight: var(--font-weight-regular);
+  text-decoration: underline;
+  text-decoration-color: var(--color-link-underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.btn-link:hover {
+  text-decoration-color: currentColor;
+}
+
+.btn img,
+.btn svg {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+  flex: 0 0 auto;
+}
+
+/* ---- Icon button ---- */
+.icon-btn {
+  display: inline-grid;
+  width: var(--control-height-md);
+  height: var(--control-height-md);
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing);
+}
+
+.icon-btn img,
+.icon-btn svg {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+
+.icon-btn-ghost:hover {
+  background: var(--color-surface-hover);
+}
+
+.icon-btn-on-dark {
+  background: var(--color-surface-on-dark);
+}
+
+.icon-btn-on-dark:hover {
+  background: var(--color-surface-on-dark-hover);
+}
+
+/* ---- Card ---- */
+.card {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.card-body {
+  padding: var(--space-5) var(--space-4) var(--space-4);
+}
+
+.card-footer {
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-subtle);
+}
+
+/* ---- Avatar ---- */
+.avatar {
+  width: var(--control-height-md);
+  height: var(--control-height-md);
+  flex: 0 0 auto;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+/* ---- Focus ---- */
+:where(button, a):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}

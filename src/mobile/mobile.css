@@ -68,7 +68,7 @@
   gap: 12px;
   color: #0e1e38;
   text-decoration: none;
-  font-family: 'Assistant:Bold', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 22px;
   font-weight: 700;
   line-height: 28px;
@@ -130,7 +130,7 @@
 .m-card-heading h1 {
   margin: 0;
   color: #0e1e38;
-  font-family: 'Assistant:ExtraBold', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 32px;
   font-weight: 800;
   line-height: 36px;
@@ -140,7 +140,7 @@
 .m-card-heading p {
   margin: 0;
   color: #475569;
-  font-family: 'Assistant:Regular', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 17px;
   font-weight: 400;
   line-height: 22.5px;
@@ -150,7 +150,7 @@
   width: 100%;
   padding: 20px 0;
   color: #0e1e38;
-  font-family: 'Assistant:ExtraBold', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 60px;
   font-weight: 800;
   line-height: 56px;
@@ -204,7 +204,7 @@
 }
 
 .m-action strong {
-  font-family: 'Assistant:Bold', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 26px;
   font-weight: 700;
   line-height: 32px;
@@ -214,7 +214,7 @@
 .m-action span {
   padding-top: 4px;
   color: #cbd5e1;
-  font-family: 'Assistant:Regular', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -228,7 +228,7 @@
   color: #071024;
   background: transparent;
   cursor: pointer;
-  font-family: 'Assistant:Regular', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
@@ -284,7 +284,7 @@
 .m-location-copy strong {
   overflow: hidden;
   color: #1e293b;
-  font-family: 'Assistant:Bold', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 700;
   line-height: 17px;
@@ -294,7 +294,7 @@
 .m-location-copy > span {
   overflow: hidden;
   color: #64748b;
-  font-family: 'Assistant:Regular', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;

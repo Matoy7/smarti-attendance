@@ -1,4 +1,6 @@
 import { asset } from '@/lib/assets'
+import { USER } from '@/lib/profile'
+import { IconButton } from '@/components/ui'
 
 /**
  * Only the Attendance screen is implemented so far; the other navigation
@@ -17,40 +19,36 @@ const ACTIVE = 'attendance'
 export function Sidebar() {
   return (
     <aside className="sidebar" aria-label="ניווט ראשי">
-      <div className="sidebar-top">
-        <a className="brand" href="#" aria-label="SMARTI Time">
-          <span className="brand-mark" aria-hidden="true">
-            <span />
-          </span>
-          <span>SMARTI&nbsp; Time</span>
-        </a>
+      <a className="sidebar-brand" href="#" aria-label="SMARTI Time">
+        <span className="brand-mark" aria-hidden="true">
+          <span />
+        </span>
+        <span>SMARTI&nbsp; Time</span>
+      </a>
 
-        <nav className="navigation">
-          {navItems.map((item) => (
-            <button
-              className={`nav-item ${item.id === ACTIVE ? 'active' : ''}`}
-              key={item.id}
-              aria-current={item.id === ACTIVE ? 'page' : undefined}
-              type="button"
-            >
-              <img src={asset(`assets/${item.icon}`)} alt="" />
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </nav>
-      </div>
+      <nav className="sidebar-nav">
+        {navItems.map((item) => (
+          <button
+            className={`nav-item ${item.id === ACTIVE ? 'active' : ''}`}
+            key={item.id}
+            aria-current={item.id === ACTIVE ? 'page' : undefined}
+            type="button"
+          >
+            <img src={asset(`assets/${item.icon}`)} alt="" />
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </nav>
 
-      <div className="profile-footer">
+      <div className="sidebar-footer">
         <div className="profile">
-          <img className="avatar" src={asset('assets/e53c0.png')} alt="מיכל לוי" />
+          <img className="avatar" src={asset('assets/e53c0.png')} alt="" />
           <div className="profile-copy">
-            <strong>מיכל לוי</strong>
-            <span>מנהלת פרויקטים</span>
+            <strong className="text-label">{USER.fullName}</strong>
+            <span className="text-caption">{USER.role}</span>
           </div>
         </div>
-        <button className="logout" type="button" aria-label="התנתק">
-          <img src={asset('assets/69bfd.svg')} alt="" />
-        </button>
+        <IconButton className="logout" tone="on-dark" label="התנתק" icon={asset('assets/69bfd.svg')} />
       </div>
     </aside>
   )

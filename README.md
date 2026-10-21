@@ -17,3 +17,10 @@ pnpm build      # -> dist/
 
 Deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`
 (the build uses a relative base, so it works under `/smarti-attendance/`).
+
+## Design system
+
+- `src/styles/tokens.css` — spacing (8px grid), type scale, colors, radii, shadows, layout sizes
+- `src/styles/components.css` + `src/components/ui/` — Button, IconButton, Card, Avatar, text styles
+- `src/styles/layout.css` — desktop shell (RTL sidebar with profile pinned to the bottom, content column)
+- `src/styles/fonts.css` — self-hosted Assistant variable font (one family, weights via tokens)
