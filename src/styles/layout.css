@@ -33,9 +33,45 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: var(--space-0-5);
   padding: var(--space-2);
   overflow-y: auto;
+}
+
+/* ---- Navigation sections (shared by the sidebar and the mobile menu) ---- */
+.nav-section-title {
+  display: flex;
+  height: var(--space-4);
+  align-items: center;
+  margin: 0;
+  padding: 0 var(--space-2);
+  font-size: var(--text-caption-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-caption-line);
+}
+
+.nav-section-dark .nav-section-title {
+  color: var(--color-text-on-dark-muted);
+}
+
+.nav-section-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-divider {
+  height: 0;
+  margin: var(--space-1-5) var(--space-2);
+  /* Width/style only: each tone (.nav-divider-dark / -light) sets the color. */
+  border-width: 1px 0 0;
+  border-style: solid;
+}
+
+.nav-divider-dark {
+  border-top-color: var(--color-border-on-dark);
 }
 
 .nav-item {
@@ -49,7 +85,6 @@
   padding: 0 var(--space-2);
   border: 0;
   border-radius: var(--radius-md);
-  color: var(--color-text-on-dark-secondary);
   background: transparent;
   font-family: inherit;
   font-size: var(--text-body-size);
@@ -62,30 +97,45 @@
     color var(--duration-fast) var(--easing);
 }
 
-.nav-item:hover {
-  color: var(--color-text-on-dark);
-  background: var(--color-surface-on-dark);
-}
-
 .nav-item svg {
   width: var(--icon-size-md);
   height: var(--icon-size-md);
   flex: 0 0 auto;
-  color: var(--color-text-on-dark-muted);
   transition: color var(--duration-fast) var(--easing);
 }
 
-.nav-item:hover svg {
-  color: var(--color-text-on-dark-secondary);
-}
-
 .nav-item.active {
-  color: var(--color-text-on-dark);
-  background: var(--color-navy-800);
   font-weight: var(--font-weight-medium);
 }
 
 .nav-item.active svg {
+  color: var(--color-accent);
+}
+
+/* Dark tone (desktop sidebar). The light tone lives with the mobile menu. */
+.nav-item-dark {
+  color: var(--color-text-on-dark-secondary);
+}
+
+.nav-item-dark svg {
+  color: var(--color-text-on-dark-muted);
+}
+
+.nav-item-dark:hover {
+  color: var(--color-text-on-dark);
+  background: var(--color-surface-on-dark);
+}
+
+.nav-item-dark:hover svg {
+  color: var(--color-text-on-dark-secondary);
+}
+
+.nav-item-dark.active {
+  color: var(--color-text-on-dark);
+  background: var(--color-navy-800);
+}
+
+.nav-item-dark.active svg {
   color: var(--color-accent);
 }
 

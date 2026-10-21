@@ -4,6 +4,7 @@ import { IconButton } from '@/components/ui'
 import { ChevronIcon, CloseIcon } from '@/components/icons'
 import { USER } from '@/lib/profile'
 import { asset } from '@/lib/assets'
+import { NavSections } from '@/components/NavSections'
 import { DRAWER_NAV } from './navigation'
 
 type Props = { open: boolean; onClose: () => void }
@@ -59,6 +60,12 @@ export function MobileDrawer({ open, onClose }: Props) {
             <span className="text-caption text-tertiary">{USER.role}</span>
           </div>
         </div>
+
+        <nav className="drawer-nav" aria-label="ניווט ראשי">
+          <NavSections tone="light" onNavigate={onClose} />
+        </nav>
+
+        <hr className="nav-divider nav-divider-light" />
 
         <nav aria-label="תפריט משני">
           <ul className="drawer-list">

@@ -9,7 +9,10 @@ Hebrew RTL attendance management web app (React 19 + Vite 8 + Tailwind v4), buil
 total; חזרה למסך נוכחות returns to the clock-in screen — a later clock-in adds to the day's total). State: `src/hooks/useAttendanceDay.ts`.
 Viewports ≤ 760px render the mobile layout (`src/mobile/`: top bar, right-side drawer, persistent bottom
 navigation); wider viewports render the desktop layout. Both share the same clock-in state and design tokens.
-Navigation items other than נוכחות are in place but have no screens yet.
+Navigation is one shared model (`src/lib/navigation.ts`): **אזור אישי** (דיווח נוכחות, דיווח היעדרות, הדיווחים שלי, הגדרות)
+and **ניהול ארגוני** (דיווחי עובדים — shown only with the `org.attendance.manage` permission, see `src/lib/permissions.ts`).
+Desktop sidebar and mobile menu render it identically; the mobile bottom bar uses the same order and permission.
+Only דיווח נוכחות has a screen so far; the other items have no destination yet.
 There is no backend: today's sessions are kept in the browser's `localStorage` only (reset the next day).
 The other sidebar items, "הכנסה ידנית של שעה" and the location edit button are rendered as designed but not wired yet.
 
