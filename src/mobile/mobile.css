@@ -250,18 +250,6 @@
   font-weight: var(--font-weight-medium);
 }
 
-/* Sidebar's active indicator, turned to the top edge for a horizontal tab bar.
-   On the smoky-navy bar the accent blue is below 3:1, so the indicator and icon use the on-dark color. */
-.bottom-nav-item.active::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  inset-inline: var(--space-2);
-  height: 3px;
-  border-radius: 0 0 var(--radius-full) var(--radius-full);
-  background: var(--color-text-on-dark);
-}
-
 .bottom-nav-icon {
   display: grid;
   place-items: center;
