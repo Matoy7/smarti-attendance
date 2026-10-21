@@ -16,7 +16,7 @@ export function WorkingStatus({ firstIn, now, workedMs, titleId }: Props) {
           </dd>
         </div>
         <div className="work-stat">
-          <dt className="text-label text-secondary">שעת נוכחות</dt>
+          <dt className="text-label text-secondary">שעה נוכחית</dt>
           <dd>
             <time dateTime={toTimeOfDay(now)}>{toTimeOfDay(now)}</time>
           </dd>
