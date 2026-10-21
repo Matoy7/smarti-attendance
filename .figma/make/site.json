@@ -1,0 +1,15 @@
+{
+  "title": "Smartime",
+  "description": "Smartime – מערכת לניהול נוכחות עובדים: החתמת כניסה ויציאה, דיווח היעדרויות, היסטוריית דיווחים וניהול נוכחות צוות.",
+  "language": "he",
+  "icons": {
+    "icon": "favicon.svg"
+  },
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
