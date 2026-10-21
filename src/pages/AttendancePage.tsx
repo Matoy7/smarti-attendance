@@ -44,11 +44,11 @@ export function AttendancePage() {
 
         <CardFooter>
           <div className="location">
+            <IconButton label="ערוך מיקום" icon={asset('assets/7ccc9.svg')} />
             <div className="location-copy">
               <strong className="text-body">מיקום: {LOCATION.name}</strong>
               <span className="text-small text-tertiary">{LOCATION.address}</span>
             </div>
-            <IconButton label="ערוך מיקום" icon={asset('assets/7ccc9.svg')} />
           </div>
         </CardFooter>
       </Card>
