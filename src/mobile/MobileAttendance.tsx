@@ -44,7 +44,7 @@ export function MobileAttendance() {
             <>
               <WorkingStatus firstIn={firstIn} now={now} workedMs={workedMs} titleId={TITLE_ID} />
               <Button className="m-state-action" size="lg" block onClick={clockOut} icon={<LogoutIcon strokeWidth={1.8} />}>
-                סיום עבודה
+                דווח יציאה
               </Button>
             </>
           )}

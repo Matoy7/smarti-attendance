@@ -45,7 +45,7 @@ export function AttendancePage() {
               <>
                 <WorkingStatus firstIn={firstIn} now={now} workedMs={workedMs} titleId={TITLE_ID} />
                 <Button className="punch-action" size="lg" onClick={clockOut} icon={<LogoutIcon strokeWidth={1.8} />}>
-                  סיום עבודה
+                  דווח יציאה
                 </Button>
               </>
             )}
