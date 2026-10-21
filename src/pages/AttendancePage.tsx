@@ -12,6 +12,7 @@ export function AttendancePage() {
   const { punched, toggle } = usePunchState()
   const time = toTimeOfDay(now)
   const label = punched ? 'שעת יציאה' : 'שעת כניסה'
+  const actionLabel = punched ? 'שעת יציאה' : 'דווח כניסה'
 
   return (
     <div className="page">
@@ -35,7 +36,7 @@ export function AttendancePage() {
             aria-pressed={punched}
             icon={<ClockIcon strokeWidth={1.8} />}
           >
-            {label}
+            {actionLabel}
           </Button>
           <Button variant="link" className="manual-entry text-body">
             הכנסה ידנית של שעה
