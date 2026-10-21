@@ -103,12 +103,12 @@
 
 .btn-primary {
   color: var(--color-text-on-dark);
-  background: var(--color-navy-700);
+  background: var(--color-primary-action);
   box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
-  background: var(--color-navy-600);
+  background: var(--color-primary-action-hover);
 }
 
 .btn-link {

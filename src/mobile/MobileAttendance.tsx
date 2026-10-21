@@ -18,8 +18,9 @@ export function MobileAttendance() {
     <MobileShell>
       <Card className="m-punch-card" aria-labelledby="m-attendance-title">
         <header className="m-card-header">
-          <h1 id="m-attendance-title" className="text-title">
-            נוכחות
+          {/* Page name stays available to screen readers; it is not shown visually. */}
+          <h1 id="m-attendance-title" className="sr-only">
+            דיווח נוכחות
           </h1>
           <p className="text-body text-secondary">{formatLongDate(now)}</p>
         </header>
@@ -32,7 +33,7 @@ export function MobileAttendance() {
               </time>
               <button className="punch-orb" type="button" onClick={clockIn}>
                 <ClockIcon size={28} />
-                <strong>התחלת עבודה</strong>
+                <strong>דווח כניסה</strong>
                 <span>לחץ לדיווח כניסה</span>
               </button>
               <Button variant="link" className="m-manual-entry text-body">

@@ -53,12 +53,17 @@
   --palette-dark: #0c1728;
   --palette-accent: #168be1;
 
+  /* Muted "smoky" navy for primary actions and links in the mobile layout */
+  --palette-smoky-navy: #294465;
+
   /* Dark & accent roles */
   --color-navy-950: var(--palette-dark); /* sidebar */
   --color-navy-900: var(--palette-dark); /* primary text */
   --color-navy-800: color-mix(in srgb, var(--palette-surface) 9%, var(--palette-dark)); /* sidebar active item */
   --color-navy-700: var(--palette-dark); /* primary action */
   --color-navy-600: color-mix(in srgb, var(--palette-surface) 14%, var(--palette-dark)); /* primary action hover */
+  --color-primary-action: var(--color-navy-700);
+  --color-primary-action-hover: var(--color-navy-600);
   --color-accent: var(--palette-accent);
   --color-brand-mark: var(--palette-accent);
 

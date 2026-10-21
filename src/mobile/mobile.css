@@ -3,7 +3,13 @@
  * the mobile type scale comes from the token overrides in tokens.css.
  */
 
+/* Mobile-only role overrides: smoky navy primary action and link. */
 .m-app {
+  --color-primary-action: var(--palette-smoky-navy);
+  --color-primary-action-hover: color-mix(in srgb, var(--palette-surface) 12%, var(--palette-smoky-navy));
+  --color-link: var(--palette-smoky-navy);
+  --color-link-underline: color-mix(in srgb, var(--palette-smoky-navy) 45%, transparent);
+
   min-height: 100dvh;
   color: var(--color-text);
   background: var(--canvas-background);
@@ -113,7 +119,7 @@
   border: 0;
   border-radius: var(--radius-full);
   color: var(--color-text-on-dark);
-  background: var(--color-navy-700);
+  background: var(--color-primary-action);
   box-shadow: var(--shadow-action);
   font-family: inherit;
   cursor: pointer;
@@ -123,7 +129,7 @@
 }
 
 .punch-orb:hover {
-  background: var(--color-navy-600);
+  background: var(--color-primary-action-hover);
 }
 
 .punch-orb:active {
@@ -201,11 +207,9 @@
   bottom: 0;
   z-index: 30;
   padding-bottom: var(--safe-bottom);
-  border-top: 1px solid var(--color-border-subtle);
-  background: var(--color-surface-translucent);
-  box-shadow: var(--shadow-bar);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--color-border-on-dark);
+  /* Same surface and item colors as the desktop sidebar */
+  background: var(--color-navy-950);
 }
 
 .bottom-nav-list {
@@ -229,8 +233,9 @@
   gap: 2px;
   padding: 0 var(--space-0-5);
   border: 0;
+  position: relative;
   border-radius: var(--radius-md);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-on-dark-secondary);
   background: transparent;
   font-family: inherit;
   font-size: var(--text-micro-size);
@@ -242,15 +247,36 @@
     color var(--duration-fast) var(--easing);
 }
 
+.bottom-nav-item:hover {
+  color: var(--color-text-on-dark);
+  background: var(--color-surface-on-dark);
+}
+
 .bottom-nav-item.active {
-  color: var(--color-text);
-  background: var(--color-surface-selected);
-  font-weight: var(--font-weight-bold);
+  color: var(--color-text-on-dark);
+  background: var(--color-navy-800);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Sidebar's accent indicator, turned to the top edge for a horizontal tab bar. */
+.bottom-nav-item.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline: var(--space-2);
+  height: 3px;
+  border-radius: 0 0 var(--radius-full) var(--radius-full);
+  background: var(--color-accent);
 }
 
 .bottom-nav-icon {
   display: grid;
   place-items: center;
+  color: var(--color-text-on-dark-muted);
+}
+
+.bottom-nav-item:hover .bottom-nav-icon {
+  color: var(--color-text-on-dark-secondary);
 }
 
 .bottom-nav-item.active .bottom-nav-icon {
