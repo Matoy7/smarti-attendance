@@ -2,12 +2,7 @@ import { asset } from '@/lib/assets'
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { useNow } from '@/hooks/useNow'
 import { usePunchState } from '@/hooks/usePunchState'
-
-const USER = { firstName: 'מיכל' }
-const LOCATION = {
-  name: 'משרדי החברה (תל אביב)',
-  address: "ליאונרדו דה וינצ'י 21, תל אביב-יפו, ישראל",
-}
+import { LOCATION, USER } from '@/lib/profile'
 
 /** Attendance (נוכחות) — clock-in / clock-out screen from the Figma export. */
 export function AttendancePage() {
