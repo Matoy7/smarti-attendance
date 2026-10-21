@@ -1,5 +1,5 @@
 /*
- * Smartime design tokens — the single source for spacing, type, color,
+ * סמארטי-טיים design tokens — the single source for spacing, type, color,
  * radius, elevation and layout. Components and layouts consume only these.
  */
 :root {
@@ -29,6 +29,8 @@
   --text-title-size: 32px; /* page title */
   --text-title-line: 40px;
   --text-title-tracking: -0.02em;
+  --text-heading-lg-size: 24px; /* prominent action label */
+  --text-heading-lg-line: 32px;
   --text-heading-size: 20px; /* card / section heading */
   --text-heading-line: 28px;
   --text-body-lg-size: 18px;
@@ -39,6 +41,8 @@
   --text-label-line: 20px;
   --text-caption-size: 13px;
   --text-caption-line: 16px;
+  --text-micro-size: 12px; /* bottom-navigation labels */
+  --text-micro-line: 16px;
 
   /* Color — brand */
   --color-navy-950: #09111e; /* sidebar */
@@ -64,6 +68,8 @@
   --color-surface: #ffffff;
   --color-surface-subtle: #f8fafc;
   --color-surface-hover: #f1f5f9;
+  --color-surface-selected: #e6effa; /* active nav item on light surfaces */
+  --color-overlay: rgba(9, 17, 30, 0.44);
   --color-border: #e2e8f0;
   --color-border-subtle: #f1f5f9;
   --color-border-on-dark: rgba(148, 163, 184, 0.14);
@@ -90,9 +96,13 @@
   --shadow-sm: 0 4px 8px -2px rgba(30, 58, 95, 0.16), 0 2px 4px -2px rgba(30, 58, 95, 0.12);
   --shadow-card: 0 16px 40px -16px rgba(71, 107, 155, 0.18), 0 2px 8px -2px rgba(71, 107, 155, 0.06);
   --shadow-sidebar: 0 24px 48px -12px rgba(0, 0, 0, 0.25);
+  --shadow-bar: 0 -8px 24px -12px rgba(30, 58, 95, 0.16);
+  --shadow-drawer: -16px 0 48px -16px rgba(9, 17, 30, 0.35);
+  --shadow-action: 0 16px 32px -8px rgba(30, 58, 95, 0.4);
 
   /* Motion */
   --duration-fast: 150ms;
+  --duration-medium: 240ms;
   --easing: cubic-bezier(0.2, 0, 0, 1);
 
   /* Layout */
@@ -102,4 +112,43 @@
   --control-height-lg: 56px;
   --icon-size-md: 20px;
   --icon-size-lg: 24px;
+
+  /* Mobile layout */
+  --touch-target: 48px;
+  --mobile-max-width: 480px;
+  --mobile-gutter: var(--space-2);
+  --topbar-height: 64px;
+  --bottom-nav-height: 64px;
+  --drawer-width: min(320px, 85vw);
+  --punch-action-size: 208px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+/* The mobile layout renders at ≤760px; the type scale steps down there. */
+@media (max-width: 760px) {
+  :root {
+    --text-display-size: 64px;
+    --text-display-line: 64px;
+    --text-title-size: 28px;
+    --text-title-line: 36px;
+    --text-body-lg-size: 17px;
+    --text-body-lg-line: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --mobile-gutter: var(--space-1-5);
+    --text-display-size: 56px;
+    --text-display-line: 56px;
+    --punch-action-size: 184px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-medium: 0ms;
+  }
 }

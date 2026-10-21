@@ -1,6 +1,7 @@
 import { asset } from '@/lib/assets'
 import { USER } from '@/lib/profile'
 import { IconButton } from '@/components/ui'
+import { Brand } from '@/components/Brand'
 
 /**
  * Only the Attendance screen is implemented so far; the other navigation
@@ -19,12 +20,7 @@ const ACTIVE = 'attendance'
 export function Sidebar() {
   return (
     <aside className="sidebar" aria-label="ניווט ראשי">
-      <a className="sidebar-brand" href="#" aria-label="SMARTI Time">
-        <span className="brand-mark" aria-hidden="true">
-          <span />
-        </span>
-        <span>SMARTI&nbsp; Time</span>
-      </a>
+      <Brand tone="on-dark" className="sidebar-brand" />
 
       <nav className="sidebar-nav">
         {navItems.map((item) => (

@@ -151,6 +151,32 @@
   height: var(--icon-size-md);
 }
 
+.icon-btn-touch {
+  width: var(--touch-target);
+  height: var(--touch-target);
+}
+
+.icon-btn-touch img,
+.icon-btn-touch svg {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+}
+
+.icon-btn-surface {
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+}
+
+.icon-btn-surface:hover {
+  background: var(--color-surface-subtle);
+}
+
+.icon-btn-ghost {
+  color: var(--color-text-tertiary);
+}
+
 .icon-btn-ghost:hover {
   background: var(--color-surface-hover);
 }
@@ -181,6 +207,44 @@
   padding: var(--space-2) var(--space-4);
   border-top: 1px solid var(--color-border-subtle);
   background: var(--color-surface-subtle);
+}
+
+/* ---- Brand ---- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  text-decoration: none;
+  font-size: var(--text-heading-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-heading-line);
+  white-space: nowrap;
+}
+
+.brand-on-dark {
+  color: var(--color-text-on-dark);
+}
+
+.brand-on-light {
+  color: var(--color-text);
+}
+
+.brand-mark {
+  display: grid;
+  width: var(--space-4);
+  height: var(--space-4);
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-gradient);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-mark span {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full) 0 var(--radius-full) 0;
+  background: var(--color-navy-950);
 }
 
 /* ---- Avatar ---- */

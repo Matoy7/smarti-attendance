@@ -22,37 +22,9 @@
 }
 
 .sidebar-brand {
-  display: flex;
   height: var(--space-10);
   flex: 0 0 auto;
-  align-items: center;
-  gap: var(--space-1-5);
   padding: 0 var(--space-3);
-  color: var(--color-text-on-dark);
-  text-decoration: none;
-  font-size: var(--text-heading-size);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--text-heading-line);
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-}
-
-.brand-mark {
-  display: grid;
-  width: var(--space-4);
-  height: var(--space-4);
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: var(--radius-full);
-  background: var(--color-brand-gradient);
-  box-shadow: var(--shadow-sm);
-}
-
-.brand-mark span {
-  width: 14px;
-  height: 14px;
-  border-radius: var(--radius-full) 0 var(--radius-full) 0;
-  background: var(--color-navy-950);
 }
 
 .sidebar-nav {
