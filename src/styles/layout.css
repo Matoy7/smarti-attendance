@@ -21,10 +21,12 @@
   box-shadow: var(--shadow-sidebar);
 }
 
+/* Brand, nav icons and profile share one start edge: --space-4 from the sidebar edge. */
 .sidebar-brand {
   height: var(--space-10);
   flex: 0 0 auto;
-  padding: 0 var(--space-3);
+  padding: 0 var(--space-4);
+  border-bottom: 1px solid var(--color-border-on-dark);
 }
 
 .sidebar-nav {
@@ -65,16 +67,26 @@
   background: var(--color-surface-on-dark);
 }
 
-.nav-item img {
+.nav-item svg {
   width: var(--icon-size-md);
   height: var(--icon-size-md);
   flex: 0 0 auto;
+  color: var(--color-text-on-dark-muted);
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.nav-item:hover svg {
+  color: var(--color-text-on-dark-secondary);
 }
 
 .nav-item.active {
   color: var(--color-text-on-dark);
   background: var(--color-navy-800);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
+}
+
+.nav-item.active svg {
+  color: var(--color-accent);
 }
 
 /* Active indicator on the item's start edge (right in RTL). */
@@ -95,7 +107,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-1-5);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
   border-top: 1px solid var(--color-border-on-dark);
 }
 
@@ -127,7 +139,11 @@
   color: var(--color-text-on-dark-muted);
 }
 
-.logout img {
+.logout {
+  color: var(--color-text-on-dark-secondary);
+}
+
+.logout svg {
   transform: rotate(180deg);
 }
 

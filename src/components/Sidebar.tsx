@@ -2,17 +2,18 @@ import { asset } from '@/lib/assets'
 import { USER } from '@/lib/profile'
 import { IconButton } from '@/components/ui'
 import { Brand } from '@/components/Brand'
+import { CalendarIcon, ClockIcon, DocumentIcon, LogoutIcon, SettingsIcon, UsersIcon } from '@/components/icons'
 
 /**
  * Only the Attendance screen is implemented so far; the other navigation
  * items are rendered as designed but do not navigate yet.
  */
 const navItems = [
-  { id: 'attendance', label: 'נוכחות', icon: '026b7.svg' },
-  { id: 'absences', label: 'דיווח היעדרויות', icon: '31b6d.svg' },
-  { id: 'history', label: 'היסטוריית דיווחים', icon: '57dd6.svg' },
-  { id: 'team', label: 'ניהול נוכחות צוות', icon: 'c6c91.svg' },
-  { id: 'settings', label: 'הגדרות', icon: '4d602.svg' },
+  { id: 'attendance', label: 'נוכחות', Icon: ClockIcon },
+  { id: 'absences', label: 'דיווח היעדרויות', Icon: CalendarIcon },
+  { id: 'history', label: 'היסטוריית דיווחים', Icon: DocumentIcon },
+  { id: 'team', label: 'ניהול נוכחות צוות', Icon: UsersIcon },
+  { id: 'settings', label: 'הגדרות', Icon: SettingsIcon },
 ]
 
 const ACTIVE = 'attendance'
@@ -23,14 +24,14 @@ export function Sidebar() {
       <Brand tone="on-dark" className="sidebar-brand" />
 
       <nav className="sidebar-nav">
-        {navItems.map((item) => (
+        {navItems.map(({ Icon, ...item }) => (
           <button
             className={`nav-item ${item.id === ACTIVE ? 'active' : ''}`}
             key={item.id}
             aria-current={item.id === ACTIVE ? 'page' : undefined}
             type="button"
           >
-            <img src={asset(`assets/${item.icon}`)} alt="" />
+            <Icon />
             <span>{item.label}</span>
           </button>
         ))}
@@ -44,7 +45,7 @@ export function Sidebar() {
             <span className="text-caption">{USER.role}</span>
           </div>
         </div>
-        <IconButton className="logout" tone="on-dark" label="התנתק" icon={asset('assets/69bfd.svg')} />
+        <IconButton className="logout" tone="on-dark" label="התנתק" icon={<LogoutIcon />} />
       </div>
     </aside>
   )

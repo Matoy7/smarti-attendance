@@ -1,9 +1,9 @@
-import { asset } from '@/lib/assets'
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { LOCATION, USER } from '@/lib/profile'
 import { useNow } from '@/hooks/useNow'
 import { usePunchState } from '@/hooks/usePunchState'
 import { Button, Card, CardBody, CardFooter, IconButton } from '@/components/ui'
+import { ClockIcon, PencilIcon } from '@/components/icons'
 import './attendance.css'
 
 /** Attendance (נוכחות) — desktop clock-in / clock-out screen. */
@@ -33,7 +33,7 @@ export function AttendancePage() {
             size="lg"
             onClick={toggle}
             aria-pressed={punched}
-            icon={<img src={asset('assets/dd2d5.svg')} alt="" />}
+            icon={<ClockIcon strokeWidth={1.8} />}
           >
             {label}
           </Button>
@@ -44,7 +44,7 @@ export function AttendancePage() {
 
         <CardFooter>
           <div className="location">
-            <IconButton label="ערוך מיקום" icon={asset('assets/7ccc9.svg')} />
+            <IconButton label="ערוך מיקום" icon={<PencilIcon />} />
             <div className="location-copy">
               <strong className="text-body">מיקום: {LOCATION.name}</strong>
               <span className="text-small text-tertiary">{LOCATION.address}</span>

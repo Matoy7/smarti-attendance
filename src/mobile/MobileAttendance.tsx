@@ -1,10 +1,9 @@
-import { asset } from '@/lib/assets'
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { LOCATION } from '@/lib/profile'
 import { useNow } from '@/hooks/useNow'
 import { usePunchState } from '@/hooks/usePunchState'
 import { Button, Card, IconButton } from '@/components/ui'
-import { ClockIcon } from '@/components/icons'
+import { ClockIcon, PencilIcon, PinIcon } from '@/components/icons'
 import { MobileShell } from './MobileShell'
 
 /** Attendance screen — mobile layout. Shares clock-in state with desktop. */
@@ -39,13 +38,13 @@ export function MobileAttendance() {
 
         <footer className="m-location">
           <span className="m-location-pin" aria-hidden="true">
-            <img src={asset('assets/c2539.svg')} alt="" />
+            <PinIcon size={16} />
           </span>
           <span className="m-location-copy">
-            <strong className="text-label">מיקום: {LOCATION.name}</strong>
-            <span className="text-caption text-tertiary">{LOCATION.shortAddress}</span>
+            <strong className="text-caption">מיקום: {LOCATION.name}</strong>
+            <span className="text-micro text-tertiary">{LOCATION.shortAddress}</span>
           </span>
-          <IconButton size="touch" label="ערוך מיקום" icon={asset('assets/7ccc9.svg')} />
+          <IconButton size="touch" label="ערוך מיקום" icon={<PencilIcon />} />
         </footer>
       </Card>
     </MobileShell>
