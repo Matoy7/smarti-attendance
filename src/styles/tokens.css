@@ -44,39 +44,50 @@
   --text-micro-size: 12px; /* bottom-navigation labels */
   --text-micro-line: 16px;
 
-  /* Color — brand */
-  --color-navy-950: #0c1728; /* dark navy surfaces (sidebar) */
-  --color-navy-900: #0c1728; /* primary text */
-  --color-navy-800: #172a43; /* sidebar active item */
-  --color-navy-700: #1e3a5f; /* primary action */
-  --color-navy-600: #284b78; /* primary action hover */
-  --color-accent: #168be1; /* active states and brand accents only */
-  --color-accent-soft: #38bdf8;
-  --color-brand-gradient: linear-gradient(45deg, #0284c7 0%, #38bdf8 100%);
+  /*
+   * Color — the core palette. These four values are the only colors in the UI;
+   * every other color token below is derived from them (tints, alphas, mixes).
+   */
+  --palette-background: #dfe8f3;
+  --palette-surface: #fafbfc;
+  --palette-dark: #0c1728;
+  --palette-accent: #168be1;
 
-  /* Color — text */
-  --color-text: var(--color-navy-900);
-  --color-text-secondary: #64748b;
-  --color-text-tertiary: #64748b;
-  --color-text-muted: #94a3b8;
-  --color-text-on-dark: #ffffff;
-  --color-text-on-dark-secondary: #cbd5e1;
-  --color-text-on-dark-muted: #94a3b8;
+  /* Dark & accent roles */
+  --color-navy-950: var(--palette-dark); /* sidebar */
+  --color-navy-900: var(--palette-dark); /* primary text */
+  --color-navy-800: color-mix(in srgb, var(--palette-surface) 9%, var(--palette-dark)); /* sidebar active item */
+  --color-navy-700: var(--palette-dark); /* primary action */
+  --color-navy-600: color-mix(in srgb, var(--palette-surface) 14%, var(--palette-dark)); /* primary action hover */
+  --color-accent: var(--palette-accent);
+  --color-brand-mark: var(--palette-accent);
 
-  /* Color — surfaces & borders */
-  --color-canvas: #f3f7fc;
-  --color-surface: #ffffff;
-  --color-surface-subtle: #f8fafc;
-  --color-surface-hover: #f1f5f9;
-  --color-surface-selected: #e8f3fc; /* active nav item on light surfaces (accent tint) */
-  --color-overlay: rgba(12, 23, 40, 0.44);
-  --color-border: #e4eaf2;
-  --color-border-subtle: #e4eaf2;
-  --color-border-on-dark: rgba(148, 163, 184, 0.12);
-  --color-surface-on-dark: rgba(255, 255, 255, 0.05);
-  --color-surface-on-dark-hover: rgba(255, 255, 255, 0.09);
-  --color-link-underline: rgba(22, 139, 225, 0.5);
-  --color-focus: #168be1;
+  /* Text (mixes of dark over surface, all ≥ 4.5:1 on surface and background) */
+  --color-text: var(--palette-dark);
+  --color-text-secondary: color-mix(in srgb, var(--palette-dark) 70%, var(--palette-surface));
+  --color-text-tertiary: color-mix(in srgb, var(--palette-dark) 64%, var(--palette-surface));
+  --color-text-muted: color-mix(in srgb, var(--palette-dark) 40%, var(--palette-surface));
+  --color-text-on-dark: var(--palette-surface);
+  --color-text-on-dark-secondary: color-mix(in srgb, var(--palette-surface) 78%, var(--palette-dark));
+  --color-text-on-dark-muted: color-mix(in srgb, var(--palette-surface) 58%, var(--palette-dark));
+  /* Accent as text: a touch of dark keeps small link text above 4.5:1 on surface */
+  --color-link: color-mix(in srgb, var(--palette-accent) 80%, var(--palette-dark));
+
+  /* Surfaces & borders */
+  --color-canvas: var(--palette-background);
+  --color-surface: var(--palette-surface);
+  --color-surface-subtle: color-mix(in srgb, var(--palette-background) 35%, var(--palette-surface)); /* location section */
+  --color-surface-hover: color-mix(in srgb, var(--palette-background) 55%, var(--palette-surface));
+  --color-surface-selected: color-mix(in srgb, var(--palette-accent) 12%, var(--palette-surface)); /* active nav on light */
+  --color-surface-translucent: color-mix(in srgb, var(--palette-surface) 94%, transparent);
+  --color-overlay: color-mix(in srgb, var(--palette-dark) 44%, transparent);
+  --color-border: color-mix(in srgb, var(--palette-dark) 10%, var(--palette-surface));
+  --color-border-subtle: var(--color-border);
+  --color-border-on-dark: color-mix(in srgb, var(--palette-surface) 12%, transparent);
+  --color-surface-on-dark: color-mix(in srgb, var(--palette-surface) 6%, transparent);
+  --color-surface-on-dark-hover: color-mix(in srgb, var(--palette-surface) 10%, transparent);
+  --color-link-underline: color-mix(in srgb, var(--palette-accent) 45%, transparent);
+  --color-focus: var(--palette-accent);
 
   --canvas-background: var(--color-canvas);
 
@@ -87,14 +98,17 @@
   --radius-xl: 20px; /* cards, drawer */
   --radius-full: 9999px;
 
-  /* Elevation */
-  --shadow-xs: 0 1px 2px rgba(12, 23, 40, 0.05);
-  --shadow-sm: 0 1px 2px rgba(12, 23, 40, 0.08), 0 4px 12px -6px rgba(30, 58, 95, 0.3);
-  --shadow-card: 0 1px 2px rgba(12, 23, 40, 0.03), 0 8px 24px -12px rgba(12, 23, 40, 0.08);
+  /* Elevation (dark at low alpha) */
+  --shadow-xs: 0 1px 2px color-mix(in srgb, var(--palette-dark) 5%, transparent);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--palette-dark) 8%, transparent),
+    0 4px 12px -6px color-mix(in srgb, var(--palette-dark) 30%, transparent);
+  --shadow-card: 0 1px 2px color-mix(in srgb, var(--palette-dark) 4%, transparent),
+    0 8px 24px -12px color-mix(in srgb, var(--palette-dark) 10%, transparent);
   --shadow-sidebar: none;
-  --shadow-bar: 0 -4px 16px -8px rgba(12, 23, 40, 0.08);
-  --shadow-drawer: -16px 0 48px -16px rgba(12, 23, 40, 0.3);
-  --shadow-action: 0 2px 4px rgba(12, 23, 40, 0.08), 0 12px 24px -12px rgba(30, 58, 95, 0.45);
+  --shadow-bar: 0 -4px 16px -8px color-mix(in srgb, var(--palette-dark) 8%, transparent);
+  --shadow-drawer: -16px 0 48px -16px color-mix(in srgb, var(--palette-dark) 30%, transparent);
+  --shadow-action: 0 2px 4px color-mix(in srgb, var(--palette-dark) 8%, transparent),
+    0 12px 24px -12px color-mix(in srgb, var(--palette-dark) 45%, transparent);
 
   /* Motion */
   --duration-fast: 150ms;
