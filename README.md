@@ -9,7 +9,7 @@ Hebrew RTL attendance management web app (React 19 + Vite 8 + Tailwind v4), buil
 total; חזרה למסך נוכחות returns to the clock-in screen — a later clock-in adds to the day's total). State: `src/hooks/useAttendanceDay.ts`.
 Clock-in/out resolve only after the record is saved and read back (`useAttendanceFlow`): the button shows a spinner while pending,
 repeat clicks are ignored, success shows a green banner at the top of the card ("הכניסה דווחה בהצלחה" / "היציאה דווחה בהצלחה", collapses after 5s)
-and a failed save shows a coral error banner and leaves the state unchanged. A status pill (לא במשמרת / במשמרת / המשמרת הסתיימה) tops the card.
+and a failed save shows a coral error banner and leaves the state unchanged.
 Viewports ≤ 760px render the mobile layout (`src/mobile/`: top bar, right-side drawer, persistent bottom
 navigation); wider viewports render the desktop layout. Both share the same clock-in state and design tokens.
 Navigation is one shared model (`src/lib/navigation.ts`): **אזור אישי** (דיווח נוכחות, דיווח היעדרות, הדיווחים שלי, הגדרות)
@@ -34,6 +34,6 @@ Deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `mai
 - `src/styles/tokens.css` — spacing (8px grid), type scale, colors (incl. the mobile `-mobile` roles, soft pastel blue / lavender / coral accents and success/danger feedback roles), radii, shadows, layout sizes, z-index layers
 - `src/styles/components.css` + `src/components/ui/` — Button, IconButton, PunchButton, Card, Avatar, IconTile, TimeDisplay, text styles (incl. `text-value` / `text-value-lg` for numbers)
 - `src/components/attendance/LocationRow.tsx` — work location, `footer` (desktop) and `tile` (mobile) variants (pin, details, edit)
-- `src/components/attendance/AttendanceFeedback.tsx`, `StatusPill.tsx` — action feedback banner and attendance status pill
+- `src/components/attendance/AttendanceFeedback.tsx` — action feedback banner
 - `src/styles/layout.css` — desktop shell (RTL sidebar with profile pinned to the bottom, content column)
 - `src/styles/fonts.css` — self-hosted Heebo variable font (one family, weights via tokens)

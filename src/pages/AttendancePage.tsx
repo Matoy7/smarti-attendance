@@ -6,7 +6,6 @@ import { ClockIcon, LogoutIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { LocationRow } from '@/components/attendance/LocationRow'
-import { StatusPill } from '@/components/attendance/StatusPill'
 import { AttendanceFeedback } from '@/components/attendance/AttendanceFeedback'
 import './attendance.css'
 
@@ -30,8 +29,6 @@ export function AttendancePage() {
 
       <Card className="punch-card" aria-labelledby={TITLE_ID}>
         <CardBody>
-          <StatusPill status={status} className="punch-status" />
-
           <div className="state-enter" key={status}>
             {/* Result of the last action: above the attendance details, inside the card. */}
             <AttendanceFeedback feedback={feedback} onDismiss={dismissFeedback} />

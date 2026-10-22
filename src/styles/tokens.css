@@ -52,7 +52,7 @@
   --palette-dark: #0c1728;
   --palette-accent: #168be1;
 
-  /* Soft accents: status pills, tinted panels and feedback */
+  /* Soft accents: tinted panels and feedback */
   --palette-pastel-blue: #e4eefb;
   --palette-lavender: #ece9fb;
   --palette-coral: #e5675b;
@@ -107,11 +107,10 @@
   --color-focus-gap: var(--palette-surface);
 
   /* Soft-accent roles */
-  --color-tint-blue: var(--palette-pastel-blue); /* stat panel, working pill */
+  --color-tint-blue: var(--palette-pastel-blue); /* stat panel, location pin */
   --color-tint-blue-border: color-mix(in srgb, var(--palette-accent) 18%, var(--palette-pastel-blue));
-  --color-tint-lavender: var(--palette-lavender); /* idle pill, summary total */
+  --color-tint-lavender: var(--palette-lavender); /* summary total */
   --color-tint-lavender-ink: color-mix(in srgb, var(--palette-violet) 70%, var(--palette-dark)); /* text on lavender, ≥ 4.5:1 */
-  --color-status-idle: color-mix(in srgb, var(--palette-dark) 40%, var(--palette-lavender));
 
   /* Feedback (success = confirmed attendance action; danger = restrained coral) */
   --color-success: var(--palette-success);

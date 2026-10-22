@@ -1,4 +1,4 @@
-/* Attendance feedback banner + status pill. Shared by the desktop and mobile attendance cards. */
+/* Attendance feedback banner. Shared by the desktop and mobile attendance cards. */
 
 /* ---- Feedback banner ---- */
 /* The slot collapses its own height when a success message leaves (0fr rows), so content below
@@ -86,56 +86,4 @@
 
 .feedback-close:hover {
   background: color-mix(in srgb, currentColor 10%, transparent);
-}
-
-/* ---- Status pill ---- */
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  height: var(--space-4);
-  margin: 0;
-  padding: 0 var(--space-1-5);
-  border-radius: var(--radius-full);
-  font-size: var(--text-caption-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-caption-line);
-  white-space: nowrap;
-}
-
-.status-dot {
-  width: var(--space-1);
-  height: var(--space-1);
-  flex: 0 0 auto;
-  border-radius: var(--radius-full);
-  background: currentColor;
-}
-
-.status-pill-idle {
-  color: var(--color-tint-lavender-ink);
-  background: var(--color-tint-lavender);
-}
-
-.status-pill-idle .status-dot {
-  background: var(--color-status-idle);
-}
-
-.status-pill-working {
-  color: var(--color-success-ink);
-  background: var(--color-success-surface);
-}
-
-/* Soft halo marks the "live" state; no looping animation. */
-.status-pill-working .status-dot {
-  background: var(--color-success);
-  box-shadow: 0 0 0 3px var(--color-success-border);
-}
-
-.status-pill-summary {
-  color: var(--color-text-secondary);
-  background: var(--color-tint-blue);
-}
-
-.status-pill-summary .status-dot {
-  background: var(--color-accent);
 }

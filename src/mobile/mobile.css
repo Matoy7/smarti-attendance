@@ -62,13 +62,11 @@
   padding: var(--space-3);
 }
 
-/* Date, then the attendance status under it — stacked in every state so the header never reflows. */
 .m-card-header {
   display: flex;
   align-self: stretch;
   flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-1);
+  gap: var(--space-0-5);
 }
 
 .m-card-header h1,

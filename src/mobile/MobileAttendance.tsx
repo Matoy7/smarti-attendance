@@ -6,7 +6,6 @@ import { ClockIcon, LogoutIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { LocationRow } from '@/components/attendance/LocationRow'
-import { StatusPill } from '@/components/attendance/StatusPill'
 import { AttendanceFeedback } from '@/components/attendance/AttendanceFeedback'
 import { MobileShell } from './MobileShell'
 
@@ -27,7 +26,6 @@ export function MobileAttendance() {
             דיווח נוכחות
           </h1>
           <p className="text-body text-secondary">{formatLongDate(now)}</p>
-          <StatusPill status={status} />
         </header>
 
         <div className={`m-state m-state-${status} state-enter`} key={status}>
