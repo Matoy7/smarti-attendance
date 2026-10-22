@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Brand } from '@/components/Brand'
 import { USER } from '@/lib/profile'
 import { Avatar } from '@/components/ui'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import { BottomNav } from './BottomNav'
 import './mobile.css'
 
@@ -14,9 +15,12 @@ export function MobileShell({ children }: { children: ReactNode }) {
     <div className="m-app" dir="rtl">
       <header className="m-topbar focus-on-canvas">
         <Brand tone="on-light" />
-        <button className="m-avatar-button" type="button" aria-label={`פרופיל משתמש: ${USER.fullName}`}>
-          <Avatar tone="on-light" />
-        </button>
+        <div className="m-topbar-actions">
+          <ThemeToggle tone="ghost" size="touch" className="m-theme-toggle" />
+          <button className="m-avatar-button" type="button" aria-label={`פרופיל משתמש: ${USER.fullName}`}>
+            <Avatar tone="on-light" />
+          </button>
+        </div>
       </header>
 
       <main className="m-main">{children}</main>

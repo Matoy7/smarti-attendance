@@ -22,9 +22,14 @@
 }
 
 /* Brand, nav icons and profile share one start edge: --space-4 from the sidebar edge. */
-.sidebar-brand {
+/* Brand at the start (right), theme toggle at the end (left). */
+.sidebar-header {
+  display: flex;
   height: var(--space-10);
   flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1);
   padding: 0 var(--space-4);
   border-bottom: 1px solid var(--color-border-on-dark);
 }
@@ -189,8 +194,12 @@
   color: var(--color-text-on-dark-muted);
 }
 
-.logout {
+.sidebar-action {
   color: var(--color-text-on-dark-secondary);
+}
+
+.sidebar-action:hover {
+  color: var(--color-text-on-dark);
 }
 
 /* ---- Main ---- */

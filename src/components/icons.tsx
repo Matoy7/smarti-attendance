@@ -157,3 +157,18 @@ export const AlertIcon = (p: IconProps) => (
     <path d="M10 6.25V10.42M10 13.75H10.01" />
   </Icon>
 )
+
+/** Theme toggle: shown while in dark mode (switches to light). */
+export const SunIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="10" cy="10" r="3.33" />
+    <path d="M10 1.67V3.33M10 16.67V18.33M4.11 4.11L5.29 5.29M14.71 14.71L15.89 15.89M1.67 10H3.33M16.67 10H18.33M4.11 15.89L5.29 14.71M14.71 5.29L15.89 4.11" />
+  </Icon>
+)
+
+/** Theme toggle: shown while in light mode (switches to dark). */
+export const MoonIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M17.5 10.66A7.5 7.5 0 1 1 9.34 2.5 5.83 5.83 0 0 0 17.5 10.66Z" />
+  </Icon>
+)

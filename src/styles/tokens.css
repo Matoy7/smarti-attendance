@@ -3,6 +3,8 @@
  * radius, elevation and layout. Components and layouts consume only these.
  */
 :root {
+  color-scheme: light;
+
   /* Spacing: 8px grid (4px for fine adjustments only) */
   --space-0-5: 4px;
   --space-1: 8px;
@@ -69,6 +71,7 @@
   --color-primary-action: var(--palette-dark);
   --color-primary-action-hover: var(--color-navy-600);
   --color-icon-tile-ink: var(--palette-dark); /* icon inside IconTile */
+  --color-icon-tile-surface: var(--palette-background); /* IconTile badge */
   --color-accent: var(--palette-accent);
   --color-brand-mark: var(--palette-accent);
 
@@ -95,6 +98,7 @@
   --color-surface: var(--palette-surface);
   --color-surface-subtle: color-mix(in srgb, var(--palette-background) 35%, var(--palette-surface)); /* location section */
   --color-surface-hover: color-mix(in srgb, var(--palette-background) 55%, var(--palette-surface));
+  --color-surface-raised: var(--palette-surface); /* bordered icon buttons */
   --color-surface-selected: color-mix(in srgb, var(--palette-accent) 12%, var(--palette-surface)); /* active nav on light */
   --color-overlay: color-mix(in srgb, var(--palette-dark) 44%, transparent);
   --color-border: color-mix(in srgb, var(--palette-dark) 10%, var(--palette-surface));
@@ -173,6 +177,78 @@
   --z-topbar: 20;
   --z-bottom-nav: 30;
   --z-drawer: 50;
+}
+
+/*
+ * Dark theme — set by data-theme="dark" on <html> (src/lib/theme.ts; an inline script in
+ * index.html applies it before first paint). Only color roles and shadows change; layout,
+ * type and components are shared. Text roles stay ≥ 4.5:1 on canvas and surface.
+ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --dark-canvas: #0e1622;
+  --dark-sidebar: #0a1019;
+  --dark-surface: #18212f;
+  --dark-surface-2: #202a39; /* card footer, tiles */
+  --dark-surface-3: #2a3546; /* raised controls, hover */
+  --dark-text: #eef2f7;
+  --dark-primary: #1279c9; /* bright blue, white label ≥ 4.5:1 */
+
+  --color-sidebar: var(--dark-sidebar);
+  --color-navy-800: color-mix(in srgb, var(--palette-accent) 22%, var(--dark-sidebar));
+  --color-primary-action: var(--dark-primary);
+  --color-primary-action-hover: var(--palette-accent);
+  --color-icon-tile-ink: var(--dark-text);
+  --color-icon-tile-surface: var(--dark-surface-3);
+
+  /* The mobile layout uses the same bright-blue action as desktop in the dark theme. */
+  --color-primary-action-mobile: var(--dark-primary);
+  --color-primary-action-hover-mobile: var(--palette-accent);
+  --color-link-mobile: var(--color-link);
+  --color-link-underline-mobile: var(--color-link-underline);
+  --color-nav-surface-mobile: var(--dark-sidebar);
+  --color-nav-active-mobile: var(--color-navy-800);
+
+  --color-text: var(--dark-text);
+  --color-text-secondary: #b3bdcb;
+  --color-text-tertiary: #97a3b4;
+  --color-text-on-dark: #f6f8fb;
+  --color-link: #5db3f2;
+  --color-link-underline: color-mix(in srgb, #5db3f2 45%, transparent);
+
+  --color-canvas: var(--dark-canvas);
+  --color-surface: var(--dark-surface);
+  --color-surface-subtle: var(--dark-surface-2);
+  --color-surface-hover: var(--dark-surface-3);
+  --color-surface-raised: var(--dark-surface-3);
+  --color-surface-selected: color-mix(in srgb, var(--palette-accent) 20%, var(--dark-surface));
+  --color-overlay: color-mix(in srgb, #000 60%, transparent);
+  --color-border: #2b3647;
+  --color-border-on-dark: color-mix(in srgb, #fff 9%, transparent);
+  --color-focus: #5db3f2;
+  --color-focus-gap: var(--dark-canvas);
+
+  --color-tint-blue: #1c2d43;
+  --color-tint-blue-border: #2a4261;
+  --color-tint-lavender: #262445;
+  --color-tint-lavender-ink: #c3bcf7;
+
+  --color-success: #3cc47f;
+  --color-success-surface: #13291f;
+  --color-success-border: #1f5038;
+  --color-success-ink: #8fdcb2;
+  --color-danger: #ef8277;
+  --color-danger-surface: #33201f;
+  --color-danger-border: #5e3531;
+  --color-danger-ink: #f7b0a8;
+
+  --shadow-xs: 0 1px 2px color-mix(in srgb, #000 30%, transparent);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #000 30%, transparent), 0 4px 12px -6px color-mix(in srgb, #000 50%, transparent);
+  --shadow-card: 0 1px 2px color-mix(in srgb, #000 25%, transparent), 0 16px 40px -20px color-mix(in srgb, #000 60%, transparent);
+  --shadow-sidebar: -1px 0 0 var(--color-border-on-dark); /* sidebar edge facing the content (RTL) */
+  --shadow-drawer: -16px 0 48px -16px color-mix(in srgb, #000 60%, transparent);
+  --shadow-action: 0 2px 4px color-mix(in srgb, #000 25%, transparent), 0 12px 24px -12px color-mix(in srgb, #000 70%, transparent);
 }
 
 /* The mobile layout renders at ≤760px (keep in sync with MOBILE_QUERY in src/hooks/useIsMobile.ts); the type scale steps down there. */

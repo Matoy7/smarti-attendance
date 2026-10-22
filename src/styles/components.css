@@ -221,7 +221,7 @@
 .icon-btn-surface {
   color: var(--color-text-secondary);
   border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  background: var(--color-surface-raised);
   box-shadow: var(--shadow-xs);
 }
 
@@ -328,7 +328,7 @@
   flex: 0 0 auto;
   place-items: center;
   color: var(--color-icon-tile-ink);
-  background: var(--color-canvas);
+  background: var(--color-icon-tile-surface);
 }
 
 .icon-tile-sm {

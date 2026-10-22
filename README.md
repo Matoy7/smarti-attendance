@@ -36,4 +36,7 @@ Deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `mai
 - `src/components/attendance/LocationRow.tsx` — work location, `footer` (desktop) and `tile` (mobile) variants (pin, details, edit)
 - `src/components/attendance/AttendanceFeedback.tsx` — action feedback banner
 - `src/styles/layout.css` — desktop shell (RTL sidebar with profile pinned to the bottom, content column)
+- Light / dark theme: `:root[data-theme='dark']` in `tokens.css` overrides color roles only; `src/lib/theme.ts` + `useTheme` + `ThemeToggle`
+  (desktop: sidebar header; mobile: top bar). Follows the OS setting until the user toggles; the choice is kept in `localStorage`
+  (`smartime.theme`) and an inline script in `index.html` applies it before first paint.
 - `src/styles/fonts.css` — self-hosted Heebo variable font (one family, weights via tokens)
