@@ -60,6 +60,14 @@
   --palette-success: #1f9a5c;
   --palette-amber: #f39010;
 
+  /* Mobile attendance orb (דווח כניסה / יציאה): brand artwork, same in light and dark.
+     The inner disc's middle is deep enough for its white label to reach 3:1 (large text). */
+  --orb-outer: linear-gradient(180deg, #57bffc 0%, #2aa5fb 48%, #0a7fe6 100%);
+  --orb-inner: linear-gradient(180deg, #5cc0fb 0%, #1a98f2 50%, #0386f5 100%);
+  --orb-ring: color-mix(in srgb, #ffffff 30%, transparent);
+  --orb-inner-shadow: 0 7px 16px -2px color-mix(in srgb, #00508f 55%, transparent);
+  --orb-shadow: 0 14px 28px -14px color-mix(in srgb, #0a5fb0 70%, transparent);
+
   /* Muted "smoky" navy for primary actions and links in the mobile layout */
   --palette-smoky-navy: #294465;
 

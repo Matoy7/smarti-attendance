@@ -106,31 +106,69 @@
   margin-top: var(--space-3);
 }
 
-/* Primary clock-in action: the mobile counterpart of the desktop punch button. */
+/*
+ * Attendance action orb (דווח כניסה / דווח יציאה): the mobile counterpart of the desktop punch
+ * button. Outer blue disc (button), raised inner disc (::before) and a thin light ring (::after),
+ * all in % of the orb so it scales with --punch-action-size.
+ */
 .punch-orb {
-  display: flex;
+  position: relative;
+  isolation: isolate;
+  display: grid;
   width: var(--punch-action-size);
   height: var(--punch-action-size);
   margin-top: var(--space-3);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-0-5);
+  place-items: center;
   padding: 0;
   border: 0;
   border-radius: var(--radius-full);
-  color: var(--color-text-on-dark);
-  background: var(--color-primary-action);
-  box-shadow: var(--shadow-action);
+  color: #ffffff;
+  background: var(--orb-outer);
+  box-shadow: var(--orb-shadow);
   font-family: inherit;
+  font-size: var(--text-title-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-title-line);
   cursor: pointer;
   transition:
-    background-color var(--duration-fast) var(--easing),
+    filter var(--duration-fast) var(--easing),
     transform var(--duration-fast) var(--easing);
 }
 
+.punch-orb::before,
+.punch-orb::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+/* Raised inner disc, lit along its top edge. */
+.punch-orb::before {
+  inset: 7%;
+  background: var(--orb-inner);
+  box-shadow:
+    var(--orb-inner-shadow),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 40%, transparent);
+}
+
+/* Thin ring just inside the inner disc. */
+.punch-orb::after {
+  inset: 9.7%;
+  border: 1.5px solid var(--orb-ring);
+}
+
+.punch-orb-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-0-5);
+  text-shadow: 0 1px 2px color-mix(in srgb, #003a73 35%, transparent);
+}
+
 .punch-orb:hover:not(:disabled) {
-  background: var(--color-primary-action-hover);
+  filter: brightness(1.04);
 }
 
 .punch-orb:active:not(:disabled) {
@@ -142,11 +180,8 @@
   opacity: 0.9;
 }
 
-/* Single label: the screen's main call to action, set at page-title size. */
-.punch-orb {
-  font-size: var(--text-title-size);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--text-title-line);
+.punch-orb .spinner {
+  color: #ffffff;
 }
 
 .m-manual-entry {

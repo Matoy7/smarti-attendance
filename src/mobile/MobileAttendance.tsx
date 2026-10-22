@@ -1,7 +1,7 @@
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
 import { Button, Card, PunchButton, TimeDisplay } from '@/components/ui'
-import { ClockIcon, LogoutIcon } from '@/components/icons'
+import { ClockIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { LocationRow } from '@/components/attendance/LocationRow'
@@ -45,16 +45,9 @@ export function MobileAttendance() {
           {status === 'working' && firstIn && (
             <>
               <WorkingStatus firstIn={firstIn} now={now} workedMs={workedMs} titleId={TITLE_ID} />
-              <Button
-                className="m-state-action"
-                size="lg"
-                block
-                onClick={clockOut}
-                loading={pending === 'out'}
-                icon={<LogoutIcon strokeWidth={1.8} />}
-              >
-                {pending === 'out' ? 'מדווח יציאה…' : 'דווח יציאה'}
-              </Button>
+              <PunchButton onClick={clockOut} loading={pending === 'out'}>
+                {pending === 'out' ? 'מדווח…' : 'דווח יציאה'}
+              </PunchButton>
             </>
           )}
 
