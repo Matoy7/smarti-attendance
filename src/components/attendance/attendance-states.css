@@ -32,9 +32,9 @@
   grid-template-columns: 1fr 1fr;
   margin: 0;
   padding: var(--space-2) 0;
-  border: 1px solid var(--color-tint-blue-border);
+  border: 1px solid var(--color-tint-border);
   border-radius: var(--radius-lg);
-  background: var(--color-tint-blue);
+  background: var(--color-tint);
 }
 
 .work-stat {
@@ -45,7 +45,7 @@
 }
 
 .work-stat + .work-stat {
-  border-inline-start: 1px solid var(--color-tint-blue-border);
+  border-inline-start: 1px solid var(--color-tint-border);
 }
 
 .work-stat-label {

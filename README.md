@@ -61,6 +61,8 @@ Deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `mai
 - Light / dark theme: `:root[data-theme='dark']` in `tokens.css` overrides color roles only; `src/lib/theme.ts` + `useTheme` + `ThemeToggle`
   (desktop: sidebar header; mobile: top bar). Follows the OS setting until the user toggles; the choice is kept in `localStorage`
   (`smartime.theme`) and an inline script in `index.html` applies it before first paint.
-- Desktop look: royal-blue primary action (`--palette-royal`), `#112338` sidebar, page background `--color-canvas-desktop`, white location footer with a filled pin and round edit button.
-  Mobile keeps its own roles (`-mobile` tokens, `.m-app` overrides).
+- Palette (`src/styles/tokens.css`): primary deep forest green `#064E40` (primary buttons, active states, key UI), accent warm
+  orange `#F4A340` (secondary actions, highlights, icons, selected navigation, logo), background warm cream `#F7F3ED`, cards
+  off-white `#FFFCF7`. Every other color is a tint/shade of these (`color-mix`); the only extra hue is the error/rejected red.
+  Text ≥ 4.5:1 throughout; dark theme is a deep-green version of the same palette.
 - `src/styles/fonts.css` — self-hosted Heebo variable font (one family, weights via tokens)

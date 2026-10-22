@@ -120,7 +120,7 @@
   padding: 0;
   border: 0;
   border-radius: var(--radius-full);
-  color: #ffffff;
+  color: var(--color-text-on-dark);
   background: var(--orb-fill);
   box-shadow: var(--orb-glow);
   font-family: inherit;
@@ -163,7 +163,7 @@
 .spinner-orb {
   box-sizing: border-box;
   border-width: 3px;
-  color: #ffffff;
+  color: var(--color-text-on-dark);
 }
 
 @media (hover: hover) {
@@ -214,7 +214,7 @@
 
 .m-location .icon-tile {
   color: var(--color-link);
-  background: var(--color-tint-blue);
+  background: var(--color-tint);
 }
 
 .m-location {
@@ -253,6 +253,7 @@
 
 /* ---- Bottom navigation ---- */
 .bottom-nav {
+  --color-focus: var(--color-accent); /* green focus ring would vanish on the green bar */
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   position: fixed;
   inset-inline: 0;
@@ -325,7 +326,7 @@
 }
 
 .bottom-nav-item.active .bottom-nav-icon {
-  color: var(--color-text-on-dark);
+  color: var(--color-accent); /* selected navigation: orange icon, as in the desktop sidebar */
 }
 
 .bottom-nav-label {

@@ -9,7 +9,7 @@ export const THEME_KEY = 'smartime.theme'
 const DARK_QUERY = '(prefers-color-scheme: dark)'
 const CHANGE_EVENT = 'smartime:themechange'
 /** Browser UI color (mobile address bar) per theme: the canvas color. */
-const META_COLOR: Record<Theme, string> = { light: '#dfe8f3', dark: '#0e1622' }
+const META_COLOR: Record<Theme, string> = { light: '#f7f3ed', dark: '#021713' }
 
 function storedChoice(): Theme | null {
   try {

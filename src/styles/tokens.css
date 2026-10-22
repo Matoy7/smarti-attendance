@@ -45,102 +45,96 @@
   --text-micro-line: 16px;
 
   /*
-   * Color — the core palette. These four values carry the brand; every other
-   * color token below is derived from them or from the soft accents that follow
-   * (tints, alphas, mixes).
+   * Color — the brand palette. Four values carry the whole UI; every other color token below
+   * is a tint, shade or alpha of them (derived with color-mix). The only extra hue is the
+   * restrained red for errors / rejected reports, which feedback cannot do without.
    */
-  --palette-background: #dfe8f3;
-  --palette-surface: #fafbfc;
-  --palette-dark: #0c1728;
-  --palette-accent: #168be1;
-  --palette-royal: #276de3; /* primary action (desktop), from the desktop reference */
+  --palette-primary: #064e40; /* deep forest green: primary actions, active states, key UI */
+  --palette-accent: #f4a340; /* warm orange: secondary actions, highlights, icons, selected nav */
+  --palette-background: #f7f3ed; /* warm cream page */
+  --palette-surface: #fffcf7; /* off-white cards */
+  --palette-danger: #e5675b; /* errors and rejected reports only */
 
-  /* Soft accents: tinted panels and feedback */
-  --palette-pastel-blue: #e4eefb;
-  --palette-coral: #e5675b;
-  --palette-success: #1f9a5c;
-  --palette-amber: #f39010;
+  /* Derived anchors */
+  --palette-ink: color-mix(in srgb, var(--palette-primary) 70%, #000); /* text: deepest green (12:1 on cream) */
+  --palette-accent-ink: color-mix(in srgb, var(--palette-accent) 55%, #000); /* orange as text (≥ 5.3:1 on cream) */
 
-  /* Mobile attendance orb (דווח כניסה / יציאה): royal-blue disc with a soft blue glow,
-     same in light and dark. White label ≥ 4.5:1 on the disc's middle. */
-  --orb-fill: linear-gradient(150deg, #3b86f0 0%, #2a70e4 48%, #1655d4 100%);
-  --orb-glow: 0 0 28px 4px rgba(49, 126, 235, 0.26), 0 14px 26px -14px rgba(22, 85, 212, 0.6);
+  /* Mobile attendance orb (דווח כניסה / יציאה): green disc, lit top-left, soft green glow.
+     Off-white label ≥ 5.2:1 on its lightest part. Same in light and dark. */
+  --orb-fill: linear-gradient(150deg, color-mix(in srgb, var(--palette-primary) 78%, var(--palette-surface)) 0%, var(--palette-primary) 55%, var(--palette-ink) 100%);
+  --orb-glow: 0 0 28px 4px color-mix(in srgb, var(--palette-primary) 22%, transparent), 0 14px 26px -14px color-mix(in srgb, var(--palette-primary) 70%, transparent);
 
-  /* Mobile "הכנסה ידנית של שעה": outlined pill */
-  --color-outline-action-ink: #1d4fd1;
-  --color-outline-action-border: #8db4f7;
+  /* Mobile "הכנסה ידנית של שעה": outlined pill — orange as a secondary action */
+  --color-outline-action-ink: var(--palette-accent-ink);
+  --color-outline-action-border: var(--palette-accent);
 
-  /* Muted "smoky" navy for primary actions and links in the mobile layout */
-  --palette-smoky-navy: #294465;
+  /* Primary (green) and navigation roles */
+  --color-sidebar: var(--palette-primary); /* desktop sidebar */
+  --color-sidebar-active: color-mix(in srgb, var(--palette-accent) 32%, var(--palette-ink)); /* selected nav item: warm orange-brown (cream text 7:1) */
+  --color-primary-action: var(--palette-primary);
+  --color-primary-action-hover: color-mix(in srgb, var(--palette-primary) 78%, #000);
+  --shadow-primary-action: 0 10px 24px -10px color-mix(in srgb, var(--palette-primary) 55%, transparent), 0 2px 6px -2px color-mix(in srgb, var(--palette-primary) 30%, transparent);
+  --color-icon-tile-ink: var(--palette-ink); /* icon inside IconTile */
+  --color-icon-tile-surface: var(--color-tint); /* IconTile badge */
+  --color-accent: var(--palette-accent); /* selected-nav icon and indicator, logo */
+  --color-brand-mark: var(--palette-accent);
 
-  /* Dark & accent roles */
-  --color-sidebar: #112338; /* desktop sidebar */
-  --color-navy-800: #1a3757; /* sidebar active item (blue-tinted navy) */
-  --color-navy-600: color-mix(in srgb, var(--palette-surface) 14%, var(--palette-dark)); /* primary action hover */
-  --color-primary-action: var(--palette-royal); /* desktop; mobile uses the -mobile roles */
-  --color-primary-action-hover: #1d5fd3;
-  --shadow-primary-action: 0 10px 24px -10px rgba(39, 109, 227, 0.6), 0 2px 6px -2px rgba(39, 109, 227, 0.3);
-  --color-icon-tile-ink: var(--palette-dark); /* icon inside IconTile */
-  --color-icon-tile-surface: var(--palette-background); /* IconTile badge */
-  --color-accent: var(--palette-accent);
+  /* Mobile layout roles (applied by .m-app, see mobile.css) — same palette as desktop */
+  --color-primary-action-mobile: var(--palette-primary);
+  --color-primary-action-hover-mobile: var(--color-primary-action-hover);
+  --color-link-mobile: var(--color-link);
+  --color-link-underline-mobile: var(--color-link-underline);
+  --color-nav-surface-mobile: var(--palette-primary); /* bottom navigation bar */
+  --color-nav-active-mobile: var(--color-sidebar-active); /* active bottom-nav tab */
 
-  /* Mobile layout roles (applied by .m-app, see mobile.css) */
-  --color-primary-action-mobile: var(--palette-smoky-navy);
-  --color-primary-action-hover-mobile: color-mix(in srgb, var(--palette-surface) 12%, var(--palette-smoky-navy));
-  --color-link-mobile: var(--palette-smoky-navy);
-  --color-link-underline-mobile: color-mix(in srgb, var(--palette-smoky-navy) 45%, transparent);
-  --color-nav-surface-mobile: var(--palette-smoky-navy); /* bottom navigation bar */
-  --color-nav-active-mobile: var(--color-primary-action-hover-mobile); /* active bottom-nav tab */
-
-  /* Text (mixes of dark over surface, all ≥ 4.5:1 on surface and background) */
-  --color-text: var(--palette-dark);
-  --color-text-secondary: color-mix(in srgb, var(--palette-dark) 70%, var(--palette-surface));
-  --color-text-tertiary: color-mix(in srgb, var(--palette-dark) 64%, var(--palette-surface));
+  /* Text (ink over surface; all ≥ 4.5:1 on surface, background and tints) */
+  --color-text: var(--palette-ink);
+  --color-text-secondary: color-mix(in srgb, var(--palette-ink) 78%, var(--palette-surface));
+  --color-text-tertiary: color-mix(in srgb, var(--palette-ink) 72%, var(--palette-surface));
   --color-text-on-dark: var(--palette-surface);
-  --color-text-on-dark-secondary: color-mix(in srgb, var(--palette-surface) 78%, var(--palette-dark));
-  --color-text-on-dark-muted: color-mix(in srgb, var(--palette-surface) 58%, var(--palette-dark));
-  /* Accent as text: a touch of dark keeps small link text above 4.5:1 on surface */
-  --color-link: color-mix(in srgb, var(--palette-accent) 80%, var(--palette-dark));
+  --color-text-on-dark-secondary: color-mix(in srgb, var(--palette-surface) 78%, var(--palette-ink));
+  --color-text-on-dark-muted: color-mix(in srgb, var(--palette-surface) 66%, var(--palette-ink)); /* 4.7:1 on the green */
+  --color-link: var(--palette-accent-ink);
 
   /* Surfaces & borders */
   --color-canvas: var(--palette-background);
   --color-canvas-desktop: var(--palette-background); /* desktop page behind the cards */
-  --color-pin: var(--palette-royal); /* filled location pin */
+  --color-pin: color-mix(in srgb, var(--palette-accent) 72%, #000); /* location pin, 3.3:1 on its tint */
   --color-surface: var(--palette-surface);
   --color-surface-subtle: color-mix(in srgb, var(--palette-background) 35%, var(--palette-surface)); /* location section */
   --color-surface-hover: color-mix(in srgb, var(--palette-background) 55%, var(--palette-surface));
   --color-surface-raised: var(--palette-surface); /* bordered icon buttons */
-  --color-surface-selected: color-mix(in srgb, var(--palette-accent) 12%, var(--palette-surface)); /* active nav on light */
-  --color-overlay: color-mix(in srgb, var(--palette-dark) 44%, transparent);
-  --color-border: color-mix(in srgb, var(--palette-dark) 10%, var(--palette-surface));
+  --color-surface-selected: color-mix(in srgb, var(--palette-accent) 16%, var(--palette-surface)); /* selected nav / row on light */
+  --color-overlay: color-mix(in srgb, var(--palette-ink) 44%, transparent);
+  --color-border: color-mix(in srgb, var(--palette-ink) 10%, var(--palette-surface));
   --color-border-on-dark: color-mix(in srgb, var(--palette-surface) 12%, transparent);
   --color-surface-on-dark: color-mix(in srgb, var(--palette-surface) 6%, transparent);
   --color-surface-on-dark-hover: color-mix(in srgb, var(--palette-surface) 10%, transparent);
-  --color-link-underline: color-mix(in srgb, var(--palette-accent) 45%, transparent);
-  --color-focus: var(--palette-accent);
-  /* Gap between a focused control and its ring where the ring would sit on canvas (accent on canvas is < 3:1) */
+  --color-link-underline: var(--palette-accent);
+  /* Focus: green on light surfaces (8.8:1); orange on the green sidebar / bottom bar (layout.css, mobile.css) */
+  --color-focus: var(--palette-primary);
   --color-focus-gap: var(--palette-surface);
 
-  /* Soft-accent roles */
-  --color-tint-blue: var(--palette-pastel-blue); /* stat panel, location pin */
-  --color-tint-blue-border: color-mix(in srgb, var(--palette-accent) 18%, var(--palette-pastel-blue));
-  --color-highlight: color-mix(in srgb, var(--palette-accent) 13%, var(--palette-surface)); /* summary total row */
-  --color-highlight-ink: color-mix(in srgb, var(--palette-accent) 62%, var(--palette-dark)); /* text on highlight, ≥ 4.5:1 */
+  /* Tints */
+  --color-tint: color-mix(in srgb, var(--palette-accent) 10%, var(--palette-background)); /* warm badge: stat panel, pins, avatars */
+  --color-tint-border: color-mix(in srgb, var(--palette-accent) 22%, var(--palette-background));
+  --color-highlight: color-mix(in srgb, var(--palette-primary) 8%, var(--palette-surface)); /* summary total row */
+  --color-highlight-ink: var(--palette-primary); /* 8.3:1 on highlight */
 
-  /* Feedback (success = confirmed attendance action; danger = restrained coral) */
-  --color-success: var(--palette-success);
-  --color-success-surface: color-mix(in srgb, var(--palette-success) 9%, var(--palette-surface));
-  --color-success-border: color-mix(in srgb, var(--palette-success) 26%, var(--palette-surface));
-  --color-success-ink: color-mix(in srgb, var(--palette-success) 60%, var(--palette-dark)); /* text, ≥ 4.5:1 */
-  --color-danger: var(--palette-coral);
-  --color-danger-surface: color-mix(in srgb, var(--palette-coral) 9%, var(--palette-surface));
-  --color-danger-border: color-mix(in srgb, var(--palette-coral) 30%, var(--palette-surface));
-  --color-danger-ink: color-mix(in srgb, var(--palette-coral) 55%, var(--palette-dark)); /* text, ≥ 4.5:1 */
+  /* Feedback — success / approved: green; pending: orange; error / rejected: red */
+  --color-success: var(--palette-primary);
+  --color-success-surface: color-mix(in srgb, var(--palette-primary) 8%, var(--palette-surface));
+  --color-success-border: color-mix(in srgb, var(--palette-primary) 24%, var(--palette-surface));
+  --color-success-ink: var(--palette-primary);
+  --color-danger: var(--palette-danger);
+  --color-danger-surface: color-mix(in srgb, var(--palette-danger) 9%, var(--palette-surface));
+  --color-danger-border: color-mix(in srgb, var(--palette-danger) 30%, var(--palette-surface));
+  --color-danger-ink: color-mix(in srgb, var(--palette-danger) 55%, var(--palette-ink)); /* text, ≥ 4.5:1 */
   /* Warning = waiting for a decision (e.g. report pending approval) */
-  --color-warning: var(--palette-amber);
-  --color-warning-surface: color-mix(in srgb, var(--palette-amber) 11%, var(--palette-surface));
-  --color-warning-border: color-mix(in srgb, var(--palette-amber) 32%, var(--palette-surface));
-  --color-warning-ink: color-mix(in srgb, var(--palette-amber) 60%, var(--palette-dark)); /* text, ≥ 4.5:1 */
+  --color-warning: var(--palette-accent);
+  --color-warning-surface: color-mix(in srgb, var(--palette-accent) 14%, var(--palette-surface));
+  --color-warning-border: color-mix(in srgb, var(--palette-accent) 35%, var(--palette-surface));
+  --color-warning-ink: var(--palette-accent-ink); /* 5.3:1 on its surface */
 
   /* Radius */
   --radius-sm: 8px;
@@ -150,15 +144,15 @@
   --radius-full: 9999px;
 
   /* Elevation (dark at low alpha) */
-  --shadow-xs: 0 1px 2px color-mix(in srgb, var(--palette-dark) 5%, transparent);
-  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--palette-dark) 8%, transparent),
-    0 4px 12px -6px color-mix(in srgb, var(--palette-dark) 30%, transparent);
-  --shadow-card: 0 1px 2px color-mix(in srgb, var(--palette-dark) 4%, transparent),
-    0 16px 40px -20px color-mix(in srgb, var(--palette-dark) 16%, transparent);
+  --shadow-xs: 0 1px 2px color-mix(in srgb, var(--palette-ink) 5%, transparent);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--palette-ink) 8%, transparent),
+    0 4px 12px -6px color-mix(in srgb, var(--palette-ink) 30%, transparent);
+  --shadow-card: 0 1px 2px color-mix(in srgb, var(--palette-ink) 4%, transparent),
+    0 16px 40px -20px color-mix(in srgb, var(--palette-ink) 16%, transparent);
   --shadow-sidebar: none;
-  --shadow-drawer: -16px 0 48px -16px color-mix(in srgb, var(--palette-dark) 30%, transparent);
-  --shadow-action: 0 2px 4px color-mix(in srgb, var(--palette-dark) 8%, transparent),
-    0 12px 24px -12px color-mix(in srgb, var(--palette-dark) 45%, transparent);
+  --shadow-drawer: -16px 0 48px -16px color-mix(in srgb, var(--palette-ink) 30%, transparent);
+  --shadow-action: 0 2px 4px color-mix(in srgb, var(--palette-ink) 8%, transparent),
+    0 12px 24px -12px color-mix(in srgb, var(--palette-ink) 45%, transparent);
 
   /* Motion */
   --duration-fast: 150ms;
@@ -203,70 +197,67 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --dark-canvas: #0e1622;
-  --dark-sidebar: #0a1019;
-  --dark-surface: #18212f;
-  --dark-surface-2: #202a39; /* card footer, tiles */
-  --dark-surface-3: #2a3546; /* raised controls, hover */
-  --dark-text: #eef2f7;
-  --dark-primary: #1279c9; /* bright blue, white label ≥ 4.5:1 */
+  /* Deep-green dark theme: shades of the palette green, cream text, orange accents. */
+  --dark-canvas: color-mix(in srgb, var(--palette-primary) 30%, #000);
+  --dark-sidebar: color-mix(in srgb, var(--palette-primary) 22%, #000);
+  --dark-surface: color-mix(in srgb, var(--palette-surface) 5%, color-mix(in srgb, var(--palette-primary) 42%, #000));
+  --dark-surface-2: color-mix(in srgb, var(--palette-surface) 8%, color-mix(in srgb, var(--palette-primary) 45%, #000)); /* card footer, tiles */
+  --dark-surface-3: color-mix(in srgb, var(--palette-surface) 12%, color-mix(in srgb, var(--palette-primary) 50%, #000)); /* raised controls, hover */
+  --dark-text: var(--palette-background);
+  --dark-primary: color-mix(in srgb, var(--palette-primary) 80%, var(--palette-surface)); /* lifted green: cream label 5.5:1, 3.3:1 vs page */
 
   --color-sidebar: var(--dark-sidebar);
-  --color-navy-800: color-mix(in srgb, var(--palette-accent) 22%, var(--dark-sidebar));
+  --color-sidebar-active: color-mix(in srgb, var(--palette-accent) 22%, var(--dark-sidebar));
   --color-primary-action: var(--dark-primary);
-  --color-primary-action-hover: var(--palette-accent);
+  --color-primary-action-hover: color-mix(in srgb, var(--palette-primary) 70%, var(--palette-surface));
   --color-icon-tile-ink: var(--dark-text);
   --color-icon-tile-surface: var(--dark-surface-3);
 
-  /* The mobile layout uses the same bright-blue action as desktop in the dark theme. */
   --color-primary-action-mobile: var(--dark-primary);
-  --color-primary-action-hover-mobile: var(--palette-accent);
-  --color-link-mobile: var(--color-link);
-  --color-link-underline-mobile: var(--color-link-underline);
+  --color-primary-action-hover-mobile: var(--color-primary-action-hover);
   --color-nav-surface-mobile: var(--dark-sidebar);
-  --color-nav-active-mobile: var(--color-navy-800);
+  --color-nav-active-mobile: var(--color-sidebar-active);
 
   --color-text: var(--dark-text);
-  --color-text-secondary: #b3bdcb;
-  --color-text-tertiary: #97a3b4;
-  --color-text-on-dark: #f6f8fb;
-  --color-link: #5db3f2;
-  --color-link-underline: color-mix(in srgb, #5db3f2 45%, transparent);
+  --color-text-secondary: color-mix(in srgb, var(--palette-background) 72%, var(--dark-surface));
+  --color-text-tertiary: color-mix(in srgb, var(--palette-background) 62%, var(--dark-surface));
+  --color-text-on-dark: var(--palette-surface);
+  --color-link: var(--palette-accent); /* 7.2:1 on dark surfaces */
 
   --color-canvas: var(--dark-canvas);
   --color-canvas-desktop: var(--dark-canvas);
-  --color-pin: #5db3f2;
-  --shadow-primary-action: 0 10px 24px -12px rgba(18, 121, 201, 0.55);
+  --color-pin: var(--palette-accent);
+  --shadow-primary-action: 0 10px 24px -12px color-mix(in srgb, #000 60%, transparent);
   --color-surface: var(--dark-surface);
   --color-surface-subtle: var(--dark-surface-2);
   --color-surface-hover: var(--dark-surface-3);
   --color-surface-raised: var(--dark-surface-3);
-  --color-surface-selected: color-mix(in srgb, var(--palette-accent) 20%, var(--dark-surface));
+  --color-surface-selected: color-mix(in srgb, var(--palette-accent) 18%, var(--dark-surface));
   --color-overlay: color-mix(in srgb, #000 60%, transparent);
-  --color-border: #2b3647;
+  --color-border: color-mix(in srgb, var(--palette-surface) 12%, var(--dark-surface));
   --color-border-on-dark: color-mix(in srgb, #fff 9%, transparent);
-  --color-focus: #5db3f2;
+  --color-focus: var(--palette-accent);
   --color-focus-gap: var(--dark-canvas);
 
-  --color-tint-blue: #1c2d43;
-  --color-tint-blue-border: #2a4261;
-  --color-highlight: #1c3250;
-  --color-highlight-ink: #8ccaf7;
+  --color-tint: color-mix(in srgb, var(--palette-accent) 12%, var(--dark-surface));
+  --color-tint-border: color-mix(in srgb, var(--palette-accent) 26%, var(--dark-surface));
+  --color-highlight: color-mix(in srgb, var(--palette-primary) 40%, var(--dark-surface));
+  --color-highlight-ink: color-mix(in srgb, var(--palette-primary) 35%, var(--palette-surface));
 
-  --color-success: #3cc47f;
-  --color-success-surface: #13291f;
-  --color-success-border: #1f5038;
-  --color-success-ink: #8fdcb2;
+  --color-success: color-mix(in srgb, var(--palette-primary) 45%, var(--palette-surface));
+  --color-success-surface: color-mix(in srgb, var(--palette-primary) 25%, var(--dark-surface));
+  --color-success-border: color-mix(in srgb, var(--palette-primary) 60%, var(--dark-surface));
+  --color-success-ink: color-mix(in srgb, var(--palette-primary) 35%, var(--palette-surface));
   --color-danger: #ef8277;
   --color-danger-surface: #33201f;
   --color-danger-border: #5e3531;
   --color-danger-ink: #f7b0a8;
-  --color-outline-action-ink: #8ab8ff;
-  --color-outline-action-border: #3d5f97;
-  --color-warning: #f4a63e;
-  --color-warning-surface: #33270f;
-  --color-warning-border: #5c4418;
-  --color-warning-ink: #f6c877;
+  --color-outline-action-ink: var(--palette-accent);
+  --color-outline-action-border: color-mix(in srgb, var(--palette-accent) 55%, var(--dark-surface));
+  --color-warning: var(--palette-accent);
+  --color-warning-surface: color-mix(in srgb, var(--palette-accent) 16%, var(--dark-surface));
+  --color-warning-border: color-mix(in srgb, var(--palette-accent) 35%, var(--dark-surface));
+  --color-warning-ink: color-mix(in srgb, var(--palette-accent) 80%, var(--palette-surface));
 
   --shadow-xs: 0 1px 2px color-mix(in srgb, #000 30%, transparent);
   --shadow-sm: 0 1px 2px color-mix(in srgb, #000 30%, transparent), 0 4px 12px -6px color-mix(in srgb, #000 50%, transparent);

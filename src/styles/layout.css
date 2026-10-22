@@ -8,6 +8,7 @@
 
 /* ---- Sidebar ---- */
 .sidebar {
+  --color-focus: var(--color-accent); /* green focus ring would vanish on the green sidebar */
   position: sticky;
   top: 0;
   z-index: var(--z-sidebar);
@@ -137,7 +138,7 @@
 
 .nav-item-dark.active {
   color: var(--color-text-on-dark);
-  background: var(--color-navy-800);
+  background: var(--color-sidebar-active);
 }
 
 .nav-item-dark.active svg {

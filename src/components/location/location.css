@@ -16,7 +16,7 @@
 
 .loc-current-pin {
   color: var(--color-link);
-  background: var(--color-tint-blue);
+  background: var(--color-tint);
 }
 
 /* ---- Picker ---- */

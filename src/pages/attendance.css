@@ -47,7 +47,7 @@
   width: var(--space-6);
   height: var(--space-6);
   color: var(--color-pin);
-  background: var(--color-tint-blue);
+  background: var(--color-tint);
 }
 
 .location-pin svg {
@@ -61,13 +61,13 @@
   border: 0;
   border-radius: var(--radius-full);
   color: var(--color-text-secondary);
-  background: var(--color-tint-blue);
+  background: var(--color-tint);
   box-shadow: none;
 }
 
 @media (hover: hover) {
   .location .location-edit:hover {
-    background: color-mix(in srgb, var(--color-tint-blue) 70%, var(--color-tint-blue-border));
+    background: color-mix(in srgb, var(--color-tint) 70%, var(--color-tint-border));
   }
 }
 
