@@ -204,40 +204,11 @@
 
 /* ---- Main ---- */
 .main-content {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   display: flex;
   min-width: 0;
   flex: 1 1 auto;
   justify-content: center;
   padding: 56px var(--space-6) var(--space-6);
-}
-
-/* Two soft circles in the page background (decorative; from the desktop reference). */
-.main-content::before,
-.main-content::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  border-radius: var(--radius-full);
-  pointer-events: none;
-}
-
-.main-content::before {
-  top: -115px;
-  inset-inline-end: -142px; /* top-left in RTL */
-  width: 260px;
-  height: 260px;
-  background: var(--color-deco-light);
-}
-
-.main-content::after {
-  top: 269px;
-  inset-inline-start: -259px; /* right side, next to the sidebar, in RTL */
-  width: 400px;
-  height: 400px;
-  background: var(--color-deco-deep);
 }
 
 .page {

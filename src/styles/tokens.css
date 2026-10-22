@@ -104,10 +104,7 @@
 
   /* Surfaces & borders */
   --color-canvas: var(--palette-background);
-  /* Desktop page: light blue with two soft decorative circles (layout.css) */
-  --color-canvas-desktop: #ecf4fd;
-  --color-deco-light: #f2f8ff;
-  --color-deco-deep: #e2effd;
+  --color-canvas-desktop: var(--palette-background); /* desktop page behind the cards */
   --color-pin: var(--palette-royal); /* filled location pin */
   --color-surface: var(--palette-surface);
   --color-surface-subtle: color-mix(in srgb, var(--palette-background) 35%, var(--palette-surface)); /* location section */
@@ -238,8 +235,6 @@
 
   --color-canvas: var(--dark-canvas);
   --color-canvas-desktop: var(--dark-canvas);
-  --color-deco-light: #121c2a;
-  --color-deco-deep: #101b2a;
   --color-pin: #5db3f2;
   --shadow-primary-action: 0 10px 24px -12px rgba(18, 121, 201, 0.55);
   --color-surface: var(--dark-surface);
