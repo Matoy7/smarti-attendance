@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { IconButton, IconTile } from '@/components/ui'
-import { PencilIcon, PinIcon } from '@/components/icons'
+import { PencilFilledIcon, PencilIcon, PinFilledIcon, PinIcon } from '@/components/icons'
 import { useWorkLocation, withoutCountry, type WorkLocation } from '@/lib/location'
 import { LocationDialog } from '@/components/location/LocationDialog'
 
@@ -41,7 +41,7 @@ export function LocationRow({ variant }: Props) {
       tone={variant === 'tile' ? 'ghost' : 'surface'}
       size={variant === 'tile' ? 'touch' : 'md'}
       label="שינוי מיקום"
-      icon={<PencilIcon />}
+      icon={variant === 'tile' ? <PencilIcon /> : <PencilFilledIcon />}
       aria-haspopup="dialog"
       aria-expanded={editing}
       onClick={() => {
@@ -77,7 +77,7 @@ export function LocationRow({ variant }: Props) {
 
   return (
     <div className="location">
-      <IconTile icon={<PinIcon size={18} />} size="md" shape="round" className="location-pin" />
+      <IconTile icon={<PinFilledIcon size={22} />} size="md" shape="round" className="location-pin" />
       <div className="location-copy">
         <strong className="text-body">מיקום: {location.name}</strong>
         <span className="text-small text-tertiary">{location.address}</span>

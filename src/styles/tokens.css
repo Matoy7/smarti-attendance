@@ -23,7 +23,7 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  --text-display-size: 80px; /* clock */
+  --text-display-size: 88px; /* clock (desktop; mobile overrides below) */
   --text-display-line: 88px;
   --text-display-tracking: -0.02em;
   --text-title-size: 30px; /* page title */
@@ -53,6 +53,7 @@
   --palette-surface: #fafbfc;
   --palette-dark: #0c1728;
   --palette-accent: #168be1;
+  --palette-royal: #276de3; /* primary action (desktop), from the desktop reference */
 
   /* Soft accents: tinted panels and feedback */
   --palette-pastel-blue: #e4eefb;
@@ -73,11 +74,12 @@
   --palette-smoky-navy: #294465;
 
   /* Dark & accent roles */
-  --color-sidebar: var(--palette-dark);
-  --color-navy-800: color-mix(in srgb, var(--palette-accent) 16%, var(--palette-dark)); /* sidebar active item (blue-tinted navy) */
+  --color-sidebar: #112338; /* desktop sidebar */
+  --color-navy-800: #1a3757; /* sidebar active item (blue-tinted navy) */
   --color-navy-600: color-mix(in srgb, var(--palette-surface) 14%, var(--palette-dark)); /* primary action hover */
-  --color-primary-action: var(--palette-dark);
-  --color-primary-action-hover: var(--color-navy-600);
+  --color-primary-action: var(--palette-royal); /* desktop; mobile uses the -mobile roles */
+  --color-primary-action-hover: #1d5fd3;
+  --shadow-primary-action: 0 10px 24px -10px rgba(39, 109, 227, 0.6), 0 2px 6px -2px rgba(39, 109, 227, 0.3);
   --color-icon-tile-ink: var(--palette-dark); /* icon inside IconTile */
   --color-icon-tile-surface: var(--palette-background); /* IconTile badge */
   --color-accent: var(--palette-accent);
@@ -102,6 +104,11 @@
 
   /* Surfaces & borders */
   --color-canvas: var(--palette-background);
+  /* Desktop page: light blue with two soft decorative circles (layout.css) */
+  --color-canvas-desktop: #ecf4fd;
+  --color-deco-light: #f2f8ff;
+  --color-deco-deep: #e2effd;
+  --color-pin: var(--palette-royal); /* filled location pin */
   --color-surface: var(--palette-surface);
   --color-surface-subtle: color-mix(in srgb, var(--palette-background) 35%, var(--palette-surface)); /* location section */
   --color-surface-hover: color-mix(in srgb, var(--palette-background) 55%, var(--palette-surface));
@@ -164,7 +171,7 @@
 
   /* Layout */
   --sidebar-width: 272px;
-  --content-max-width: 640px;
+  --content-max-width: 620px;
   --control-height-md: 40px;
   --control-height-lg: 56px;
   --punch-action-width: 320px; /* desktop punch / state action */
@@ -230,6 +237,11 @@
   --color-link-underline: color-mix(in srgb, #5db3f2 45%, transparent);
 
   --color-canvas: var(--dark-canvas);
+  --color-canvas-desktop: var(--dark-canvas);
+  --color-deco-light: #121c2a;
+  --color-deco-deep: #101b2a;
+  --color-pin: #5db3f2;
+  --shadow-primary-action: 0 10px 24px -12px rgba(18, 121, 201, 0.55);
   --color-surface: var(--dark-surface);
   --color-surface-subtle: var(--dark-surface-2);
   --color-surface-hover: var(--dark-surface-3);

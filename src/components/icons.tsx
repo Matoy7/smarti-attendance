@@ -221,3 +221,18 @@ export const KeyboardIcon = (p: IconProps) => (
     <path d="M5 7.5H5.01M8.33 7.5H8.34M11.67 7.5H11.68M15 7.5H15.01M5 10.42H5.01M8.33 10.42H8.34M11.67 10.42H11.68M15 10.42H15.01M6.67 12.92H13.33" />
   </Icon>
 )
+
+/** Filled location pin (desktop location row). */
+export const PinFilledIcon = (p: IconProps) => (
+  <Icon stroke="none" fill="currentColor" {...p}>
+    <path fillRule="evenodd" d="M10 1.67C6.32 1.67 3.33 4.65 3.33 8.33C3.33 13.1 9.07 17.94 9.45 18.25C9.77 18.51 10.23 18.51 10.55 18.25C10.93 17.94 16.67 13.1 16.67 8.33C16.67 4.65 13.68 1.67 10 1.67ZM10 10.83C11.38 10.83 12.5 9.71 12.5 8.33C12.5 6.95 11.38 5.83 10 5.83C8.62 5.83 7.5 6.95 7.5 8.33C7.5 9.71 8.62 10.83 10 10.83Z" />
+  </Icon>
+)
+
+/** Filled pencil (desktop location edit). */
+export const PencilFilledIcon = (p: IconProps) => (
+  <Icon stroke="none" fill="currentColor" {...p}>
+    <path d="M13.58 2.25C14.52 1.31 16.04 1.31 16.98 2.25L17.75 3.02C18.69 3.96 18.69 5.48 17.75 6.42L16.33 7.84L12.16 3.67L13.58 2.25Z" />
+    <path d="M10.98 4.85L15.15 9.02L7.04 17.13C6.82 17.35 6.55 17.5 6.25 17.58L2.73 18.49C2.24 18.62 1.8 18.17 1.92 17.68L2.84 14.16C2.92 13.86 3.07 13.58 3.29 13.37L10.98 4.85Z" />
+  </Icon>
+)

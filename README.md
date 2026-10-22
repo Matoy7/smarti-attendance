@@ -12,7 +12,7 @@ repeat clicks are ignored, success shows a green banner at the top of the card (
 and a failed save shows a coral error banner and leaves the state unchanged.
 Viewports ≤ 760px render the mobile layout (`src/mobile/`: top bar, right-side drawer, persistent bottom
 navigation); wider viewports render the desktop layout. Both share the same clock-in state and design tokens.
-Navigation is one shared model (`src/lib/navigation.ts`): **אזור אישי** (דיווח נוכחות, דיווח היעדרות, הדיווחים שלי, הגדרות)
+Navigation is one shared model (`src/lib/navigation.ts`): **איזור אישי** (דיווח נוכחות, דיווח היעדרות, הדיווחים שלי, הגדרות)
 and **איזור מנהל** (דיווחי עובדים — shown only with the `org.attendance.manage` permission, see `src/lib/permissions.ts`).
 Desktop sidebar and mobile menu render it identically; the mobile bottom bar uses the same order and permission.
 Routing is hash-based (`src/lib/router.ts`): דיווח נוכחות and דיווחי עובדים have screens; the other items have no destination yet.
@@ -61,4 +61,7 @@ Deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `mai
 - Light / dark theme: `:root[data-theme='dark']` in `tokens.css` overrides color roles only; `src/lib/theme.ts` + `useTheme` + `ThemeToggle`
   (desktop: sidebar header; mobile: top bar). Follows the OS setting until the user toggles; the choice is kept in `localStorage`
   (`smartime.theme`) and an inline script in `index.html` applies it before first paint.
+- Desktop look: royal-blue primary action (`--palette-royal`), `#112338` sidebar, light-blue page (`--color-canvas-desktop`) with two
+  soft decorative circles (`.main-content::before/::after`), white location footer with a filled pin and round edit button.
+  Mobile keeps its own roles (`-mobile` tokens, `.m-app` overrides).
 - `src/styles/fonts.css` — self-hosted Heebo variable font (one family, weights via tokens)

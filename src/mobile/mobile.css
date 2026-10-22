@@ -7,6 +7,7 @@
 .m-app {
   --color-primary-action: var(--color-primary-action-mobile);
   --color-primary-action-hover: var(--color-primary-action-hover-mobile);
+  --shadow-primary-action: var(--shadow-sm); /* the blue glow is desktop-only */
   --color-link: var(--color-link-mobile);
   --color-link-underline: var(--color-link-underline-mobile);
 

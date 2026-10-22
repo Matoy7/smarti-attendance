@@ -28,7 +28,7 @@ export type NavSection = {
 export const NAV_SECTIONS: NavSection[] = [
   {
     id: 'personal',
-    title: 'אזור אישי',
+    title: 'איזור אישי',
     items: [
       { id: 'attendance', label: 'דיווח נוכחות', shortLabel: 'נוכחות', Icon: ClockIcon },
       { id: 'absences', label: 'דיווח היעדרות', shortLabel: 'היעדרויות', Icon: CalendarIcon },

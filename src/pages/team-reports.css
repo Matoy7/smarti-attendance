@@ -135,8 +135,8 @@
 .team-tab.active {
   border-color: transparent;
   color: var(--color-text-on-dark);
-  background: var(--color-accent);
-  box-shadow: var(--shadow-sm);
+  background: var(--color-primary-action);
+  box-shadow: var(--shadow-primary-action);
 }
 
 /* ---- Table card ---- */

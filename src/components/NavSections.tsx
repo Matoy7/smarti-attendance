@@ -3,7 +3,7 @@ import { visibleNavSections, type NavId } from '@/lib/navigation'
 import { navigate, useRoute } from '@/lib/router'
 
 /**
- * Grouped main navigation (אזור אישי / איזור מנהל). Used by the desktop
+ * Grouped main navigation (איזור אישי / איזור מנהל). Used by the desktop
  * sidebar (`dark`) and the mobile menu (`light`) so both stay identical.
  */
 export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNavigate?: (id: NavId) => void }) {
