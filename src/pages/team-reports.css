@@ -210,6 +210,29 @@
   gap: var(--space-1-5);
 }
 
+/* Clickable rows (no destination yet). The name is the row's keyboard-focusable control. */
+.row-link {
+  cursor: pointer;
+}
+
+.emp-open {
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-family: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.emp-open:focus-visible {
+  outline-offset: 4px;
+}
+
+.row-link:hover .emp-name {
+  color: var(--color-link);
+}
+
 .emp-name {
   color: var(--color-text);
   font-size: var(--text-body-size);

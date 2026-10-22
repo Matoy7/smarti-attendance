@@ -135,7 +135,11 @@
 }
 
 .m-team-name {
+  max-width: 100%;
+  overflow: hidden;
   color: var(--color-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: var(--text-body-size);
   font-weight: var(--font-weight-semibold);
   line-height: var(--text-body-line);
@@ -160,6 +164,10 @@
   color: var(--color-text-secondary);
   background: transparent;
   cursor: pointer;
+}
+
+.m-team-item.row-link:active {
+  background: var(--color-surface-hover);
 }
 
 .m-team-more:active {

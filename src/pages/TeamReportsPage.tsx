@@ -1,18 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ALL_DEPARTMENTS, useTeamReports, type TeamTab } from '@/hooks/useTeamReports'
-import { DEPARTMENTS, REQUEST_TYPE_LABEL, formatMonth, recentMonths } from '@/lib/teamReports'
+import { DEPARTMENTS, formatMonth, recentMonths, typeLabel } from '@/lib/teamReports'
 import { Button, Card } from '@/components/ui'
 import { CalendarIcon, CheckIcon, ChevronIcon, PlusIcon, SearchIcon, XIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { EmployeeAvatar } from '@/components/team/EmployeeAvatar'
 import { RowActionsMenu } from '@/components/team/RowActionsMenu'
 import { SelectField } from '@/components/team/SelectField'
+import { onReportClick } from '@/components/team/openReport'
 import '@/components/team/team.css'
 import './team-reports.css'
 
 const PAGE_SIZES = [8, 16, 24]
 const TABS: { id: TeamTab; label: string }[] = [
-  { id: 'all', label: 'כל העובדים' },
+  { id: 'all', label: 'דיווח חודשי' },
   { id: 'pending', label: 'בקשות לאישור' },
 ]
 
@@ -49,8 +50,6 @@ export function TeamReportsPage() {
   }, [pageSelected, allOnPage])
 
   const selectedIds = [...t.selected]
-  // Requests awaiting approval show what kind of request they are.
-  const showType = t.tab === 'pending'
 
   return (
     <div className="page page-wide">
@@ -131,11 +130,9 @@ export function TeamReportsPage() {
                 <th scope="col">שם עובד</th>
                 <th scope="col">תפקיד</th>
                 <th scope="col">מחלקה</th>
-                {showType && (
-                  <th scope="col" className="col-type">
-                    סוג
-                  </th>
-                )}
+                <th scope="col" className="col-type">
+                  סוג
+                </th>
                 <th scope="col" className="col-status">
                   סטטוס
                 </th>
@@ -148,19 +145,20 @@ export function TeamReportsPage() {
               {rows.map((r) => {
                 const checked = t.selected.has(r.id)
                 return (
-                  <tr key={r.id} className={checked ? 'selected' : undefined}>
+                  <tr key={r.id} className={`row-link ${checked ? 'selected' : ''}`.trim()} onClick={(e) => onReportClick(e, r)}>
                     <td className="col-check">
                       <input type="checkbox" className="check" aria-label={`בחירת ${r.name}`} checked={checked} onChange={() => t.toggle(r.id)} />
                     </td>
                     <th scope="row" className="col-name">
-                      <span className="emp-cell">
+                      {/* The keyboard entry point for the row; a mouse click anywhere on the row does the same. */}
+                      <button type="button" className="emp-open emp-cell">
                         <EmployeeAvatar id={r.id} name={r.name} photo={r.photo} />
                         <span className="emp-name">{r.name}</span>
-                      </span>
+                      </button>
                     </th>
                     <td>{r.role}</td>
                     <td>{r.department}</td>
-                    {showType && <td className="col-type">{REQUEST_TYPE_LABEL[r.requestType]}</td>}
+                    <td className="col-type">{typeLabel(r, t.tab)}</td>
                     <td className="col-status">
                       <ApprovalBadge status={r.status} />
                     </td>
@@ -172,7 +170,7 @@ export function TeamReportsPage() {
               })}
               {rows.length === 0 && (
                 <tr>
-                  <td colSpan={showType ? 7 : 6} className="team-empty">
+                  <td colSpan={7} className="team-empty">
                     <strong className="text-body">לא נמצאו עובדים</strong>
                     <span className="text-label text-tertiary">
                       {t.tab === 'pending' && !t.query && t.department === ALL_DEPARTMENTS

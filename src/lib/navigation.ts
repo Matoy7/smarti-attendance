@@ -38,7 +38,7 @@ export const NAV_SECTIONS: NavSection[] = [
   },
   {
     id: 'organization',
-    title: 'ניהול ארגוני',
+    title: 'איזור מנהל',
     permission: 'org.attendance.manage',
     items: [{ id: 'team-reports', label: 'דיווחי עובדים', Icon: UsersIcon }],
   },

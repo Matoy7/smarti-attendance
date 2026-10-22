@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ALL_DEPARTMENTS, useTeamReports, type TeamTab } from '@/hooks/useTeamReports'
-import { DEPARTMENTS, REQUEST_TYPE_LABEL, formatMonth, recentMonths, type TeamReport } from '@/lib/teamReports'
+import { DEPARTMENTS, formatMonth, recentMonths, typeLabel, type TeamReport } from '@/lib/teamReports'
 import { Button } from '@/components/ui'
 import { CalendarIcon, CheckIcon, MoreIcon, PlusIcon, SearchIcon, XIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { EmployeeAvatar } from '@/components/team/EmployeeAvatar'
 import { SelectField } from '@/components/team/SelectField'
 import { ActionSheet, type SheetAction } from '@/components/team/ActionSheet'
+import { onReportClick } from '@/components/team/openReport'
 import { MobileShell } from './MobileShell'
 import '@/components/team/team.css'
 import '@/pages/team-reports.css'
@@ -14,7 +15,7 @@ import './team-reports-mobile.css'
 
 const BATCH = 8
 const TABS: { id: TeamTab; label: string }[] = [
-  { id: 'all', label: 'כל העובדים' },
+  { id: 'all', label: 'דיווח חודשי' },
   { id: 'pending', label: 'בקשות לאישור' },
 ]
 
@@ -47,7 +48,6 @@ export function MobileTeamReports() {
     setVisible(BATCH)
   }
 
-  const showType = t.tab === 'pending' // requests awaiting approval show their type
   const shown = t.filtered.slice(0, visible)
   const remaining = t.filtered.length - shown.length
 
@@ -118,19 +118,20 @@ export function MobileTeamReports() {
         {shown.length > 0 ? (
           <ul className="m-team-list">
             {shown.map((r) => (
-              <li key={r.id} className="m-team-item">
+              <li key={r.id} className="m-team-item row-link" onClick={(e) => onReportClick(e, r)}>
                 <EmployeeAvatar id={r.id} name={r.name} photo={r.photo} />
                 <div className="m-team-copy">
-                  <strong className="m-team-name">{r.name}</strong>
+                  {/* Keyboard entry point for the card; tapping anywhere on the card does the same. */}
+                  <button type="button" className="emp-open m-team-name">
+                    {r.name}
+                  </button>
                   <span className="text-caption text-secondary">
                     {r.role} · {r.department}
                   </span>
-                  {showType && (
-                    <span className="m-team-type text-caption">
-                      <span className="text-secondary">סוג: </span>
-                      {REQUEST_TYPE_LABEL[r.requestType]}
-                    </span>
-                  )}
+                  <span className="m-team-type text-caption">
+                    <span className="text-secondary">סוג: </span>
+                    {typeLabel(r, t.tab)}
+                  </span>
                   <ApprovalBadge status={r.status} />
                 </div>
                 <button type="button" className="m-team-more" data-acts-for={r.id} aria-label={`פעולות עבור ${r.name}`} aria-haspopup="dialog" onClick={() => setActing(r)}>
@@ -166,7 +167,7 @@ export function MobileTeamReports() {
         <ActionSheet title={acting.name} actions={sheetActions(acting)} onClose={() => setActing(null)}>
           <span className="action-sheet-context">
             <span className="text-caption text-secondary">
-              {showType ? `${REQUEST_TYPE_LABEL[acting.requestType]} · ` : ''}
+              {typeLabel(acting, t.tab)} ·{' '}
               {acting.role} · {acting.department} · {formatMonth(acting.month)}
             </span>
             <ApprovalBadge status={acting.status} />

@@ -13,13 +13,14 @@ and a failed save shows a coral error banner and leaves the state unchanged.
 Viewports ≤ 760px render the mobile layout (`src/mobile/`: top bar, right-side drawer, persistent bottom
 navigation); wider viewports render the desktop layout. Both share the same clock-in state and design tokens.
 Navigation is one shared model (`src/lib/navigation.ts`): **אזור אישי** (דיווח נוכחות, דיווח היעדרות, הדיווחים שלי, הגדרות)
-and **ניהול ארגוני** (דיווחי עובדים — shown only with the `org.attendance.manage` permission, see `src/lib/permissions.ts`).
+and **איזור מנהל** (דיווחי עובדים — shown only with the `org.attendance.manage` permission, see `src/lib/permissions.ts`).
 Desktop sidebar and mobile menu render it identically; the mobile bottom bar uses the same order and permission.
 Routing is hash-based (`src/lib/router.ts`): דיווח נוכחות and דיווחי עובדים have screens; the other items have no destination yet.
 
 **דיווחי עובדים** — the manager's monthly approval of each employee's attendance report (אושר / ממתין לאישור / נדחה).
-In בקשות לאישור each request also shows its type (סוג: אישור חופשה / אישור מחלה).
-Desktop (`src/pages/TeamReportsPage.tsx`): search, month and department filters, כל העובדים / בקשות לאישור views, table with
+Every row has a סוג: in דיווח חודשי the monthly report ("דיווח 10-26"), in בקשות לאישור the request (אישור חופשה / אישור מחלה).
+Rows are clickable (no destination yet).
+Desktop (`src/pages/TeamReportsPage.tsx`): search, month and department filters, דיווח חודשי / בקשות לאישור views, table with
 row selection + bulk approve/reject, a ⋯ actions menu per row, and pagination. Mobile (`src/mobile/MobileTeamReports.tsx`):
 the same data and actions as a card list with native pickers, a segmented control, an approve/reject action sheet and
 "show more". Shared logic: `src/hooks/useTeamReports.ts`. **Demo data** (`src/lib/teamReports.ts`, no backend yet):

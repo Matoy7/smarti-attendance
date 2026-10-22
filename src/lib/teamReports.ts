@@ -97,6 +97,13 @@ function demoRequestType(employeeId: string, month: string): RequestType {
   return FIXED_TYPE[month]?.[employeeId] ?? (roll(`${employeeId}:${month}:type`) < 60 ? 'vacation' : 'sick')
 }
 
+/** "2026-10" → "דיווח 10-26": the monthly attendance report as a request type. */
+export const monthlyReportLabel = (month: string) => `דיווח ${month.slice(5, 7)}-${month.slice(2, 4)}`
+
+/** סוג column: the monthly report in the monthly view, the request type in the approvals view. */
+export const typeLabel = (r: TeamReport, view: 'all' | 'pending') =>
+  view === 'pending' ? REQUEST_TYPE_LABEL[r.requestType] : monthlyReportLabel(r.month)
+
 export const monthKey = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 
 const monthFormat = new Intl.DateTimeFormat('he-IL', { month: 'long', year: 'numeric' })
