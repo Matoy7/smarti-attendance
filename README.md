@@ -28,7 +28,7 @@ the same data and actions as a card list with native pickers, a segmented contro
 "show more". Shared logic: `src/hooks/useTeamReports.ts`. **Demo data** (`src/lib/teamReports.ts`, no backend yet):
 28 employees, statuses stable per month; approve/reject decisions live in memory.
 There is no backend: today's sessions are kept in the browser's `localStorage` only (reset the next day).
-The other sidebar items and "הכנסה ידנית של שעה" are rendered as designed but not wired yet.
+The other sidebar items and "הכנסה ידנית של שעה" (shown under both דווח כניסה and דווח יציאה) are rendered as designed but not wired yet.
 
 **Work location** — the pencil on the location row opens "שינוי מיקום עבודה": a centered modal on desktop, a bottom
 drawer on mobile, both the same `LocationDialog` + `LocationPicker` (`src/components/location/`). Address/place search

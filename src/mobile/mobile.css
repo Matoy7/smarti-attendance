@@ -102,11 +102,6 @@
   margin-top: var(--space-3);
 }
 
-/* The working state ends with a button; give the location row the same 24px rhythm. */
-.m-state-working + .m-location {
-  margin-top: var(--space-3);
-}
-
 /*
  * Hover styles below sit in @media (hover: hover): on touch screens :hover sticks to the last
  * tapped element, which would leave a tab or the orb highlighted after a tap.

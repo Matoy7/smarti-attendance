@@ -66,6 +66,9 @@ export function AttendancePage() {
                 >
                   {pending === 'out' ? 'מדווח יציאה…' : 'דווח יציאה'}
                 </Button>
+                <Button variant="link" className="manual-entry text-body" disabled={busy}>
+                  הכנסה ידנית של שעה
+                </Button>
               </>
             )}
 

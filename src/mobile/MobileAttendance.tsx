@@ -48,6 +48,9 @@ export function MobileAttendance() {
               <PunchButton onClick={clockOut} loading={pending === 'out'} icon={<LogoutIcon size={52} strokeWidth={1.5} />}>
                 {pending === 'out' ? 'מדווח…' : 'דווח יציאה'}
               </PunchButton>
+              <Button variant="link" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null}>
+                הכנסה ידנית של שעה
+              </Button>
             </>
           )}
 
