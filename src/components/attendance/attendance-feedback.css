@@ -1,0 +1,141 @@
+/* Attendance feedback banner + status pill. Shared by the desktop and mobile attendance cards. */
+
+/* ---- Feedback banner ---- */
+/* The slot collapses its own height when a success message leaves (0fr rows), so content below
+   moves up once, smoothly, instead of jumping. */
+.feedback-slot {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows var(--duration-slow) var(--easing),
+    opacity var(--duration-slow) var(--easing);
+}
+
+.feedback-slot.closing {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.feedback-clip {
+  min-height: 0;
+  overflow: hidden;
+  padding-bottom: var(--space-3);
+}
+
+.feedback {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--control-height-md);
+  padding: var(--space-1) var(--space-1-5);
+  border: 1px solid;
+  border-radius: var(--radius-md);
+  text-align: start;
+  animation: feedback-in var(--duration-medium) var(--easing) both;
+}
+
+@keyframes feedback-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.feedback-success {
+  color: var(--color-success-ink);
+  border-color: var(--color-success-border);
+  background: var(--color-success-surface);
+}
+
+.feedback-success .feedback-icon {
+  color: var(--color-success);
+}
+
+.feedback-error {
+  color: var(--color-danger-ink);
+  border-color: var(--color-danger-border);
+  background: var(--color-danger-surface);
+}
+
+.feedback-error .feedback-icon {
+  color: var(--color-danger);
+}
+
+.feedback-icon {
+  flex: 0 0 auto;
+}
+
+.feedback-text {
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+.feedback-close {
+  display: grid;
+  width: var(--space-4);
+  height: var(--space-4);
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.feedback-close:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+/* ---- Status pill ---- */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--space-4);
+  margin: 0;
+  padding: 0 var(--space-1-5);
+  border-radius: var(--radius-full);
+  font-size: var(--text-caption-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-caption-line);
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: var(--space-1);
+  height: var(--space-1);
+  flex: 0 0 auto;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+.status-pill-idle {
+  color: var(--color-tint-lavender-ink);
+  background: var(--color-tint-lavender);
+}
+
+.status-pill-idle .status-dot {
+  background: var(--color-status-idle);
+}
+
+.status-pill-working {
+  color: var(--color-success-ink);
+  background: var(--color-success-surface);
+}
+
+/* Soft halo marks the "live" state; no looping animation. */
+.status-pill-working .status-dot {
+  background: var(--color-success);
+  box-shadow: 0 0 0 3px var(--color-success-border);
+}
+
+.status-pill-summary {
+  color: var(--color-text-secondary);
+  background: var(--color-tint-blue);
+}
+
+.status-pill-summary .status-dot {
+  background: var(--color-accent);
+}

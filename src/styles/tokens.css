@@ -43,20 +43,28 @@
   --text-micro-line: 16px;
 
   /*
-   * Color — the core palette. These four values are the only colors in the UI;
-   * every other color token below is derived from them (tints, alphas, mixes).
+   * Color — the core palette. These four values carry the brand; every other
+   * color token below is derived from them or from the soft accents that follow
+   * (tints, alphas, mixes).
    */
   --palette-background: #dfe8f3;
   --palette-surface: #fafbfc;
   --palette-dark: #0c1728;
   --palette-accent: #168be1;
 
+  /* Soft accents: status pills, tinted panels and feedback */
+  --palette-pastel-blue: #e4eefb;
+  --palette-lavender: #ece9fb;
+  --palette-coral: #e5675b;
+  --palette-success: #1f9a5c;
+  --palette-violet: #5b4fc4; /* ink for lavender tints */
+
   /* Muted "smoky" navy for primary actions and links in the mobile layout */
   --palette-smoky-navy: #294465;
 
   /* Dark & accent roles */
   --color-sidebar: var(--palette-dark);
-  --color-navy-800: color-mix(in srgb, var(--palette-surface) 9%, var(--palette-dark)); /* sidebar active item */
+  --color-navy-800: color-mix(in srgb, var(--palette-accent) 16%, var(--palette-dark)); /* sidebar active item (blue-tinted navy) */
   --color-navy-600: color-mix(in srgb, var(--palette-surface) 14%, var(--palette-dark)); /* primary action hover */
   --color-primary-action: var(--palette-dark);
   --color-primary-action-hover: var(--color-navy-600);
@@ -98,7 +106,25 @@
   /* Gap between a focused control and its ring where the ring would sit on canvas (accent on canvas is < 3:1) */
   --color-focus-gap: var(--palette-surface);
 
+  /* Soft-accent roles */
+  --color-tint-blue: var(--palette-pastel-blue); /* stat panel, working pill */
+  --color-tint-blue-border: color-mix(in srgb, var(--palette-accent) 18%, var(--palette-pastel-blue));
+  --color-tint-lavender: var(--palette-lavender); /* idle pill, summary total */
+  --color-tint-lavender-ink: color-mix(in srgb, var(--palette-violet) 70%, var(--palette-dark)); /* text on lavender, ≥ 4.5:1 */
+  --color-status-idle: color-mix(in srgb, var(--palette-dark) 40%, var(--palette-lavender));
+
+  /* Feedback (success = confirmed attendance action; danger = restrained coral) */
+  --color-success: var(--palette-success);
+  --color-success-surface: color-mix(in srgb, var(--palette-success) 9%, var(--palette-surface));
+  --color-success-border: color-mix(in srgb, var(--palette-success) 26%, var(--palette-surface));
+  --color-success-ink: color-mix(in srgb, var(--palette-success) 60%, var(--palette-dark)); /* text, ≥ 4.5:1 */
+  --color-danger: var(--palette-coral);
+  --color-danger-surface: color-mix(in srgb, var(--palette-coral) 9%, var(--palette-surface));
+  --color-danger-border: color-mix(in srgb, var(--palette-coral) 30%, var(--palette-surface));
+  --color-danger-ink: color-mix(in srgb, var(--palette-coral) 55%, var(--palette-dark)); /* text, ≥ 4.5:1 */
+
   /* Radius */
+  --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 20px; /* cards, drawer */
@@ -109,7 +135,7 @@
   --shadow-sm: 0 1px 2px color-mix(in srgb, var(--palette-dark) 8%, transparent),
     0 4px 12px -6px color-mix(in srgb, var(--palette-dark) 30%, transparent);
   --shadow-card: 0 1px 2px color-mix(in srgb, var(--palette-dark) 4%, transparent),
-    0 8px 24px -12px color-mix(in srgb, var(--palette-dark) 10%, transparent);
+    0 16px 40px -20px color-mix(in srgb, var(--palette-dark) 16%, transparent);
   --shadow-sidebar: none;
   --shadow-drawer: -16px 0 48px -16px color-mix(in srgb, var(--palette-dark) 30%, transparent);
   --shadow-action: 0 2px 4px color-mix(in srgb, var(--palette-dark) 8%, transparent),
@@ -118,6 +144,7 @@
   /* Motion */
   --duration-fast: 150ms;
   --duration-medium: 240ms;
+  --duration-slow: 320ms;
   --easing: cubic-bezier(0.2, 0, 0, 1);
 
   /* Layout */
@@ -172,5 +199,6 @@
   :root {
     --duration-fast: 0ms;
     --duration-medium: 0ms;
+    --duration-slow: 0ms;
   }
 }

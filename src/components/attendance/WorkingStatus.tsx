@@ -1,30 +1,35 @@
 import { formatHoursMinutes, toTimeOfDay } from '@/lib/time'
 import { TimeDisplay } from '@/components/ui'
+import { ClockIcon, LoginIcon } from '@/components/icons'
 import './attendance-states.css'
 
 type Props = { firstIn: Date; now: Date; workedMs: number; titleId: string }
 
-/** "Working" state: start time, current time, and a live work timer. */
+/** "Working" state: start and current time in a tinted panel, then the live work timer as the focal number. */
 export function WorkingStatus({ firstIn, now, workedMs, titleId }: Props) {
   const elapsed = formatHoursMinutes(workedMs)
   return (
     <div className="working-status">
       <dl className="work-stats">
         <div className="work-stat">
-          <dt className="text-label text-secondary">שעת התחלה</dt>
+          <dt className="work-stat-label text-label">
+            <LoginIcon size={16} />
+            שעת התחלה
+          </dt>
           <dd className="text-value-lg">
             <time dateTime={firstIn.toISOString()}>{toTimeOfDay(firstIn)}</time>
           </dd>
         </div>
         <div className="work-stat">
-          <dt className="text-label text-secondary">שעה נוכחית</dt>
+          <dt className="work-stat-label text-label">
+            <ClockIcon size={16} />
+            שעה נוכחית
+          </dt>
           <dd className="text-value-lg">
             <time dateTime={toTimeOfDay(now)}>{toTimeOfDay(now)}</time>
           </dd>
         </div>
       </dl>
-
-      <div className="state-divider" role="presentation" />
 
       <h2 id={titleId} className="elapsed-title text-body text-secondary">
         זמן עבודה עד כה

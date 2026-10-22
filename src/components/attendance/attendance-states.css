@@ -25,11 +25,16 @@
   text-align: center;
 }
 
+/* Start / current time: one pastel-blue panel split in two, secondary to the timer below. */
 .work-stats {
   display: grid;
   width: min(var(--state-max-width), 100%);
   grid-template-columns: 1fr 1fr;
   margin: 0;
+  padding: var(--space-2) 0;
+  border: 1px solid var(--color-tint-blue-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-tint-blue);
 }
 
 .work-stat {
@@ -39,20 +44,28 @@
   gap: var(--space-0-5);
 }
 
+.work-stat + .work-stat {
+  border-inline-start: 1px solid var(--color-tint-blue-border);
+}
+
+.work-stat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  color: var(--color-text-secondary);
+}
+
+.work-stat-label svg {
+  color: var(--color-link);
+}
+
 .work-stat dd {
   margin: 0;
   color: var(--color-text);
 }
 
-.state-divider {
-  width: 100%;
-  height: 1px;
-  margin: var(--space-3) 0;
-  background: var(--color-border);
-}
-
-.elapsed-title {
-  margin: 0;
+.working-status .elapsed-title {
+  margin: var(--space-4) 0 0;
   font-weight: var(--font-weight-medium);
 }
 
@@ -102,4 +115,23 @@
 .summary-value {
   margin: 0;
   color: var(--color-text);
+}
+
+/* The day's total is the answer the summary exists for: lavender row, bold value. */
+.summary-row-total {
+  background: var(--color-tint-lavender);
+}
+
+.summary-row-total dt {
+  color: var(--color-tint-lavender-ink);
+  font-weight: var(--font-weight-medium);
+}
+
+.summary-row-total .summary-value {
+  font-weight: var(--font-weight-bold);
+}
+
+.summary-row-total .icon-tile {
+  color: var(--color-tint-lavender-ink);
+  background: var(--color-surface);
 }

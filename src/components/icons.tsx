@@ -142,11 +142,18 @@ export const LoginIcon = ({ className = '', ...p }: IconProps) => (
   </Icon>
 )
 
-/** Vertical "more" (⋮). Filled dots, same 20px grid as the outline set. */
-export const MoreVerticalIcon = (p: IconProps) => (
-  <Icon stroke="none" fill="currentColor" {...p}>
-    <circle cx="10" cy="4.17" r="1.67" />
-    <circle cx="10" cy="10" r="1.67" />
-    <circle cx="10" cy="15.83" r="1.67" />
+/** Success mark for confirmed attendance actions. */
+export const CheckCircleIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="10" cy="10" r="7.92" />
+    <path d="M6.67 10.21L8.96 12.5L13.33 7.92" />
+  </Icon>
+)
+
+/** Error / attention mark. */
+export const AlertIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="10" cy="10" r="7.92" />
+    <path d="M10 6.25V10.42M10 13.75H10.01" />
   </Icon>
 )

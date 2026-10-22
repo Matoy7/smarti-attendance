@@ -6,13 +6,16 @@ import { ClockIcon, LogoutIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { LocationRow } from '@/components/attendance/LocationRow'
+import { StatusPill } from '@/components/attendance/StatusPill'
+import { AttendanceFeedback } from '@/components/attendance/AttendanceFeedback'
 import { MobileShell } from './MobileShell'
 
 const TITLE_ID = 'm-state-title'
 
 /** Attendance — mobile. States: before clock-in → working → day summary (shared with desktop). */
 export function MobileAttendance() {
-  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, backToAttendance, announcement } = useAttendanceFlow()
+  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, backToAttendance, pending, feedback, dismissFeedback, announcement } =
+    useAttendanceFlow()
   const time = toTimeOfDay(now)
 
   return (
@@ -24,14 +27,19 @@ export function MobileAttendance() {
             דיווח נוכחות
           </h1>
           <p className="text-body text-secondary">{formatLongDate(now)}</p>
+          <StatusPill status={status} />
         </header>
 
         <div className={`m-state m-state-${status} state-enter`} key={status}>
+          <AttendanceFeedback feedback={feedback} onDismiss={dismissFeedback} />
+
           {status === 'idle' && (
             <>
               <TimeDisplay className="m-clock" value={time} dateTime={time} />
-              <PunchButton onClick={clockIn}>דווח כניסה</PunchButton>
-              <Button variant="link" className="m-manual-entry text-body">
+              <PunchButton onClick={clockIn} loading={pending === 'in'}>
+                {pending === 'in' ? 'מדווח…' : 'דווח כניסה'}
+              </PunchButton>
+              <Button variant="link" className="m-manual-entry text-body" disabled={pending !== null}>
                 הכנסה ידנית של שעה
               </Button>
             </>
@@ -40,8 +48,15 @@ export function MobileAttendance() {
           {status === 'working' && firstIn && (
             <>
               <WorkingStatus firstIn={firstIn} now={now} workedMs={workedMs} titleId={TITLE_ID} />
-              <Button className="m-state-action" size="lg" block onClick={clockOut} icon={<LogoutIcon strokeWidth={1.8} />}>
-                דווח יציאה
+              <Button
+                className="m-state-action"
+                size="lg"
+                block
+                onClick={clockOut}
+                loading={pending === 'out'}
+                icon={<LogoutIcon strokeWidth={1.8} />}
+              >
+                {pending === 'out' ? 'מדווח יציאה…' : 'דווח יציאה'}
               </Button>
             </>
           )}

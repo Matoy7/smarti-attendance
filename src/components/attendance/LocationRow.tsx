@@ -1,10 +1,10 @@
 import { IconButton, IconTile } from '@/components/ui'
-import { MoreVerticalIcon, PencilIcon, PinIcon } from '@/components/icons'
+import { PencilIcon, PinIcon } from '@/components/icons'
 
 type Props = {
   /**
-   * footer = desktop card footer (centered, pencil at the start);
-   * tile = mobile inset tile (pin badge, menu button at the end)
+   * footer = desktop card footer; tile = mobile inset tile.
+   * Same anatomy in both: pin badge, location details, edit button at the end.
    */
   variant: 'footer' | 'tile'
   name: string
@@ -21,18 +21,19 @@ export function LocationRow({ variant, name, address }: Props) {
           <strong className="text-caption">מיקום: {name}</strong>
           <span className="text-micro text-tertiary">{address}</span>
         </span>
-        <IconButton className="m-location-more" size="touch" label="שינוי מיקום" icon={<MoreVerticalIcon />} />
+        <IconButton className="m-location-edit" size="touch" label="שינוי מיקום" icon={<PencilIcon />} />
       </footer>
     )
   }
 
   return (
     <div className="location">
-      <IconButton label="ערוך מיקום" icon={<PencilIcon />} />
+      <IconTile icon={<PinIcon size={18} />} size="md" shape="round" className="location-pin" />
       <div className="location-copy">
         <strong className="text-body">מיקום: {name}</strong>
         <span className="text-small text-tertiary">{address}</span>
       </div>
+      <IconButton className="location-edit" tone="surface" label="שינוי מיקום" icon={<PencilIcon />} />
     </div>
   )
 }

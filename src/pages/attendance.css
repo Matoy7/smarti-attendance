@@ -11,6 +11,16 @@
   margin: 0;
 }
 
+/* Attendance state at the top of the card; feedback and details follow. */
+.punch-status {
+  margin-bottom: var(--space-3);
+}
+
+/* Feedback spans the state column, like the stat panel and summary below it. */
+.punch-card .feedback-slot {
+  width: min(var(--state-max-width), 100%);
+}
+
 .punch-clock {
   margin-top: var(--space-2);
 }
@@ -24,18 +34,29 @@
   margin-top: var(--space-3);
 }
 
-/* Centered like the rest of the card; pencil sits on the text's start (right) side. */
+/* Pin badge, details, then the edit button at the row's end — same anatomy as the mobile tile. */
 .location {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
+  gap: var(--space-1-5);
+}
+
+.location-pin {
+  color: var(--color-link);
+  background: var(--color-tint-blue);
 }
 
 .location-copy {
   display: flex;
   min-width: 0;
+  flex: 1 1 auto;
   flex-direction: column;
+}
+
+.location-copy > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .location-copy strong {
