@@ -18,6 +18,16 @@
   margin: 0;
 }
 
+.m-team-export {
+  height: var(--touch-target);
+  padding: 0 var(--space-2);
+}
+
+.m-team-export svg {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+
 .m-team-filters {
   display: flex;
   flex-direction: column;

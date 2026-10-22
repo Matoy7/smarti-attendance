@@ -61,6 +61,15 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 25%, transparent);
 }
 
+.team-export {
+  height: 44px;
+}
+
+.team-export svg {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+
 .select-field {
   position: relative;
   display: inline-flex;

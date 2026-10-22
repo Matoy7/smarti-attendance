@@ -20,6 +20,8 @@ Routing is hash-based (`src/lib/router.ts`): דיווח נוכחות and דיו�
 **דיווחי עובדים** — the manager's monthly approval of each employee's attendance report (אושר / ממתין לאישור / נדחה).
 Every row has a סוג: in דיווח חודשי the monthly report ("דיווח 10-26"), in בקשות לאישור the request (אישור חופשה / אישור מחלה).
 Rows are clickable (no destination yet).
+**ייצוא** (desktop toolbar, mobile header) downloads what the screen shows — view, month, department and search, all pages — as
+a CSV that opens in Excel (`src/lib/exportCsv.ts`: UTF-8 BOM for Hebrew, quoting, formula-injection guard).
 Desktop (`src/pages/TeamReportsPage.tsx`): search, month and department filters, דיווח חודשי / בקשות לאישור views, table with
 row selection + bulk approve/reject, a ⋯ actions menu per row, and pagination. Mobile (`src/mobile/MobileTeamReports.tsx`):
 the same data and actions as a card list with native pickers, a segmented control, an approve/reject action sheet and

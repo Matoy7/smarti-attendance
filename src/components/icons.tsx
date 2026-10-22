@@ -207,3 +207,9 @@ export const XIcon = (p: IconProps) => (
     <path d="M5.42 5.42L14.58 14.58M14.58 5.42L5.42 14.58" />
   </Icon>
 )
+
+export const DownloadIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M10 2.5V12.5M6.25 8.75L10 12.5L13.75 8.75M3.33 13.33V15.83C3.33 16.75 4.08 17.5 5 17.5H15C15.92 17.5 16.67 16.75 16.67 15.83V13.33" />
+  </Icon>
+)

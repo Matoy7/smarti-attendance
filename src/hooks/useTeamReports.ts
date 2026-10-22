@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
-import { APPROVAL_LABEL, loadTeamReports, monthKey, type ApprovalStatus, type TeamReport } from '@/lib/teamReports'
+import { APPROVAL_LABEL, formatMonth, loadTeamReports, monthKey, typeLabel, type ApprovalStatus, type TeamReport } from '@/lib/teamReports'
+import { downloadFile, toCsv } from '@/lib/exportCsv'
 
 export type TeamTab = 'all' | 'pending'
 export const ALL_DEPARTMENTS = 'all'
@@ -84,7 +85,19 @@ export function useTeamReports() {
     [month, reports],
   )
 
+  /** Downloads what the screen shows (view, month, department, search — every page) as a CSV file. */
+  const exportCsv = () => {
+    if (!filtered.length) return
+    const header = ['שם עובד', 'תפקיד', 'מחלקה', 'סוג', 'סטטוס', 'חודש']
+    const rows = filtered.map((r) => [r.name, r.role, r.department, typeLabel(r, tab), APPROVAL_LABEL[r.status], formatMonth(r.month)])
+    const view = tab === 'pending' ? 'בקשות לאישור' : 'דיווח חודשי'
+    const scope = department === ALL_DEPARTMENTS ? '' : ` - ${department}`
+    downloadFile(`דיווחי עובדים - ${view}${scope} - ${formatMonth(month)}.csv`, toCsv([header, ...rows]))
+    setAnnouncement(`הקובץ יוצא: ${rows.length} עובדים`)
+  }
+
   return {
+    exportCsv,
     month,
     setMonth,
     department,
