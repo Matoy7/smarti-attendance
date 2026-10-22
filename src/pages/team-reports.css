@@ -191,6 +191,10 @@
   padding-inline-end: 0;
 }
 
+.team-table td.col-type {
+  color: var(--color-text);
+}
+
 .team-table .col-status,
 .team-table .col-actions {
   text-align: center;

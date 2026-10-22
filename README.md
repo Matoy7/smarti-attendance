@@ -18,6 +18,7 @@ Desktop sidebar and mobile menu render it identically; the mobile bottom bar use
 Routing is hash-based (`src/lib/router.ts`): דיווח נוכחות and דיווחי עובדים have screens; the other items have no destination yet.
 
 **דיווחי עובדים** — the manager's monthly approval of each employee's attendance report (אושר / ממתין לאישור / נדחה).
+In בקשות לאישור each request also shows its type (סוג: אישור חופשה / אישור מחלה).
 Desktop (`src/pages/TeamReportsPage.tsx`): search, month and department filters, כל העובדים / בקשות לאישור views, table with
 row selection + bulk approve/reject, a ⋯ actions menu per row, and pagination. Mobile (`src/mobile/MobileTeamReports.tsx`):
 the same data and actions as a card list with native pickers, a segmented control, an approve/reject action sheet and

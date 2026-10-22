@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ALL_DEPARTMENTS, useTeamReports, type TeamTab } from '@/hooks/useTeamReports'
-import { DEPARTMENTS, formatMonth, recentMonths } from '@/lib/teamReports'
+import { DEPARTMENTS, REQUEST_TYPE_LABEL, formatMonth, recentMonths } from '@/lib/teamReports'
 import { Button, Card } from '@/components/ui'
 import { CalendarIcon, CheckIcon, ChevronIcon, PlusIcon, SearchIcon, XIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
@@ -49,6 +49,8 @@ export function TeamReportsPage() {
   }, [pageSelected, allOnPage])
 
   const selectedIds = [...t.selected]
+  // Requests awaiting approval show what kind of request they are.
+  const showType = t.tab === 'pending'
 
   return (
     <div className="page page-wide">
@@ -129,6 +131,11 @@ export function TeamReportsPage() {
                 <th scope="col">שם עובד</th>
                 <th scope="col">תפקיד</th>
                 <th scope="col">מחלקה</th>
+                {showType && (
+                  <th scope="col" className="col-type">
+                    סוג
+                  </th>
+                )}
                 <th scope="col" className="col-status">
                   סטטוס
                 </th>
@@ -153,6 +160,7 @@ export function TeamReportsPage() {
                     </th>
                     <td>{r.role}</td>
                     <td>{r.department}</td>
+                    {showType && <td className="col-type">{REQUEST_TYPE_LABEL[r.requestType]}</td>}
                     <td className="col-status">
                       <ApprovalBadge status={r.status} />
                     </td>
@@ -164,7 +172,7 @@ export function TeamReportsPage() {
               })}
               {rows.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="team-empty">
+                  <td colSpan={showType ? 7 : 6} className="team-empty">
                     <strong className="text-body">לא נמצאו עובדים</strong>
                     <span className="text-label text-tertiary">
                       {t.tab === 'pending' && !t.query && t.department === ALL_DEPARTMENTS

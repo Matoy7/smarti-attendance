@@ -6,6 +6,9 @@
  */
 export type ApprovalStatus = 'approved' | 'pending' | 'rejected'
 
+/** What the employee asked the manager to approve. */
+export type RequestType = 'vacation' | 'sick'
+
 export type Employee = {
   id: string
   name: string
@@ -19,12 +22,18 @@ export type TeamReport = Employee & {
   /** Report month, YYYY-MM */
   month: string
   status: ApprovalStatus
+  requestType: RequestType
 }
 
 export const APPROVAL_LABEL: Record<ApprovalStatus, string> = {
   approved: 'אושר',
   pending: 'ממתין לאישור',
   rejected: 'נדחה',
+}
+
+export const REQUEST_TYPE_LABEL: Record<RequestType, string> = {
+  vacation: 'אישור חופשה',
+  sick: 'אישור מחלה',
 }
 
 const EMPLOYEES: Employee[] = [
@@ -63,6 +72,11 @@ const FIXED: Record<string, Record<string, ApprovalStatus>> = {
   '2026-10': { e01: 'approved', e02: 'rejected', e03: 'pending', e04: 'approved', e05: 'approved', e06: 'pending', e07: 'approved', e08: 'approved' },
 }
 
+/** Request types for the October 2026 pending rows in the mockup. */
+const FIXED_TYPE: Record<string, Record<string, RequestType>> = {
+  '2026-10': { e03: 'vacation', e06: 'sick' },
+}
+
 /** Stable pseudo-random 0–99 per employee and month, so demo data doesn't shuffle between renders. */
 function roll(key: string): number {
   let h = 2166136261
@@ -79,6 +93,10 @@ function demoStatus(employeeId: string, month: string, isCurrent: boolean): Appr
   return r < 92 ? 'approved' : r < 96 ? 'pending' : 'rejected'
 }
 
+function demoRequestType(employeeId: string, month: string): RequestType {
+  return FIXED_TYPE[month]?.[employeeId] ?? (roll(`${employeeId}:${month}:type`) < 60 ? 'vacation' : 'sick')
+}
+
 export const monthKey = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 
 const monthFormat = new Intl.DateTimeFormat('he-IL', { month: 'long', year: 'numeric' })
@@ -92,7 +110,7 @@ export function recentMonths(now = new Date(), count = 6): string[] {
 
 export function loadTeamReports(month: string, now = new Date()): TeamReport[] {
   const isCurrent = month === monthKey(now)
-  return EMPLOYEES.map((e) => ({ ...e, month, status: demoStatus(e.id, month, isCurrent) }))
+  return EMPLOYEES.map((e) => ({ ...e, month, status: demoStatus(e.id, month, isCurrent), requestType: demoRequestType(e.id, month) }))
 }
 
 /** Departments in the data, alphabetical (Hebrew collation). */

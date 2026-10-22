@@ -125,6 +125,11 @@
   gap: var(--space-0-5);
 }
 
+.m-team-type {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
 .m-team-copy .approval {
   margin-top: var(--space-0-5);
 }
