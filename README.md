@@ -24,7 +24,7 @@ Desktop (`src/pages/TeamReportsPage.tsx`): search, month and department filters,
 row selection + bulk approve/reject, a ⋯ actions menu per row, and pagination. Mobile (`src/mobile/MobileTeamReports.tsx`):
 the same data and actions as a card list with native pickers, a segmented control, an approve/reject action sheet and
 "show more". Shared logic: `src/hooks/useTeamReports.ts`. **Demo data** (`src/lib/teamReports.ts`, no backend yet):
-28 employees, statuses stable per month; approve/reject decisions live in memory. "הוספת בקשה" is rendered but not wired yet.
+28 employees, statuses stable per month; approve/reject decisions live in memory.
 There is no backend: today's sessions are kept in the browser's `localStorage` only (reset the next day).
 The other sidebar items and "הכנסה ידנית של שעה" are rendered as designed but not wired yet.
 

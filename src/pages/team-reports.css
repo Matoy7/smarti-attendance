@@ -5,7 +5,7 @@
   gap: var(--space-3);
 }
 
-/* ---- Toolbar: search (start), month, department, add (end) ---- */
+/* ---- Toolbar: search (start), month, department (end) ---- */
 .team-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -94,11 +94,6 @@
 
 .select-field-chevron {
   inset-inline-end: var(--space-1-5);
-}
-
-.team-add {
-  height: 44px;
-  margin-inline-start: auto;
 }
 
 /* ---- View tabs ---- */

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { ALL_DEPARTMENTS, useTeamReports, type TeamTab } from '@/hooks/useTeamReports'
 import { DEPARTMENTS, formatMonth, recentMonths, typeLabel } from '@/lib/teamReports'
 import { Button, Card } from '@/components/ui'
-import { CalendarIcon, CheckIcon, ChevronIcon, PlusIcon, SearchIcon, XIcon } from '@/components/icons'
+import { CalendarIcon, CheckIcon, ChevronIcon, SearchIcon, XIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { EmployeeAvatar } from '@/components/team/EmployeeAvatar'
 import { RowActionsMenu } from '@/components/team/RowActionsMenu'
@@ -83,9 +83,6 @@ export function TeamReportsPage() {
           onChange={t.setDepartment}
           options={[{ value: ALL_DEPARTMENTS, label: 'כל המחלקות' }, ...DEPARTMENTS.map((d) => ({ value: d, label: d }))]}
         />
-        <Button className="team-add" icon={<PlusIcon />}>
-          הוספת בקשה
-        </Button>
       </div>
 
       <div className="team-tabs" role="group" aria-label="תצוגה">

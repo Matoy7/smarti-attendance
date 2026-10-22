@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { ALL_DEPARTMENTS, useTeamReports, type TeamTab } from '@/hooks/useTeamReports'
 import { DEPARTMENTS, formatMonth, recentMonths, typeLabel, type TeamReport } from '@/lib/teamReports'
 import { Button } from '@/components/ui'
-import { CalendarIcon, CheckIcon, MoreIcon, PlusIcon, SearchIcon, XIcon } from '@/components/icons'
+import { CalendarIcon, CheckIcon, MoreIcon, SearchIcon, XIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { EmployeeAvatar } from '@/components/team/EmployeeAvatar'
 import { SelectField } from '@/components/team/SelectField'
@@ -76,9 +76,6 @@ export function MobileTeamReports() {
           <h1 id="m-team-title" className="text-title" data-page-title tabIndex={-1}>
             דיווחי עובדים
           </h1>
-          <Button className="m-team-add" icon={<PlusIcon />}>
-            הוספת בקשה
-          </Button>
         </header>
 
         <div className="m-team-filters" role="search">
