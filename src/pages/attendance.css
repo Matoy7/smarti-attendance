@@ -13,11 +13,10 @@
 
 .punch-clock {
   margin-top: var(--space-2);
-  color: var(--color-text);
 }
 
 .punch-card .punch-action {
-  width: min(320px, 100%);
+  width: min(var(--punch-action-width), 100%);
   margin-top: var(--space-4);
 }
 

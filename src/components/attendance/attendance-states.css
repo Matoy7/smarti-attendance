@@ -27,7 +27,7 @@
 
 .work-stats {
   display: grid;
-  width: min(400px, 100%);
+  width: min(var(--state-max-width), 100%);
   grid-template-columns: 1fr 1fr;
   margin: 0;
 }
@@ -42,10 +42,6 @@
 .work-stat dd {
   margin: 0;
   color: var(--color-text);
-  font-size: var(--text-heading-lg-size);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--text-heading-lg-line);
-  font-variant-numeric: tabular-nums;
 }
 
 .state-divider {
@@ -61,16 +57,14 @@
 }
 
 .elapsed {
+  /* HH:MM — same display size as the clock on the clock-in screen (TimeDisplay). */
   margin-top: var(--space-1);
-  color: var(--color-text);
-  /* HH:MM — same display size as the clock on the clock-in screen. */
-  direction: ltr;
 }
 
 /* ---- Summary ---- */
 .day-summary {
   display: flex;
-  width: min(400px, 100%);
+  width: min(var(--state-max-width), 100%);
   flex-direction: column;
   align-items: stretch;
   gap: var(--space-2);
@@ -100,17 +94,6 @@
   border-top: 1px solid var(--color-border);
 }
 
-.summary-icon {
-  display: grid;
-  width: var(--space-4);
-  height: var(--space-4);
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: var(--radius-md);
-  color: var(--color-navy-700);
-  background: var(--color-canvas);
-}
-
 .summary-row dt {
   flex: 1 1 auto;
   text-align: start;
@@ -119,8 +102,4 @@
 .summary-value {
   margin: 0;
   color: var(--color-text);
-  font-size: var(--text-heading-size);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--text-heading-line);
-  font-variant-numeric: tabular-nums;
 }

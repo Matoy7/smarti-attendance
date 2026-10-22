@@ -5,14 +5,14 @@
 
 /* Mobile-only role overrides: smoky navy primary action and link. */
 .m-app {
-  --color-primary-action: var(--palette-smoky-navy);
-  --color-primary-action-hover: color-mix(in srgb, var(--palette-surface) 12%, var(--palette-smoky-navy));
-  --color-link: var(--palette-smoky-navy);
-  --color-link-underline: color-mix(in srgb, var(--palette-smoky-navy) 45%, transparent);
+  --color-primary-action: var(--color-primary-action-mobile);
+  --color-primary-action-hover: var(--color-primary-action-hover-mobile);
+  --color-link: var(--color-link-mobile);
+  --color-link-underline: var(--color-link-underline-mobile);
 
   min-height: 100dvh;
   color: var(--color-text);
-  background: var(--canvas-background);
+  background: var(--color-canvas);
   background-attachment: fixed;
 }
 
@@ -25,7 +25,7 @@
 /* ---- Top bar ---- */
 .m-topbar {
   position: relative;
-  z-index: 20;
+  z-index: var(--z-topbar);
   /* RTL: brand at the start (right), profile at the end (left). */
   display: flex;
   height: calc(var(--topbar-height) + var(--safe-top));
@@ -46,13 +46,6 @@
   border-radius: var(--radius-full);
   background: transparent;
   cursor: pointer;
-}
-
-.m-avatar-button .avatar {
-  width: var(--space-5);
-  height: var(--space-5);
-  border: 2px solid var(--color-surface);
-  box-shadow: var(--shadow-xs);
 }
 
 /* ---- Content ---- */
@@ -98,11 +91,6 @@
 /* The working state ends with a button; give the location row the same 24px rhythm. */
 .m-state-working + .m-location {
   margin-top: var(--space-3);
-}
-
-.m-clock {
-  color: var(--color-text);
-  direction: ltr;
 }
 
 /* Primary clock-in action: the mobile counterpart of the desktop punch button. */
@@ -156,23 +144,9 @@
   margin-top: var(--space-1-5);
   /* Tighter end padding: the 48px menu button carries its own touch area. */
   padding: var(--space-1) var(--space-1) var(--space-1) var(--space-2);
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-surface-subtle);
-}
-
-.m-location-pin {
-  display: grid;
-  width: var(--space-4);
-  height: var(--space-4);
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: var(--radius-full);
-  background: var(--color-canvas);
-}
-
-.m-location-pin {
-  color: var(--color-navy-700);
 }
 
 .m-location-more {
@@ -201,11 +175,11 @@
   position: fixed;
   inset-inline: 0;
   bottom: 0;
-  z-index: 30;
+  z-index: var(--z-bottom-nav);
   padding-bottom: var(--safe-bottom);
   border-top: 1px solid var(--color-border-on-dark);
-  /* Same color as the primary action button; item colors follow the sidebar's on-dark roles */
-  background: var(--color-primary-action);
+  /* Item colors follow the sidebar's on-dark roles */
+  background: var(--color-nav-surface-mobile);
 }
 
 .bottom-nav-list {
@@ -250,7 +224,7 @@
 
 .bottom-nav-item.active {
   color: var(--color-text-on-dark);
-  background: var(--color-primary-action-hover);
+  background: var(--color-nav-active-mobile);
   font-weight: var(--font-weight-medium);
 }
 
@@ -318,7 +292,7 @@
 .drawer-root {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: var(--z-drawer);
   visibility: hidden;
   pointer-events: none;
   transition: visibility 0s linear var(--duration-medium);
@@ -402,7 +376,7 @@
 .drawer-item {
   display: flex;
   width: 100%;
-  min-height: 56px;
+  min-height: var(--control-height-lg);
   align-items: center;
   gap: var(--space-1-5);
   padding: 0 var(--space-1);
@@ -424,22 +398,11 @@
   background: var(--color-surface-hover);
 }
 
-.drawer-item-icon {
-  display: grid;
-  width: var(--space-5);
-  height: var(--space-5);
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: var(--radius-md);
-  color: var(--color-navy-700);
-  background: var(--color-canvas);
-}
-
 .drawer-item-label {
   flex: 1 1 auto;
 }
 
 .drawer-item-chevron {
   flex: 0 0 auto;
-  color: var(--color-text-muted);
+  color: var(--color-text-tertiary);
 }

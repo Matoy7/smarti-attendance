@@ -1,3 +1,7 @@
 export { Button } from './Button'
 export { IconButton } from './IconButton'
 export { Card, CardBody, CardFooter } from './Card'
+export { Avatar } from './Avatar'
+export { IconTile } from './IconTile'
+export { TimeDisplay } from './TimeDisplay'
+export { PunchButton } from './PunchButton'

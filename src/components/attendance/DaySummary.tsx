@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import { formatHoursMinutes, toTimeOfDay } from '@/lib/time'
 import { ClockIcon, LoginIcon, LogoutIcon } from '@/components/icons'
+import { IconTile } from '@/components/ui'
 import './attendance-states.css'
 
 type Props = { firstIn: Date; lastOut: Date; workedMs: number; titleId: string }
@@ -21,11 +22,9 @@ export function DaySummary({ firstIn, lastOut, workedMs, titleId }: Props) {
       <dl className="summary-list">
         {rows.map(({ label, value, Icon }) => (
           <div className="summary-row" key={label}>
-            <span className="summary-icon" aria-hidden="true">
-              <Icon size={18} />
-            </span>
+            <IconTile icon={<Icon size={18} />} />
             <dt className="text-body text-secondary">{label}</dt>
-            <dd className="summary-value">{value}</dd>
+            <dd className="summary-value text-value">{value}</dd>
           </div>
         ))}
       </dl>

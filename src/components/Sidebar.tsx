@@ -1,6 +1,5 @@
-import { asset } from '@/lib/assets'
 import { USER } from '@/lib/profile'
-import { IconButton } from '@/components/ui'
+import { Avatar, IconButton } from '@/components/ui'
 import { Brand } from '@/components/Brand'
 import { LogoutIcon } from '@/components/icons'
 import { NavSections } from '@/components/NavSections'
@@ -16,7 +15,7 @@ export function Sidebar() {
 
       <div className="sidebar-footer">
         <div className="profile">
-          <img className="avatar" src={asset('assets/e53c0.png')} alt="" />
+          <Avatar tone="on-dark" />
           <div className="profile-copy">
             <strong className="text-label">{USER.fullName}</strong>
             <span className="text-caption">{USER.role}</span>

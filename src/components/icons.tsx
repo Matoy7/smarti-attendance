@@ -3,7 +3,7 @@ import type { SVGProps } from 'react'
 /**
  * Outline icon set in the desktop sidebar's style (20×20 grid, ~1.6px rounded
  * strokes, currentColor). The first four are the desktop sidebar icons
- * (public/assets/*.svg) inlined so active/inactive states can recolor them.
+ * (originally SVG files from the Figma export) inlined so active/inactive states can recolor them.
  * Direction-sensitive icons (enter/exit arrows) carry .icon-rtl-mirror.
  */
 type IconProps = SVGProps<SVGSVGElement> & { size?: number }

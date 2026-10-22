@@ -3,21 +3,21 @@
 .app-shell {
   display: flex;
   min-height: 100dvh;
-  background: var(--canvas-background);
+  background: var(--color-canvas);
 }
 
 /* ---- Sidebar ---- */
 .sidebar {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: var(--z-sidebar);
   display: flex;
   width: var(--sidebar-width);
   height: 100dvh;
   flex: 0 0 var(--sidebar-width);
   flex-direction: column;
   color: var(--color-text-on-dark);
-  background: var(--color-navy-950);
+  background: var(--color-sidebar);
   box-shadow: var(--shadow-sidebar);
 }
 

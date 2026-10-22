@@ -53,6 +53,20 @@
   line-height: var(--text-micro-line);
 }
 
+.text-value {
+  font-size: var(--text-heading-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-heading-line);
+  font-variant-numeric: tabular-nums;
+}
+
+.text-value-lg {
+  font-size: var(--text-heading-lg-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-heading-lg-line);
+  font-variant-numeric: tabular-nums;
+}
+
 .text-secondary {
   color: var(--color-text-secondary);
 }
@@ -209,7 +223,7 @@
 
 .card-footer {
   padding: var(--space-2) var(--space-4);
-  border-top: 1px solid var(--color-border-subtle);
+  border-top: 1px solid var(--color-border);
   background: var(--color-surface-subtle);
 }
 
@@ -248,7 +262,7 @@
   width: 14px;
   height: 14px;
   border-radius: var(--radius-full) 0 var(--radius-full) 0;
-  background: var(--color-navy-950);
+  background: var(--color-sidebar);
 }
 
 /* ---- Avatar ---- */
@@ -256,15 +270,63 @@
   width: var(--control-height-md);
   height: var(--control-height-md);
   flex: 0 0 auto;
-  border: 1px solid var(--color-border-on-dark);
   border-radius: var(--radius-full);
   object-fit: cover;
+}
+
+/* Ring follows the surface the avatar sits on. */
+.avatar-on-dark {
+  border: 1px solid var(--color-border-on-dark);
+}
+
+.avatar-on-light {
+  border: 2px solid var(--color-surface);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ---- Icon tile (decorative icon badge in front of a row label) ---- */
+.icon-tile {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--color-icon-tile-ink);
+  background: var(--color-canvas);
+}
+
+.icon-tile-sm {
+  width: var(--space-4);
+  height: var(--space-4);
+}
+
+.icon-tile-md {
+  width: var(--space-5);
+  height: var(--space-5);
+}
+
+.icon-tile-square {
+  border-radius: var(--radius-md);
+}
+
+.icon-tile-round {
+  border-radius: var(--radius-full);
+}
+
+/* ---- Time display (HH:MM clock / timer) ---- */
+/* Always an LTR run inside the RTL page, with tabular numerals from .text-display. */
+.time-display {
+  color: var(--color-text);
+  direction: ltr;
 }
 
 /* ---- Focus ---- */
 :where(button, a):focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
+}
+
+/* On the canvas the accent ring alone is below 3:1, so a surface-colored gap fills the offset. */
+.focus-on-canvas :where(button, a):focus-visible {
+  box-shadow: 0 0 0 2px var(--color-focus-gap);
 }
 
 /* ---- Icons ---- */

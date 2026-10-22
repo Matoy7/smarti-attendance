@@ -12,7 +12,6 @@
   --space-4: 32px;
   --space-5: 40px;
   --space-6: 48px;
-  --space-8: 64px;
   --space-10: 80px;
 
   /* Typography */
@@ -21,7 +20,6 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
 
   --text-display-size: 80px; /* clock */
   --text-display-line: 88px;
@@ -57,21 +55,27 @@
   --palette-smoky-navy: #294465;
 
   /* Dark & accent roles */
-  --color-navy-950: var(--palette-dark); /* sidebar */
-  --color-navy-900: var(--palette-dark); /* primary text */
+  --color-sidebar: var(--palette-dark);
   --color-navy-800: color-mix(in srgb, var(--palette-surface) 9%, var(--palette-dark)); /* sidebar active item */
-  --color-navy-700: var(--palette-dark); /* primary action */
   --color-navy-600: color-mix(in srgb, var(--palette-surface) 14%, var(--palette-dark)); /* primary action hover */
-  --color-primary-action: var(--color-navy-700);
+  --color-primary-action: var(--palette-dark);
   --color-primary-action-hover: var(--color-navy-600);
+  --color-icon-tile-ink: var(--palette-dark); /* icon inside IconTile */
   --color-accent: var(--palette-accent);
   --color-brand-mark: var(--palette-accent);
+
+  /* Mobile layout roles (applied by .m-app, see mobile.css) */
+  --color-primary-action-mobile: var(--palette-smoky-navy);
+  --color-primary-action-hover-mobile: color-mix(in srgb, var(--palette-surface) 12%, var(--palette-smoky-navy));
+  --color-link-mobile: var(--palette-smoky-navy);
+  --color-link-underline-mobile: color-mix(in srgb, var(--palette-smoky-navy) 45%, transparent);
+  --color-nav-surface-mobile: var(--palette-smoky-navy); /* bottom navigation bar */
+  --color-nav-active-mobile: var(--color-primary-action-hover-mobile); /* active bottom-nav tab */
 
   /* Text (mixes of dark over surface, all ≥ 4.5:1 on surface and background) */
   --color-text: var(--palette-dark);
   --color-text-secondary: color-mix(in srgb, var(--palette-dark) 70%, var(--palette-surface));
   --color-text-tertiary: color-mix(in srgb, var(--palette-dark) 64%, var(--palette-surface));
-  --color-text-muted: color-mix(in srgb, var(--palette-dark) 40%, var(--palette-surface));
   --color-text-on-dark: var(--palette-surface);
   --color-text-on-dark-secondary: color-mix(in srgb, var(--palette-surface) 78%, var(--palette-dark));
   --color-text-on-dark-muted: color-mix(in srgb, var(--palette-surface) 58%, var(--palette-dark));
@@ -84,20 +88,17 @@
   --color-surface-subtle: color-mix(in srgb, var(--palette-background) 35%, var(--palette-surface)); /* location section */
   --color-surface-hover: color-mix(in srgb, var(--palette-background) 55%, var(--palette-surface));
   --color-surface-selected: color-mix(in srgb, var(--palette-accent) 12%, var(--palette-surface)); /* active nav on light */
-  --color-surface-translucent: color-mix(in srgb, var(--palette-surface) 94%, transparent);
   --color-overlay: color-mix(in srgb, var(--palette-dark) 44%, transparent);
   --color-border: color-mix(in srgb, var(--palette-dark) 10%, var(--palette-surface));
-  --color-border-subtle: var(--color-border);
   --color-border-on-dark: color-mix(in srgb, var(--palette-surface) 12%, transparent);
   --color-surface-on-dark: color-mix(in srgb, var(--palette-surface) 6%, transparent);
   --color-surface-on-dark-hover: color-mix(in srgb, var(--palette-surface) 10%, transparent);
   --color-link-underline: color-mix(in srgb, var(--palette-accent) 45%, transparent);
   --color-focus: var(--palette-accent);
-
-  --canvas-background: var(--color-canvas);
+  /* Gap between a focused control and its ring where the ring would sit on canvas (accent on canvas is < 3:1) */
+  --color-focus-gap: var(--palette-surface);
 
   /* Radius */
-  --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 20px; /* cards, drawer */
@@ -110,7 +111,6 @@
   --shadow-card: 0 1px 2px color-mix(in srgb, var(--palette-dark) 4%, transparent),
     0 8px 24px -12px color-mix(in srgb, var(--palette-dark) 10%, transparent);
   --shadow-sidebar: none;
-  --shadow-bar: 0 -4px 16px -8px color-mix(in srgb, var(--palette-dark) 8%, transparent);
   --shadow-drawer: -16px 0 48px -16px color-mix(in srgb, var(--palette-dark) 30%, transparent);
   --shadow-action: 0 2px 4px color-mix(in srgb, var(--palette-dark) 8%, transparent),
     0 12px 24px -12px color-mix(in srgb, var(--palette-dark) 45%, transparent);
@@ -125,6 +125,8 @@
   --content-max-width: 640px;
   --control-height-md: 40px;
   --control-height-lg: 56px;
+  --punch-action-width: 320px; /* desktop punch / state action */
+  --state-max-width: 400px; /* work stats and day summary column */
   --radius-button: var(--radius-lg);
   --icon-size-md: 20px;
   --icon-size-lg: 24px;
@@ -139,9 +141,15 @@
   --punch-action-size: 208px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
+
+  /* Layers */
+  --z-sidebar: 2;
+  --z-topbar: 20;
+  --z-bottom-nav: 30;
+  --z-drawer: 50;
 }
 
-/* The mobile layout renders at ≤760px; the type scale steps down there. */
+/* The mobile layout renders at ≤760px (keep in sync with MOBILE_QUERY in src/hooks/useIsMobile.ts); the type scale steps down there. */
 @media (max-width: 760px) {
   :root {
     --text-display-size: 60px;

@@ -1,10 +1,11 @@
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { LOCATION, USER } from '@/lib/profile'
 import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
-import { Button, Card, CardBody, CardFooter, IconButton } from '@/components/ui'
-import { ClockIcon, LogoutIcon, PencilIcon } from '@/components/icons'
+import { Button, Card, CardBody, CardFooter, TimeDisplay } from '@/components/ui'
+import { ClockIcon, LogoutIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
+import { LocationRow } from '@/components/attendance/LocationRow'
 import './attendance.css'
 
 const TITLE_ID = 'attendance-title'
@@ -29,9 +30,7 @@ export function AttendancePage() {
                 <h2 id={TITLE_ID} className="text-heading">
                   שעת כניסה
                 </h2>
-                <time className="punch-clock text-display" dateTime={time}>
-                  {time}
-                </time>
+                <TimeDisplay className="punch-clock" value={time} dateTime={time} />
                 <Button className="punch-action" size="lg" onClick={clockIn} icon={<ClockIcon strokeWidth={1.8} />}>
                   דווח כניסה
                 </Button>
@@ -62,13 +61,7 @@ export function AttendancePage() {
         </CardBody>
 
         <CardFooter>
-          <div className="location">
-            <IconButton label="ערוך מיקום" icon={<PencilIcon />} />
-            <div className="location-copy">
-              <strong className="text-body">מיקום: {LOCATION.name}</strong>
-              <span className="text-small text-tertiary">{LOCATION.address}</span>
-            </div>
-          </div>
+          <LocationRow variant="footer" name={LOCATION.name} address={LOCATION.address} />
         </CardFooter>
       </Card>
 

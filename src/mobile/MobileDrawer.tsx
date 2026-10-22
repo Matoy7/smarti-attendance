@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { Brand } from '@/components/Brand'
-import { IconButton } from '@/components/ui'
+import { Avatar, IconButton, IconTile } from '@/components/ui'
 import { ChevronIcon, CloseIcon } from '@/components/icons'
 import { USER } from '@/lib/profile'
-import { asset } from '@/lib/assets'
 import { NavSections } from '@/components/NavSections'
 import { DRAWER_NAV } from './navigation'
 
@@ -54,7 +53,7 @@ export function MobileDrawer({ open, onClose }: Props) {
         </header>
 
         <div className="drawer-user">
-          <img className="avatar" src={asset('assets/e53c0.png')} alt="" />
+          <Avatar tone="on-light" />
           <div className="drawer-user-copy">
             <strong className="text-label">{USER.fullName}</strong>
             <span className="text-caption text-tertiary">{USER.role}</span>
@@ -72,9 +71,7 @@ export function MobileDrawer({ open, onClose }: Props) {
             {DRAWER_NAV.map(({ id, label, Icon }) => (
               <li key={id}>
                 <button type="button" className="drawer-item">
-                  <span className="drawer-item-icon">
-                    <Icon />
-                  </span>
+                  <IconTile icon={<Icon />} size="md" />
                   <span className="drawer-item-label">{label}</span>
                   <ChevronIcon className="drawer-item-chevron" size={16} />
                 </button>
