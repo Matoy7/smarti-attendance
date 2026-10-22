@@ -1,17 +1,25 @@
 import { APP_NAME } from '@/lib/app'
 
 /**
- * The סמארטי-טיים logo: bright-blue disc, navy open ring and check.
- * Fixed brand colors (same in light and dark mode); the same artwork is public/favicon.svg.
+ * The סמארטי-טיים logo: a clock with speed lines, one light-blue stroke on a transparent ground.
+ * Fixed brand color (same in light and dark mode); the same artwork is public/favicon.svg.
  */
 export function LogoMark({ className = '' }: { className?: string }) {
   return (
-    <svg className={`brand-mark ${className}`.trim()} viewBox="0 0 360 360" aria-hidden="true" focusable="false">
-      <circle cx="180" cy="180" r="180" fill="#179bfc" />
-      <g fill="none" stroke="#0c1829" strokeWidth="36" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M271.9 230.8A100 100 0 1 1 180.3 87" />
-        <path d="M172 185l26.5 26.5L265 145" />
-      </g>
+    <svg
+      className={`brand-mark ${className}`.trim()}
+      viewBox="0 0 538 427"
+      fill="none"
+      stroke="#38c6f8"
+      strokeWidth="33"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M94 143H144Q168 143 152.5 125A195 195 0 1 1 151.7 301.5Q168 283.5 144 283.5H61" />
+      <path d="M98.5 73H198M17.5 213H140.5M104.5 353H202" />
+      <path d="M327 97.5V211L396 278" />
     </svg>
   )
 }

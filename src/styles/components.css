@@ -301,14 +301,12 @@
   color: var(--color-text);
 }
 
-/* Logo artwork carries its own colors (Brand.tsx). */
+/* Logo artwork carries its own color (Brand.tsx); 538×427 artwork shown at 40×32. */
 .brand-mark {
   display: block;
-  width: var(--space-4);
+  width: 40px;
   height: var(--space-4);
   flex: 0 0 auto;
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
 }
 
 /* ---- Avatar ---- */
