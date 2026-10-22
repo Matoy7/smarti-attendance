@@ -213,3 +213,11 @@ export const DownloadIcon = (p: IconProps) => (
     <path d="M10 2.5V12.5M6.25 8.75L10 12.5L13.75 8.75M3.33 13.33V15.83C3.33 16.75 4.08 17.5 5 17.5H15C15.92 17.5 16.67 16.75 16.67 15.83V13.33" />
   </Icon>
 )
+
+/** Keyboard: manual time entry. */
+export const KeyboardIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="1.67" y="4.17" width="16.67" height="11.67" rx="2" />
+    <path d="M5 7.5H5.01M8.33 7.5H8.34M11.67 7.5H11.68M15 7.5H15.01M5 10.42H5.01M8.33 10.42H8.34M11.67 10.42H11.68M15 10.42H15.01M6.67 12.92H13.33" />
+  </Icon>
+)

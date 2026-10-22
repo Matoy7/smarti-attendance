@@ -60,13 +60,14 @@
   --palette-success: #1f9a5c;
   --palette-amber: #f39010;
 
-  /* Mobile attendance orb (דווח כניסה / יציאה): brand artwork, same in light and dark.
-     The inner disc's middle is deep enough for its white label to reach 3:1 (large text). */
-  --orb-outer: linear-gradient(180deg, #57bffc 0%, #2aa5fb 48%, #0a7fe6 100%);
-  --orb-inner: linear-gradient(180deg, #5cc0fb 0%, #1a98f2 50%, #0386f5 100%);
-  --orb-ring: color-mix(in srgb, #ffffff 30%, transparent);
-  --orb-inner-shadow: 0 7px 16px -2px color-mix(in srgb, #00508f 55%, transparent);
-  --orb-shadow: 0 14px 28px -14px color-mix(in srgb, #0a5fb0 70%, transparent);
+  /* Mobile attendance orb (דווח כניסה / יציאה): royal-blue disc with a soft blue glow,
+     same in light and dark. White label ≥ 4.5:1 on the disc's middle. */
+  --orb-fill: linear-gradient(150deg, #3b86f0 0%, #2a70e4 48%, #1655d4 100%);
+  --orb-glow: 0 0 28px 4px rgba(49, 126, 235, 0.26), 0 14px 26px -14px rgba(22, 85, 212, 0.6);
+
+  /* Mobile "הכנסה ידנית של שעה": outlined pill */
+  --color-outline-action-ink: #1d4fd1;
+  --color-outline-action-border: #8db4f7;
 
   /* Muted "smoky" navy for primary actions and links in the mobile layout */
   --palette-smoky-navy: #294465;
@@ -179,7 +180,7 @@
   --topbar-height: 64px;
   --bottom-nav-height: 64px;
   --drawer-width: min(320px, 85vw);
-  --punch-action-size: 208px;
+  --punch-action-size: 180px; /* mobile attendance orb */
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
 
@@ -253,6 +254,8 @@
   --color-danger-surface: #33201f;
   --color-danger-border: #5e3531;
   --color-danger-ink: #f7b0a8;
+  --color-outline-action-ink: #8ab8ff;
+  --color-outline-action-border: #3d5f97;
   --color-warning: #f4a63e;
   --color-warning-surface: #33270f;
   --color-warning-border: #5c4418;
@@ -281,7 +284,7 @@
     --mobile-gutter: var(--space-1-5);
     --text-display-size: 56px;
     --text-display-line: 56px;
-    --punch-action-size: 184px;
+    /* The attendance orb keeps its full size: it fits down to 320px-wide screens. */
   }
 }
 

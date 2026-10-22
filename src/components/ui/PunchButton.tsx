@@ -1,13 +1,12 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & { children: ReactNode; loading?: boolean }
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & { children: ReactNode; icon?: ReactNode; loading?: boolean }
 
 /**
- * Mobile attendance action (דווח כניסה / דווח יציאה): the round "orb" button — a blue disc with a
- * raised inner disc and a thin ring (styles: .punch-orb in mobile.css). The label sits above the
- * decorative layers.
+ * Mobile attendance action (דווח כניסה / דווח יציאה): the round royal-blue "orb" with an icon
+ * above the label (styles: .punch-orb in mobile.css). While loading, a spinner replaces the icon.
  */
-export function PunchButton({ className = '', children, type = 'button', loading = false, disabled, ...rest }: Props) {
+export function PunchButton({ className = '', children, icon, type = 'button', loading = false, disabled, ...rest }: Props) {
   return (
     <button
       type={type}
@@ -17,7 +16,7 @@ export function PunchButton({ className = '', children, type = 'button', loading
       {...rest}
     >
       <span className="punch-orb-label">
-        {loading && <span className="spinner spinner-lg" aria-hidden="true" />}
+        {loading ? <span className="spinner spinner-orb" aria-hidden="true" /> : icon && <span className="punch-orb-icon">{icon}</span>}
         {children}
       </span>
     </button>

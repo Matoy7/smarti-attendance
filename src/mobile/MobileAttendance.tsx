@@ -1,7 +1,7 @@
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
 import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
 import { Button, Card, PunchButton, TimeDisplay } from '@/components/ui'
-import { ClockIcon } from '@/components/icons'
+import { ClockIcon, KeyboardIcon, LoginIcon, LogoutIcon } from '@/components/icons'
 import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { LocationRow } from '@/components/attendance/LocationRow'
@@ -33,10 +33,10 @@ export function MobileAttendance() {
           {status === 'idle' && (
             <>
               <TimeDisplay className="m-clock" value={time} dateTime={time} />
-              <PunchButton onClick={clockIn} loading={pending === 'in'}>
+              <PunchButton onClick={clockIn} loading={pending === 'in'} icon={<LoginIcon size={52} strokeWidth={1.5} />}>
                 {pending === 'in' ? 'מדווח…' : 'דווח כניסה'}
               </PunchButton>
-              <Button variant="link" className="m-manual-entry text-body" disabled={pending !== null}>
+              <Button variant="link" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null}>
                 הכנסה ידנית של שעה
               </Button>
             </>
@@ -45,7 +45,7 @@ export function MobileAttendance() {
           {status === 'working' && firstIn && (
             <>
               <WorkingStatus firstIn={firstIn} now={now} workedMs={workedMs} titleId={TITLE_ID} />
-              <PunchButton onClick={clockOut} loading={pending === 'out'}>
+              <PunchButton onClick={clockOut} loading={pending === 'out'} icon={<LogoutIcon size={52} strokeWidth={1.5} />}>
                 {pending === 'out' ? 'מדווח…' : 'דווח יציאה'}
               </PunchButton>
             </>

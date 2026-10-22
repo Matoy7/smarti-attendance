@@ -107,13 +107,15 @@
 }
 
 /*
+ * Hover styles below sit in @media (hover: hover): on touch screens :hover sticks to the last
+ * tapped element, which would leave a tab or the orb highlighted after a tap.
+ */
+
+/*
  * Attendance action orb (דווח כניסה / דווח יציאה): the mobile counterpart of the desktop punch
- * button. Outer blue disc (button), raised inner disc (::before) and a thin light ring (::after),
- * all in % of the orb so it scales with --punch-action-size.
+ * button — a royal-blue disc with a soft glow, the action icon above the label.
  */
 .punch-orb {
-  position: relative;
-  isolation: isolate;
   display: grid;
   width: var(--punch-action-size);
   height: var(--punch-action-size);
@@ -123,8 +125,8 @@
   border: 0;
   border-radius: var(--radius-full);
   color: #ffffff;
-  background: var(--orb-outer);
-  box-shadow: var(--orb-shadow);
+  background: var(--orb-fill);
+  box-shadow: var(--orb-glow);
   font-family: inherit;
   font-size: var(--text-title-size);
   font-weight: var(--font-weight-bold);
@@ -135,40 +137,43 @@
     transform var(--duration-fast) var(--easing);
 }
 
-.punch-orb::before,
-.punch-orb::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  border-radius: var(--radius-full);
-  pointer-events: none;
-}
-
-/* Raised inner disc, lit along its top edge. */
-.punch-orb::before {
-  inset: 7%;
-  background: var(--orb-inner);
-  box-shadow:
-    var(--orb-inner-shadow),
-    inset 0 1px 0 color-mix(in srgb, #ffffff 40%, transparent);
-}
-
-/* Thin ring just inside the inner disc. */
-.punch-orb::after {
-  inset: 9.7%;
-  border: 1.5px solid var(--orb-ring);
-}
-
 .punch-orb-label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-0-5);
-  text-shadow: 0 1px 2px color-mix(in srgb, #003a73 35%, transparent);
+  gap: var(--space-1); /* + the icon's own inner margin = 16px glyph to label */
 }
 
-.punch-orb:hover:not(:disabled) {
-  filter: brightness(1.04);
+/* 52px box → ~40px arrow glyph (20-unit icon grid). */
+.punch-orb-icon,
+.punch-orb-icon svg {
+  display: block;
+  width: 52px;
+  height: 52px;
+}
+
+.spinner-orb {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 6px;
+}
+
+/* The reference draws the arrows as-is (into / out of the door on the right), not mirrored for RTL. */
+.punch-orb-icon .icon-rtl-mirror {
+  transform: none;
+}
+
+.spinner-orb {
+  box-sizing: border-box;
+  border-width: 3px;
+  color: #ffffff;
+}
+
+@media (hover: hover) {
+  .punch-orb:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
 }
 
 .punch-orb:active:not(:disabled) {
@@ -180,13 +185,35 @@
   opacity: 0.9;
 }
 
-.punch-orb .spinner {
-  color: #ffffff;
+/* "הכנסה ידנית של שעה": outlined pill under the orb, keyboard icon at the start (right). */
+.m-manual-entry.btn-link {
+  min-height: 44px; /* minimum tap size; the reference pill is slimmer */
+  margin-top: var(--space-3);
+  gap: var(--space-1);
+  padding: 0 20px;
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-line);
+  border: 1.5px solid var(--color-outline-action-border);
+  border-radius: var(--radius-full);
+  color: var(--color-outline-action-ink);
+  background: transparent;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
 }
 
-.m-manual-entry {
-  min-height: var(--touch-target);
-  margin-top: var(--space-1-5);
+.m-manual-entry.btn-link svg {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+
+@media (hover: hover) {
+  .m-manual-entry.btn-link:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-outline-action-border) 14%, transparent);
+  }
+}
+
+.m-manual-entry.btn-link:active:not(:disabled) {
+  background: color-mix(in srgb, var(--color-outline-action-border) 22%, transparent);
 }
 
 .m-location .icon-tile {
@@ -230,6 +257,7 @@
 
 /* ---- Bottom navigation ---- */
 .bottom-nav {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   position: fixed;
   inset-inline: 0;
   bottom: 0;
@@ -275,9 +303,11 @@
     color var(--duration-fast) var(--easing);
 }
 
-.bottom-nav-item:hover {
-  color: var(--color-text-on-dark);
-  background: var(--color-surface-on-dark);
+@media (hover: hover) {
+  .bottom-nav-item:hover {
+    color: var(--color-text-on-dark);
+    background: var(--color-surface-on-dark);
+  }
 }
 
 .bottom-nav-item.active {
@@ -292,8 +322,10 @@
   color: var(--color-text-on-dark-muted);
 }
 
-.bottom-nav-item:hover .bottom-nav-icon {
-  color: var(--color-text-on-dark-secondary);
+@media (hover: hover) {
+  .bottom-nav-item:hover .bottom-nav-icon {
+    color: var(--color-text-on-dark-secondary);
+  }
 }
 
 .bottom-nav-item.active .bottom-nav-icon {
@@ -324,12 +356,16 @@
   color: var(--color-text-tertiary);
 }
 
-.nav-item-light:hover {
-  background: var(--color-surface-hover);
+@media (hover: hover) {
+  .nav-item-light:hover {
+    background: var(--color-surface-hover);
+  }
 }
 
-.nav-item-light:hover svg {
-  color: var(--color-text);
+@media (hover: hover) {
+  .nav-item-light:hover svg {
+    color: var(--color-text);
+  }
 }
 
 .nav-item-light.active {
@@ -451,9 +487,14 @@
   transition: background-color var(--duration-fast) var(--easing);
 }
 
-.drawer-item:hover,
 .drawer-item:active {
   background: var(--color-surface-hover);
+}
+
+@media (hover: hover) {
+  .drawer-item:hover {
+    background: var(--color-surface-hover);
+  }
 }
 
 .drawer-item-label {
