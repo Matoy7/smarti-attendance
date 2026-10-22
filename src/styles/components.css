@@ -285,22 +285,14 @@
   color: var(--color-text);
 }
 
+/* Logo artwork carries its own colors (Brand.tsx). */
 .brand-mark {
-  display: grid;
+  display: block;
   width: var(--space-4);
   height: var(--space-4);
   flex: 0 0 auto;
-  place-items: center;
   border-radius: var(--radius-full);
-  background: var(--color-brand-mark);
   box-shadow: var(--shadow-sm);
-}
-
-.brand-mark span {
-  width: 14px;
-  height: 14px;
-  border-radius: var(--radius-full) 0 var(--radius-full) 0;
-  background: var(--color-sidebar);
 }
 
 /* ---- Avatar ---- */

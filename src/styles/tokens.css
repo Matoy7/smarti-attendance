@@ -56,10 +56,8 @@
 
   /* Soft accents: tinted panels and feedback */
   --palette-pastel-blue: #e4eefb;
-  --palette-lavender: #ece9fb;
   --palette-coral: #e5675b;
   --palette-success: #1f9a5c;
-  --palette-violet: #5b4fc4; /* ink for lavender tints */
 
   /* Muted "smoky" navy for primary actions and links in the mobile layout */
   --palette-smoky-navy: #294465;
@@ -73,7 +71,6 @@
   --color-icon-tile-ink: var(--palette-dark); /* icon inside IconTile */
   --color-icon-tile-surface: var(--palette-background); /* IconTile badge */
   --color-accent: var(--palette-accent);
-  --color-brand-mark: var(--palette-accent);
 
   /* Mobile layout roles (applied by .m-app, see mobile.css) */
   --color-primary-action-mobile: var(--palette-smoky-navy);
@@ -113,8 +110,8 @@
   /* Soft-accent roles */
   --color-tint-blue: var(--palette-pastel-blue); /* stat panel, location pin */
   --color-tint-blue-border: color-mix(in srgb, var(--palette-accent) 18%, var(--palette-pastel-blue));
-  --color-tint-lavender: var(--palette-lavender); /* summary total */
-  --color-tint-lavender-ink: color-mix(in srgb, var(--palette-violet) 70%, var(--palette-dark)); /* text on lavender, ≥ 4.5:1 */
+  --color-highlight: color-mix(in srgb, var(--palette-accent) 13%, var(--palette-surface)); /* summary total row */
+  --color-highlight-ink: color-mix(in srgb, var(--palette-accent) 62%, var(--palette-dark)); /* text on highlight, ≥ 4.5:1 */
 
   /* Feedback (success = confirmed attendance action; danger = restrained coral) */
   --color-success: var(--palette-success);
@@ -231,8 +228,8 @@
 
   --color-tint-blue: #1c2d43;
   --color-tint-blue-border: #2a4261;
-  --color-tint-lavender: #262445;
-  --color-tint-lavender-ink: #c3bcf7;
+  --color-highlight: #1c3250;
+  --color-highlight-ink: #8ccaf7;
 
   --color-success: #3cc47f;
   --color-success-surface: #13291f;

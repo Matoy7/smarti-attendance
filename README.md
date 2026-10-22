@@ -31,7 +31,7 @@ Deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `mai
 
 ## Design system
 
-- `src/styles/tokens.css` — spacing (8px grid), type scale, colors (incl. the mobile `-mobile` roles, soft pastel blue / lavender / coral accents and success/danger feedback roles), radii, shadows, layout sizes, z-index layers
+- `src/styles/tokens.css` — spacing (8px grid), type scale, colors (incl. the mobile `-mobile` roles, soft pastel blue / coral accents and success/danger feedback roles), radii, shadows, layout sizes, z-index layers
 - `src/styles/components.css` + `src/components/ui/` — Button, IconButton, PunchButton, Card, Avatar, IconTile, TimeDisplay, text styles (incl. `text-value` / `text-value-lg` for numbers)
 - `src/components/attendance/LocationRow.tsx` — work location, `footer` (desktop) and `tile` (mobile) variants (pin, details, edit)
 - `src/components/attendance/AttendanceFeedback.tsx` — action feedback banner

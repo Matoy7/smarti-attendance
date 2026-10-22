@@ -117,13 +117,13 @@
   color: var(--color-text);
 }
 
-/* The day's total is the answer the summary exists for: lavender row, bold value. */
+/* The day's total is the answer the summary exists for: light-blue row, bold value. */
 .summary-row-total {
-  background: var(--color-tint-lavender);
+  background: var(--color-highlight);
 }
 
 .summary-row-total dt {
-  color: var(--color-tint-lavender-ink);
+  color: var(--color-highlight-ink);
   font-weight: var(--font-weight-medium);
 }
 
@@ -132,6 +132,6 @@
 }
 
 .summary-row-total .icon-tile {
-  color: var(--color-tint-lavender-ink);
+  color: var(--color-highlight-ink);
   background: var(--color-surface);
 }
