@@ -1,0 +1,14 @@
+# Cloudflare Worker: address autocomplete proxy for סמארטי-טיים.
+# Deploy:  cd server/places-proxy && npx wrangler deploy
+# Secret:  npx wrangler secret put GOOGLE_PLACES_API_KEY
+name = "smarti-time-places"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Comma-separated browser origins allowed to call the proxy (scheme + host, no path).
+ALLOWED_ORIGINS = "https://matoy7.github.io,http://localhost:8443"
+LANGUAGE_CODE = "he"
+REGION_CODE = "il"
+# Restrict suggestions to these countries (CLDR codes, max 15). Empty string = no restriction.
+INCLUDED_REGION_CODES = "il"

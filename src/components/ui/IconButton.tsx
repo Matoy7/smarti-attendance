@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react'
 
 type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
   /** Accessible name — icon buttons have no visible text. */
@@ -8,6 +8,7 @@ type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
   tone?: 'ghost' | 'on-dark' | 'surface'
   /** `touch` = 48px target for mobile */
   size?: 'md' | 'touch'
+  ref?: Ref<HTMLButtonElement>
 }
 
 export function IconButton({ label, icon, tone = 'ghost', size = 'md', className = '', type = 'button', ...rest }: Props) {

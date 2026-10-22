@@ -1,6 +1,6 @@
 import type { Permission } from './permissions'
 
-/** Demo user and work location shown on the attendance screen (no backend yet). */
+/** Demo user and the default work location (no backend yet; a saved location overrides it, see lib/location.ts). */
 export const USER = {
   firstName: 'מיכל',
   fullName: 'מיכל לוי',
@@ -12,6 +12,4 @@ export const USER = {
 export const LOCATION = {
   name: 'משרדי החברה (תל אביב)',
   address: "ליאונרדו דה וינצ'י 21, תל אביב-יפו, ישראל",
-  /** Mobile design shows the address without the country. */
-  shortAddress: "ליאונרדו דה וינצ'י 21, תל אביב-יפו",
 }

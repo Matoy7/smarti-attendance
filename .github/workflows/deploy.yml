@@ -27,6 +27,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec tsc --noEmit -p .
       - run: pnpm build
+        env:
+          # Public URL of server/places-proxy (repo variable, not a secret). Empty → location search unavailable.
+          VITE_PLACES_PROXY_URL: ${{ vars.PLACES_PROXY_URL }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

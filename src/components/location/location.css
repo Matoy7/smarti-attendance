@@ -1,0 +1,343 @@
+/*
+ * Location editing: one sheet (<dialog>) with two presentations —
+ * .sheet-modal (desktop, centered) and .sheet-drawer (mobile, bottom) — plus the shared picker.
+ * Tokens only, so the dark theme applies automatically.
+ */
+
+/* ---- Sheet shell ---- */
+.sheet {
+  /* Reset the UA dialog box; the panel inside carries the visuals. */
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  color: var(--color-text);
+  background: transparent;
+  overflow: visible;
+}
+
+.sheet::backdrop {
+  background: var(--color-overlay);
+  animation: sheet-fade var(--duration-medium) var(--easing);
+}
+
+.sheet-panel {
+  display: flex;
+  min-height: 0;
+  max-height: inherit;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-drawer);
+}
+
+.sheet-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sheet-header h2 {
+  margin: 0;
+}
+
+/* The only scrolling region; never chains scroll to the page behind. */
+.sheet-body {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sheet-footer {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  gap: var(--space-1-5);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+}
+
+.sheet-action {
+  min-width: 112px;
+}
+
+/* Desktop: centered modal. */
+.sheet-modal {
+  width: min(560px, calc(100vw - 2 * var(--space-4)));
+  max-height: min(720px, calc(100dvh - 2 * var(--space-6)));
+  margin: auto;
+}
+
+.sheet-modal .sheet-panel {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  animation: sheet-pop var(--duration-medium) var(--easing);
+}
+
+/* Mobile: bottom drawer. Lifted above the on-screen keyboard via --keyboard-inset (useKeyboardInset). */
+.sheet-drawer {
+  width: 100%;
+  max-width: var(--mobile-max-width);
+  max-height: calc(100dvh - var(--safe-top) - var(--space-3) - var(--keyboard-inset, 0px));
+  margin: auto auto var(--keyboard-inset, 0px);
+}
+
+.sheet-drawer .sheet-panel {
+  position: relative;
+  border-bottom: 0;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  animation: sheet-rise var(--duration-medium) var(--easing);
+}
+
+.sheet-drawer .sheet-header {
+  padding: var(--space-3) var(--mobile-gutter) var(--space-1-5);
+  padding-inline-end: var(--space-1);
+}
+
+.sheet-drawer .sheet-body {
+  padding: var(--space-2) var(--mobile-gutter);
+}
+
+.sheet-drawer .sheet-footer {
+  padding: var(--space-1-5) var(--mobile-gutter) calc(var(--space-1-5) + var(--safe-bottom));
+}
+
+.sheet-drawer .sheet-action {
+  height: var(--touch-target);
+  flex: 1 1 0;
+}
+
+.sheet-grabber {
+  position: absolute;
+  top: var(--space-1);
+  left: 50%;
+  width: 36px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  transform: translateX(-50%);
+}
+
+@keyframes sheet-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-pop {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-1)) scale(0.98);
+  }
+}
+
+@keyframes sheet-rise {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+/* ---- Current location ---- */
+.loc-current {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1-5) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-subtle);
+}
+
+.loc-current-pin {
+  color: var(--color-link);
+  background: var(--color-tint-blue);
+}
+
+/* ---- Picker ---- */
+.loc-picker {
+  display: flex;
+  flex-direction: column;
+}
+
+.loc-label {
+  margin-bottom: var(--space-1);
+  color: var(--color-text);
+}
+
+.loc-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.loc-search-icon {
+  position: absolute;
+  inset-inline-start: var(--space-1-5);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+.loc-search-spinner {
+  position: absolute;
+  inset-inline-end: var(--space-1-5);
+  color: var(--color-link);
+}
+
+.loc-input {
+  width: 100%;
+  height: var(--touch-target);
+  padding-inline: calc(var(--space-1-5) + var(--icon-size-md) + var(--space-1)) calc(var(--space-1-5) + var(--icon-size-md) + var(--space-1));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: var(--color-surface);
+  font-size: var(--text-body-size); /* ≥ 16px: no iOS zoom on focus */
+  line-height: var(--text-body-line);
+  transition:
+    border-color var(--duration-fast) var(--easing),
+    box-shadow var(--duration-fast) var(--easing);
+}
+
+.loc-input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.loc-input:focus {
+  border-color: var(--color-focus);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 25%, transparent);
+}
+
+.loc-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.loc-hint {
+  margin: var(--space-1) 0 0;
+}
+
+.loc-results {
+  display: flex;
+  max-height: 320px;
+  flex-direction: column;
+  margin: var(--space-1) 0 0;
+  padding: var(--space-0-5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  list-style: none;
+}
+
+.loc-results[hidden] {
+  display: none;
+}
+
+.loc-option {
+  display: flex;
+  min-height: var(--touch-target);
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1) var(--space-1-5);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.loc-option.active {
+  background: var(--color-surface-selected);
+}
+
+.loc-option-icon {
+  flex: 0 0 auto;
+  color: var(--color-text-tertiary);
+}
+
+.loc-option.active .loc-option-icon {
+  color: var(--color-link);
+}
+
+.loc-option-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  text-align: start;
+}
+
+.loc-option-primary {
+  overflow: hidden;
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-body-line);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loc-option-secondary {
+  overflow: hidden;
+  color: var(--color-text-tertiary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Empty / error messages under the field. */
+.loc-state {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: var(--space-1) 0 0;
+  padding: var(--space-1-5) var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+}
+
+.loc-state-error {
+  border: 1px solid var(--color-danger-border);
+  color: var(--color-danger-ink);
+  background: var(--color-danger-surface);
+}
+
+.loc-state-error svg {
+  flex: 0 0 auto;
+  color: var(--color-danger);
+}
+
+.loc-retry {
+  margin-inline-start: auto;
+  color: inherit;
+  font-weight: var(--font-weight-medium);
+}
+
+/* The picked suggestion: what Save will store. */
+.loc-selected {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  margin-top: var(--space-2);
+  padding: var(--space-1-5) var(--space-2);
+  border: 1px solid var(--color-success-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-success-surface);
+}
+
+.loc-selected-icon {
+  flex: 0 0 auto;
+  color: var(--color-success);
+}

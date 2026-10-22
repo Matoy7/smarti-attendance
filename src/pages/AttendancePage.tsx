@@ -1,5 +1,5 @@
 import { formatLongDate, greetingFor, toTimeOfDay } from '@/lib/time'
-import { LOCATION, USER } from '@/lib/profile'
+import { USER } from '@/lib/profile'
 import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
 import { Button, Card, CardBody, CardFooter, TimeDisplay } from '@/components/ui'
 import { ClockIcon, LogoutIcon } from '@/components/icons'
@@ -81,7 +81,7 @@ export function AttendancePage() {
         </CardBody>
 
         <CardFooter>
-          <LocationRow variant="footer" name={LOCATION.name} address={LOCATION.address} />
+          <LocationRow variant="footer" />
         </CardFooter>
       </Card>
 

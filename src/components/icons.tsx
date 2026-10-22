@@ -172,3 +172,10 @@ export const MoonIcon = (p: IconProps) => (
     <path d="M17.5 10.66A7.5 7.5 0 1 1 9.34 2.5 5.83 5.83 0 0 0 17.5 10.66Z" />
   </Icon>
 )
+
+export const SearchIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="9.17" cy="9.17" r="5.83" />
+    <path d="M17.5 17.5L13.33 13.33" />
+  </Icon>
+)

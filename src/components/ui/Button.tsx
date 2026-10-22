@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'link'
+  variant?: 'primary' | 'secondary' | 'link'
   size?: 'md' | 'lg'
   block?: boolean
   icon?: ReactNode

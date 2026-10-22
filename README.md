@@ -17,7 +17,18 @@ and **ניהול ארגוני** (דיווחי עובדים — shown only with t
 Desktop sidebar and mobile menu render it identically; the mobile bottom bar uses the same order and permission.
 Only דיווח נוכחות has a screen so far; the other items have no destination yet.
 There is no backend: today's sessions are kept in the browser's `localStorage` only (reset the next day).
-The other sidebar items, "הכנסה ידנית של שעה" and the location edit button are rendered as designed but not wired yet.
+The other sidebar items and "הכנסה ידנית של שעה" are rendered as designed but not wired yet.
+
+**Work location** — the pencil on the location row opens "שינוי מיקום עבודה": a centered modal on desktop, a bottom
+drawer on mobile, both the same `LocationDialog` + `LocationPicker` (`src/components/location/`). Address/place search
+with autocomplete (primary + secondary line, keyboard navigation, loading / empty / error + retry states); Save is
+enabled only after a suggestion is picked, and nothing changes until Save is confirmed (Cancel, ✕, Escape and the
+backdrop keep the previous location). The saved location is kept in `localStorage` (`src/lib/location.ts`).
+
+Autocomplete goes through `server/places-proxy` (Cloudflare Worker → Google Places API (New)), which holds the API key.
+**External setup required** — see `server/places-proxy/README.md`: deploy the Worker with the
+`GOOGLE_PLACES_API_KEY` secret, then add the repo variable `PLACES_PROXY_URL`. Until then the dialog says address
+search is unavailable; there is no placeholder data.
 
 ```bash
 pnpm install

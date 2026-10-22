@@ -135,6 +135,22 @@
   background: var(--color-primary-action-hover);
 }
 
+.btn-secondary {
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+}
+
+.btn:disabled:not(.is-loading):not(.btn-link) {
+  box-shadow: none;
+  opacity: 0.5;
+}
+
 .btn-link {
   height: auto;
   padding: 0;

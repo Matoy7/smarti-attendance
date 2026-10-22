@@ -1,5 +1,4 @@
 import { formatLongDate, toTimeOfDay } from '@/lib/time'
-import { LOCATION } from '@/lib/profile'
 import { useAttendanceFlow } from '@/hooks/useAttendanceFlow'
 import { Button, Card, PunchButton, TimeDisplay } from '@/components/ui'
 import { ClockIcon, LogoutIcon } from '@/components/icons'
@@ -70,7 +69,7 @@ export function MobileAttendance() {
         </div>
 
         {/* The day summary does not show the location (mobile). */}
-        {status !== 'summary' && <LocationRow variant="tile" name={LOCATION.name} address={LOCATION.shortAddress} />}
+        {status !== 'summary' && <LocationRow variant="tile" />}
       </Card>
 
       <p className="sr-only" role="status" aria-live="polite">
