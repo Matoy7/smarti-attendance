@@ -179,3 +179,37 @@ export const SearchIcon = (p: IconProps) => (
     <path d="M17.5 17.5L13.33 13.33" />
   </Icon>
 )
+
+export const PlusIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M10 4.17V15.83M4.17 10H15.83" />
+  </Icon>
+)
+
+export const ChevronDownIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 7.5L10 12.5L15 7.5" />
+  </Icon>
+)
+
+/** Horizontal "more" (⋯): row actions. */
+export const MoreIcon = (p: IconProps) => (
+  <Icon stroke="none" fill="currentColor" {...p}>
+    <circle cx="4.17" cy="10" r="1.5" />
+    <circle cx="10" cy="10" r="1.5" />
+    <circle cx="15.83" cy="10" r="1.5" />
+  </Icon>
+)
+
+/** Small status glyphs (approval badges, action menus). */
+export const CheckIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4.17 10.42L8.13 14.17L15.83 5.83" />
+  </Icon>
+)
+
+export const XIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5.42 5.42L14.58 14.58M14.58 5.42L5.42 14.58" />
+  </Icon>
+)

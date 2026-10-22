@@ -365,6 +365,11 @@
 }
 
 /* ---- Focus ---- */
+/* Page headings receive focus on navigation (screen readers); they are not interactive. */
+[data-page-title]:focus {
+  outline: none;
+}
+
 :where(button, a):focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;

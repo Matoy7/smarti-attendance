@@ -1,12 +1,14 @@
 import { Fragment } from 'react'
-import { CURRENT_NAV, visibleNavSections } from '@/lib/navigation'
+import { visibleNavSections, type NavId } from '@/lib/navigation'
+import { navigate, useRoute } from '@/lib/router'
 
 /**
  * Grouped main navigation (אזור אישי / ניהול ארגוני). Used by the desktop
  * sidebar (`dark`) and the mobile menu (`light`) so both stay identical.
  */
-export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNavigate?: (id: string) => void }) {
+export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNavigate?: (id: NavId) => void }) {
   const sections = visibleNavSections()
+  const current = useRoute()
   return (
     <>
       {sections.map((section, index) => (
@@ -18,7 +20,7 @@ export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNa
             </h2>
             <ul className="nav-section-list">
               {section.items.map(({ id, label, Icon }) => {
-                const active = id === CURRENT_NAV
+                const active = id === current
                 return (
                   <li key={id}>
                     <button
@@ -26,7 +28,10 @@ export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNa
                       className={`nav-item nav-item-${tone} ${active ? 'active' : ''}`}
                       aria-current={active ? 'page' : undefined}
                       data-destination={id}
-                      onClick={() => onNavigate?.(id)}
+                      onClick={() => {
+                        navigate(id)
+                        onNavigate?.(id)
+                      }}
                     >
                       <Icon />
                       <span>{label}</span>

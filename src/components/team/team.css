@@ -1,0 +1,85 @@
+/* דיווחי עובדים — pieces shared by the desktop table and the mobile list. */
+
+/* ---- Approval badge ---- */
+.approval {
+  display: inline-flex;
+  height: 26px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-0-5);
+  padding: 0 var(--space-1-5);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-caption-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.approval svg {
+  flex: 0 0 auto;
+}
+
+.approval-approved {
+  color: var(--color-success-ink);
+  background: var(--color-success-surface);
+}
+
+.approval-approved svg {
+  color: var(--color-success);
+}
+
+.approval-pending {
+  color: var(--color-warning-ink);
+  background: var(--color-warning-surface);
+}
+
+.approval-pending svg {
+  color: var(--color-warning);
+}
+
+.approval-rejected {
+  color: var(--color-danger-ink);
+  background: var(--color-danger-surface);
+}
+
+.approval-rejected svg {
+  color: var(--color-danger);
+}
+
+/* ---- Employee avatar ---- */
+.emp-avatar {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+.emp-avatar-md {
+  width: var(--control-height-md);
+  height: var(--control-height-md);
+  font-size: var(--text-label-size);
+}
+
+.emp-avatar-lg {
+  width: var(--space-6);
+  height: var(--space-6);
+  font-size: var(--text-body-size);
+}
+
+.emp-avatar-tint-0 {
+  color: var(--color-link);
+  background: var(--color-tint-blue);
+}
+
+.emp-avatar-tint-1 {
+  color: var(--color-highlight-ink);
+  background: var(--color-highlight);
+}
+
+.emp-avatar-tint-2 {
+  color: var(--color-text-secondary);
+  background: var(--color-surface-hover);
+}

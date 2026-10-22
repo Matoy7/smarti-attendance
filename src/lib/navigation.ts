@@ -5,7 +5,7 @@ import { USER } from './profile'
 
 /**
  * Main navigation, shared by the desktop sidebar, the mobile menu and the
- * mobile bottom bar. Ids are the destinations; only 'attendance' has a screen so far.
+ * mobile bottom bar. Ids are the destinations; lib/router.ts lists which have a screen.
  */
 export type NavId = 'attendance' | 'absences' | 'my-reports' | 'settings' | 'team-reports'
 
@@ -46,8 +46,6 @@ export const NAV_SECTIONS: NavSection[] = [
 
 /** Destinations available as bottom-bar tabs on mobile (settings lives in the menu). */
 export const BOTTOM_BAR_IDS: NavId[] = ['attendance', 'absences', 'my-reports', 'team-reports']
-
-export const CURRENT_NAV: NavId = 'attendance'
 
 /** Sections the current user may see. */
 export function visibleNavSections(user = USER): NavSection[] {

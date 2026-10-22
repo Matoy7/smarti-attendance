@@ -21,7 +21,7 @@ export function MobileAttendance() {
       <Card className="m-punch-card" aria-labelledby="m-attendance-title">
         <header className="m-card-header">
           {/* Page name stays available to screen readers; it is not shown visually. */}
-          <h1 id="m-attendance-title" className="sr-only">
+          <h1 id="m-attendance-title" className="sr-only" data-page-title tabIndex={-1}>
             דיווח נוכחות
           </h1>
           <p className="text-body text-secondary">{formatLongDate(now)}</p>

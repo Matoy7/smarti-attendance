@@ -22,7 +22,7 @@ export function AttendancePage() {
     <div className="page">
       <header className="page-header">
         <p className="text-body-lg text-secondary">{formatLongDate(now)}</p>
-        <h1 className="text-title">
+        <h1 className="text-title" data-page-title tabIndex={-1}>
           {greetingFor(now)}, {USER.firstName}
         </h1>
       </header>

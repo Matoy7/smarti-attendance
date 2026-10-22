@@ -1,0 +1,401 @@
+/* דיווחי עובדים — desktop. */
+
+.page-wide {
+  width: min(1120px, 100%);
+  gap: var(--space-3);
+}
+
+/* ---- Toolbar: search (start), month, department, add (end) ---- */
+.team-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.search-field {
+  position: relative;
+  display: flex;
+  min-width: 240px;
+  flex: 1 1 280px;
+  align-items: center;
+}
+
+.search-field-icon {
+  position: absolute;
+  inset-inline-start: var(--space-1-5);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+.search-field input,
+.select-field select {
+  width: 100%;
+  height: var(--control-height-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-line);
+  transition:
+    border-color var(--duration-fast) var(--easing),
+    box-shadow var(--duration-fast) var(--easing);
+}
+
+.search-field input {
+  height: 44px;
+  padding-inline: calc(var(--space-1-5) + var(--icon-size-md) + var(--space-1)) var(--space-1-5);
+}
+
+.search-field input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.search-field input:focus,
+.select-field select:focus-visible {
+  border-color: var(--color-focus);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 25%, transparent);
+}
+
+.select-field {
+  position: relative;
+  display: inline-flex;
+  min-width: 168px;
+  flex: 0 0 auto;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+
+.select-field select {
+  height: 44px;
+  padding-inline: var(--space-1-5) calc(var(--space-1-5) + 18px + var(--space-1));
+  appearance: none;
+  cursor: pointer;
+}
+
+.select-field.has-icon select {
+  padding-inline-start: calc(var(--space-1-5) + 18px + var(--space-1));
+}
+
+.select-field-icon,
+.select-field-chevron {
+  position: absolute;
+  display: grid;
+  pointer-events: none;
+}
+
+.select-field-icon {
+  inset-inline-start: var(--space-1-5);
+}
+
+.select-field-chevron {
+  inset-inline-end: var(--space-1-5);
+}
+
+.team-add {
+  height: 44px;
+  margin-inline-start: auto;
+}
+
+/* ---- View tabs ---- */
+.team-tabs {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.team-tab {
+  height: var(--control-height-md);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--easing),
+    color var(--duration-fast) var(--easing);
+}
+
+.team-tab:hover:not(.active) {
+  color: var(--color-text);
+  background: var(--color-surface-hover);
+}
+
+.team-tab.active {
+  border-color: transparent;
+  color: var(--color-text-on-dark);
+  background: var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---- Table card ---- */
+.team-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.team-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  text-align: start;
+}
+
+.team-table th,
+.team-table td {
+  height: 60px;
+  padding: 0 var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--text-label-line);
+  text-align: start;
+  white-space: nowrap;
+}
+
+.team-table thead th {
+  height: 48px;
+  color: var(--color-text-tertiary);
+  background: var(--color-surface-subtle);
+  font-size: var(--text-caption-size);
+  font-weight: var(--font-weight-medium);
+}
+
+.team-table tbody tr {
+  transition: background-color var(--duration-fast) var(--easing);
+}
+
+.team-table tbody tr:hover,
+.team-table tbody tr.selected {
+  background: color-mix(in srgb, var(--color-surface-selected) 60%, transparent);
+}
+
+.team-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.team-table .col-check {
+  width: 56px;
+  padding-inline-end: 0;
+}
+
+.team-table .col-status,
+.team-table .col-actions {
+  text-align: center;
+}
+
+.team-table .col-actions {
+  width: 88px;
+}
+
+.emp-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.emp-name {
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-semibold);
+}
+
+.check {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  vertical-align: middle;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.row-more {
+  display: inline-grid;
+  width: var(--control-height-md);
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-hover);
+  cursor: pointer;
+}
+
+.row-more:hover,
+.row-more[aria-expanded='true'] {
+  color: var(--color-text);
+  background: var(--color-surface-selected);
+}
+
+.row-menu {
+  position: fixed;
+  z-index: var(--z-drawer);
+  display: flex;
+  min-width: 176px;
+  flex-direction: column;
+  padding: var(--space-0-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-drawer);
+}
+
+.row-menu-item {
+  display: flex;
+  height: var(--control-height-md);
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-1-5);
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  text-align: start;
+  cursor: pointer;
+}
+
+.row-menu-item:hover,
+.row-menu-item:focus-visible {
+  outline: none;
+  background: var(--color-surface-hover);
+}
+
+.row-menu-approve svg {
+  color: var(--color-success);
+}
+
+.row-menu-reject svg {
+  color: var(--color-danger);
+}
+
+/* ---- Bulk actions (shown while rows are selected) ---- */
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1-5) var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-selected);
+}
+
+.bulk-bar > :first-child {
+  margin-inline-end: var(--space-1);
+  color: var(--color-text);
+}
+
+.bulk-approve svg {
+  color: var(--color-success);
+}
+
+.bulk-reject svg {
+  color: var(--color-danger);
+}
+
+.bulk-action svg {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+
+.bulk-clear {
+  margin-inline-start: auto;
+}
+
+/* ---- Empty ---- */
+.team-table td.team-empty {
+  height: 160px;
+  text-align: center;
+}
+
+.team-empty > * {
+  display: block;
+}
+
+.team-empty strong {
+  margin-bottom: var(--space-0-5);
+  color: var(--color-text);
+}
+
+/* ---- Footer: range (start), pages (end) ---- */
+.team-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1-5) var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+
+.team-range {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.page-size {
+  min-width: 72px;
+}
+
+.page-size select {
+  height: var(--control-height-md);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0-5);
+}
+
+.pager-btn {
+  display: inline-grid;
+  min-width: 36px;
+  height: 36px;
+  place-items: center;
+  padding: 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.pager-btn:hover:not(:disabled):not(.active) {
+  background: var(--color-surface-hover);
+}
+
+.pager-btn.active {
+  color: var(--color-link);
+  background: var(--color-tint-blue);
+  font-weight: var(--font-weight-semibold);
+}
+
+.pager-btn:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.pager-gap {
+  padding: 0 var(--space-0-5);
+  color: var(--color-text-tertiary);
+}
+
+/* The chevron icon points left (next page in RTL); flipped for "previous". */
+.icon-flip {
+  transform: scaleX(-1);
+}

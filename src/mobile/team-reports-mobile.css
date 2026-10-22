@@ -1,0 +1,239 @@
+/* דיווחי עובדים — mobile (≤760px). Shared field styles come from pages/team-reports.css. */
+
+.m-team {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.m-team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1-5);
+  padding-top: var(--space-1);
+}
+
+.m-team-header h1 {
+  margin: 0;
+}
+
+.m-team-add {
+  height: var(--touch-target);
+  padding: 0 var(--space-2);
+}
+
+.m-team-filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Touch-size fields; 16px text so iOS doesn't zoom on focus. */
+.m-team .search-field {
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+.m-team .search-field input,
+.m-team .select-field select {
+  height: var(--touch-target);
+  font-size: var(--text-body-size);
+}
+
+.m-team-selects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1);
+}
+
+.m-team .select-field {
+  min-width: 0;
+}
+
+.m-team .select-field select {
+  text-overflow: ellipsis;
+}
+
+/* Segmented control */
+.m-segmented {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-0-5);
+  padding: var(--space-0-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+}
+
+.m-segmented button {
+  height: 44px; /* touch target */
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--easing),
+    color var(--duration-fast) var(--easing);
+}
+
+.m-segmented button.active {
+  color: var(--color-text-on-dark);
+  background: var(--color-primary-action);
+  box-shadow: var(--shadow-xs);
+}
+
+.m-team-count {
+  margin: 0;
+}
+
+/* Card list */
+.m-team-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  list-style: none;
+}
+
+.m-team-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1-5);
+  padding: var(--space-2) var(--space-1) var(--space-2) var(--space-2);
+}
+
+.m-team-item + .m-team-item {
+  border-top: 1px solid var(--color-border);
+}
+
+.m-team-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-0-5);
+}
+
+.m-team-copy .approval {
+  margin-top: var(--space-0-5);
+}
+
+.m-team-name {
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-body-line);
+}
+
+.m-team-copy > span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.m-team-more {
+  display: grid;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  flex: 0 0 auto;
+  place-items: center;
+  margin-top: calc(-1 * var(--space-0-5));
+  border: 0;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+}
+
+.m-team-more:active {
+  background: var(--color-surface-hover);
+}
+
+.m-team-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-0-5);
+  padding: var(--space-5) var(--space-2);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  text-align: center;
+}
+
+.m-team-more-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.m-team-load {
+  height: var(--touch-target);
+}
+
+/* ---- Action sheet ---- */
+.action-sheet-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.action-sheet-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.action-sheet-list {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-1);
+}
+
+.action-sheet-item {
+  display: flex;
+  min-height: var(--control-height-lg);
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-medium);
+  text-align: start;
+  cursor: pointer;
+}
+
+.action-sheet-item:active,
+.action-sheet-item:focus-visible {
+  outline: none;
+  background: var(--color-surface-hover);
+}
+
+.action-sheet-item.tone-success svg {
+  color: var(--color-success);
+}
+
+.action-sheet-item.tone-danger {
+  color: var(--color-danger-ink);
+}
+
+.action-sheet-item.tone-danger svg {
+  color: var(--color-danger);
+}

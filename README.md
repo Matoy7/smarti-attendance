@@ -4,7 +4,7 @@
 
 Hebrew RTL attendance management web app (React 19 + Vite 8 + Tailwind v4), built from the Figma Make desktop export.
 
-**Status:** only the Attendance screen (נוכחות) is implemented. Flow: before clock-in → **working**
+**Status:** two screens — Attendance (נוכחות, `#/attendance`) and Employee reports (דיווחי עובדים, `#/team-reports`, managers only). Flow: before clock-in → **working**
 (start time, current time, live "זמן עבודה עד כה" in HH:MM, דווח יציאה) → **day summary** (first in, last out,
 total; חזרה למסך נוכחות returns to the clock-in screen — a later clock-in adds to the day's total). State: `src/hooks/useAttendanceDay.ts`.
 Clock-in/out resolve only after the record is saved and read back (`useAttendanceFlow`): the button shows a spinner while pending,
@@ -15,7 +15,14 @@ navigation); wider viewports render the desktop layout. Both share the same cloc
 Navigation is one shared model (`src/lib/navigation.ts`): **אזור אישי** (דיווח נוכחות, דיווח היעדרות, הדיווחים שלי, הגדרות)
 and **ניהול ארגוני** (דיווחי עובדים — shown only with the `org.attendance.manage` permission, see `src/lib/permissions.ts`).
 Desktop sidebar and mobile menu render it identically; the mobile bottom bar uses the same order and permission.
-Only דיווח נוכחות has a screen so far; the other items have no destination yet.
+Routing is hash-based (`src/lib/router.ts`): דיווח נוכחות and דיווחי עובדים have screens; the other items have no destination yet.
+
+**דיווחי עובדים** — the manager's monthly approval of each employee's attendance report (אושר / ממתין לאישור / נדחה).
+Desktop (`src/pages/TeamReportsPage.tsx`): search, month and department filters, כל העובדים / בקשות לאישור views, table with
+row selection + bulk approve/reject, a ⋯ actions menu per row, and pagination. Mobile (`src/mobile/MobileTeamReports.tsx`):
+the same data and actions as a card list with native pickers, a segmented control, an approve/reject action sheet and
+"show more". Shared logic: `src/hooks/useTeamReports.ts`. **Demo data** (`src/lib/teamReports.ts`, no backend yet):
+28 employees, statuses stable per month; approve/reject decisions live in memory. "הוספת בקשה" is rendered but not wired yet.
 There is no backend: today's sessions are kept in the browser's `localStorage` only (reset the next day).
 The other sidebar items and "הכנסה ידנית של שעה" are rendered as designed but not wired yet.
 

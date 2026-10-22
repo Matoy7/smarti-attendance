@@ -58,6 +58,7 @@
   --palette-pastel-blue: #e4eefb;
   --palette-coral: #e5675b;
   --palette-success: #1f9a5c;
+  --palette-amber: #f39010;
 
   /* Muted "smoky" navy for primary actions and links in the mobile layout */
   --palette-smoky-navy: #294465;
@@ -122,6 +123,11 @@
   --color-danger-surface: color-mix(in srgb, var(--palette-coral) 9%, var(--palette-surface));
   --color-danger-border: color-mix(in srgb, var(--palette-coral) 30%, var(--palette-surface));
   --color-danger-ink: color-mix(in srgb, var(--palette-coral) 55%, var(--palette-dark)); /* text, ≥ 4.5:1 */
+  /* Warning = waiting for a decision (e.g. report pending approval) */
+  --color-warning: var(--palette-amber);
+  --color-warning-surface: color-mix(in srgb, var(--palette-amber) 11%, var(--palette-surface));
+  --color-warning-border: color-mix(in srgb, var(--palette-amber) 32%, var(--palette-surface));
+  --color-warning-ink: color-mix(in srgb, var(--palette-amber) 60%, var(--palette-dark)); /* text, ≥ 4.5:1 */
 
   /* Radius */
   --radius-sm: 8px;
@@ -239,6 +245,10 @@
   --color-danger-surface: #33201f;
   --color-danger-border: #5e3531;
   --color-danger-ink: #f7b0a8;
+  --color-warning: #f4a63e;
+  --color-warning-surface: #33270f;
+  --color-warning-border: #5c4418;
+  --color-warning-ink: #f6c877;
 
   --shadow-xs: 0 1px 2px color-mix(in srgb, #000 30%, transparent);
   --shadow-sm: 0 1px 2px color-mix(in srgb, #000 30%, transparent), 0 4px 12px -6px color-mix(in srgb, #000 50%, transparent);
