@@ -11,7 +11,13 @@
   --color-link: var(--color-link-mobile);
   --color-link-underline: var(--color-link-underline-mobile);
 
+  /* Vertical rhythm of the attendance card: follows the viewport height (18px on a 667px phone, 24px from ~860px). */
+  --m-gap: clamp(var(--space-2), 2.8dvh, var(--space-3));
+
+  /* Column: top bar, then content filling the rest of the viewport (the bottom nav is fixed over its padding). */
+  display: flex;
   min-height: 100dvh;
+  flex-direction: column;
   color: var(--color-text);
   background: var(--color-canvas);
   background-attachment: fixed;
@@ -63,9 +69,30 @@
 
 /* ---- Content ---- */
 .m-main {
+  display: flex;
+  width: 100%;
   max-width: var(--mobile-max-width);
+  flex: 1 0 auto; /* at least the height between the top bar and the bottom nav; grows (scrolls) with content */
+  flex-direction: column;
   margin: 0 auto;
-  padding: var(--space-1) var(--mobile-gutter) calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-3));
+  padding: var(--space-1) var(--mobile-gutter) calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--m-gap));
+}
+
+/*
+ * Attendance: the card fills the available height. The state's main readout (clock / working timer /
+ * day summary) centers in the free space, which keeps the action button, manual entry and location
+ * at the bottom of the card — in thumb reach, just above the bottom nav.
+ */
+.m-main-fit > .m-punch-card {
+  flex: 1 0 auto;
+}
+
+.m-main-fit .m-state {
+  flex: 1 0 auto;
+}
+
+.m-main-fit .m-state > :is(.m-clock, .working-status, .day-summary) {
+  margin-block: auto;
 }
 
 .m-punch-card {
@@ -89,7 +116,7 @@
 
 /* State area between the card header and the location row. */
 .m-state {
-  margin-top: var(--space-3);
+  margin-top: var(--m-gap);
 }
 
 .m-state .working-status,
@@ -99,7 +126,7 @@
 }
 
 .m-state-action {
-  margin-top: var(--space-3);
+  margin-top: var(--m-gap);
 }
 
 /*
@@ -115,7 +142,8 @@
   display: grid;
   width: var(--punch-action-size);
   height: var(--punch-action-size);
-  margin-top: var(--space-3);
+  flex: 0 0 auto;
+  margin-top: var(--m-gap);
   place-items: center;
   padding: 0;
   border: 0;
@@ -184,7 +212,7 @@
 /* "הכנסה ידנית של שעה": outlined pill under the orb, keyboard icon at the start (right). */
 .m-manual-entry.btn-link {
   min-height: 44px; /* minimum tap size; the reference pill is slimmer */
-  margin-top: var(--space-3);
+  margin-top: var(--m-gap);
   gap: var(--space-1);
   padding: 0 20px;
   font-size: var(--text-label-size);

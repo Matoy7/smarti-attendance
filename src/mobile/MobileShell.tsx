@@ -8,9 +8,12 @@ import './mobile.css'
 
 /**
  * Mobile app frame: top bar (brand + profile), scrollable content, persistent bottom navigation.
+ * The content area always fills the height between the top bar and the bottom navigation.
+ * `fit`: a single-card screen (attendance) whose card stretches to that height, so the screen
+ * fits the viewport without scrolling whenever its content allows (it still scrolls if not).
  * The side drawer (MobileDrawer) currently has no trigger in the header and is not mounted.
  */
-export function MobileShell({ children }: { children: ReactNode }) {
+export function MobileShell({ children, fit = false }: { children: ReactNode; fit?: boolean }) {
   return (
     <div className="m-app" dir="rtl">
       <header className="m-topbar focus-on-canvas">
@@ -23,7 +26,7 @@ export function MobileShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="m-main">{children}</main>
+      <main className={`m-main ${fit ? 'm-main-fit' : ''}`}>{children}</main>
 
       <BottomNav />
     </div>

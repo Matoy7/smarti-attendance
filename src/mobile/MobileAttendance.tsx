@@ -17,7 +17,7 @@ export function MobileAttendance() {
   const time = toTimeOfDay(now)
 
   return (
-    <MobileShell>
+    <MobileShell fit>
       <Card className="m-punch-card" aria-labelledby="m-attendance-title">
         <header className="m-card-header">
           {/* Page name stays available to screen readers; it is not shown visually. */}
