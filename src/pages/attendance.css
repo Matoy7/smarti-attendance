@@ -88,3 +88,24 @@
   color: var(--color-text);
   font-weight: var(--font-weight-semibold);
 }
+
+/*
+ * Warm ivory paper background (approved reference): beige organic shapes with thin orange curves
+ * at the top-left and bottom-right corners of the content area; the center stays clean. The two
+ * corner pieces are cut from the reference with feathered edges and laid on its ivory, so the
+ * shapes keep their proportions at any window size. Light theme only.
+ */
+:root:not([data-theme='dark']) .main-content.main-attendance {
+  background:
+    url('../assets/bg/bg-desktop-tl.webp') left top / clamp(150px, 17vw, 260px) auto no-repeat,
+    url('../assets/bg/bg-desktop-br.webp') right bottom / clamp(260px, 30vw, 460px) auto no-repeat,
+    #fef9f3;
+}
+
+/* The large clock (and the worked-time timer): the editorial serif, same size, color and place. */
+.attendance-screen .time-display {
+  font-family: var(--font-clock);
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0;
+}

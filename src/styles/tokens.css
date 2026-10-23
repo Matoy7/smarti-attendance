@@ -294,3 +294,19 @@
     --duration-slow: 0ms;
   }
 }
+
+/*
+ * Attendance screen (דיווח נוכחות) — warm editorial refinement, desktop and mobile:
+ * square corners for its cards, buttons and fields. Circles (--radius-full: the clock-in orb,
+ * round icon buttons, avatars) stay circular. Scoped to the screen's content, so the sidebar,
+ * mobile top bar and bottom navigation keep their shapes.
+ */
+.attendance-screen,
+.m-app-attendance .m-main {
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-button: 0;
+  --font-clock: 'Playfair Display Clock', var(--font-sans);
+}

@@ -13,9 +13,9 @@ import './mobile.css'
  * fits the viewport without scrolling whenever its content allows (it still scrolls if not).
  * The side drawer (MobileDrawer) currently has no trigger in the header and is not mounted.
  */
-export function MobileShell({ children, fit = false }: { children: ReactNode; fit?: boolean }) {
+export function MobileShell({ children, fit = false, className = '' }: { children: ReactNode; fit?: boolean; className?: string }) {
   return (
-    <div className="m-app" dir="rtl">
+    <div className={`m-app ${className}`.trim()} dir="rtl">
       <header className="m-topbar focus-on-canvas">
         <Brand tone="on-light" />
         <div className="m-topbar-actions">

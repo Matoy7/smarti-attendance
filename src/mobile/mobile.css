@@ -549,3 +549,24 @@
   flex: 0 0 auto;
   color: var(--color-text-tertiary);
 }
+
+/*
+ * Attendance (דיווח נוכחות) on mobile — the approved warm ivory paper background (beige shapes and
+ * thin orange curves at the corners, clean center), the serif clock, and square corners (tokens in
+ * tokens.css). Light theme only for the background.
+ */
+:root:not([data-theme='dark']) .m-app.m-app-attendance {
+  background: url('../assets/bg/bg-mobile.webp') center / cover no-repeat fixed, #fcf5eb;
+}
+
+.m-app-attendance .time-display {
+  font-family: var(--font-clock);
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0;
+}
+
+/* The manual-entry outline was a pill: square like the other rectangular controls. */
+.m-app-attendance .m-manual-entry.btn-link {
+  border-radius: 0;
+}
