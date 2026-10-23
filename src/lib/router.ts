@@ -10,7 +10,7 @@ import { USER } from './profile'
  */
 
 /** Destinations that have a screen. Other nav items stay inert until their screen exists. */
-const SCREENS = new Set<NavId>(['attendance', 'team-reports'])
+const SCREENS = new Set<NavId>(['attendance', 'my-reports', 'team-reports'])
 const HOME: NavId = 'attendance'
 
 /** Whether `id` has a screen the current user may open (respects the section's permission). */

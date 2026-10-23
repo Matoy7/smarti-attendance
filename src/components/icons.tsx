@@ -263,3 +263,44 @@ export const HelmetIcon = (p: IconProps) => (
     <path d="M10 4.17V6.67" />
   </Icon>
 )
+
+/** Bar chart: actual hours. */
+export const ChartIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 16.67V11.67M10 16.67V6.67M15 16.67V3.33" strokeWidth={2.2} />
+  </Icon>
+)
+
+/** Target: monthly hours goal. */
+export const TargetIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="10" cy="10" r="7.5" />
+    <circle cx="10" cy="10" r="4.17" />
+    <path d="M10 10L15.83 4.17M13.33 4.17H15.83V6.67" />
+  </Icon>
+)
+
+/** Document with a check: the monthly attendance report approval. */
+export const DocumentCheckIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M11.67 1.67H5A1.67 1.67 0 0 0 3.33 3.33V16.67A1.67 1.67 0 0 0 5 18.33H9.17" />
+    <path d="M11.67 1.67V5.83H15.83M11.67 1.67L15.83 5.83V10" />
+    <path d="M6.67 9.17H11.67M6.67 12.5H9.17" />
+    <path d="M11.67 15.42L13.33 17.08L16.67 13.75" />
+  </Icon>
+)
+
+/** Info: a short explanatory note. */
+export const InfoIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="10" cy="10" r="7.5" />
+    <path d="M10 13.33V9.58M10 6.67H10.01" />
+  </Icon>
+)
+
+/** Plus: add a new item. */
+export const PlusIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M10 4.17V15.83M4.17 10H15.83" />
+  </Icon>
+)

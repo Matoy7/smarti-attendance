@@ -76,6 +76,11 @@ function absenceRequests(month: string, absences: Absence[], d: Decisions): Team
   })
 }
 
+/** An employee's monthly attendance report status for a month (approved per month, never per day). */
+export function monthlyAttendanceStatus(employeeId: string, month: string, d: Decisions = decisions): ApprovalStatus | null {
+  return reportsFor(month, d, []).find((r) => r.id === employeeId && r.requestType === 'attendance')?.status ?? null
+}
+
 /** A month's requests with the manager's decisions applied: the demo reports, then submitted absences. */
 export function reportsFor(month: string, d: Decisions = decisions, absences: Absence[] = getAbsences()): TeamReport[] {
   return [...loadTeamReports(month).map((r) => ({ ...r, status: d[`${month}:${r.id}`] ?? r.status })), ...absenceRequests(month, absences, d)]

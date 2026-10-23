@@ -1,0 +1,422 @@
+/*
+ * הדיווחים שלי — shared pieces and the desktop layout. Tokens only (dark theme applies).
+ * White cards with delicate borders and soft shadows; green for actual hours, warm tint for targets.
+ */
+
+/* ---- Month switcher ---- */
+.mr-toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mr-month {
+  display: flex;
+  width: min(344px, 100%);
+  height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-0-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+}
+
+.mr-month-label {
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-semibold);
+}
+
+.mr-month-btn,
+.mr-today {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  background: transparent;
+  cursor: pointer;
+}
+
+.mr-month-btn:disabled,
+.mr-today:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+@media (hover: hover) {
+  .mr-month-btn:hover:not(:disabled),
+  .mr-today:hover:not(:disabled) {
+    background: var(--color-surface-hover);
+  }
+}
+
+/* Back to the current month: the calendar button at the end (left in RTL), as in the reference. */
+.mr-today {
+  position: absolute;
+  inset-inline-end: 0;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ---- Summary cards ---- */
+.mr-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.mr-stat {
+  display: flex;
+  min-height: 112px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-1-5);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-tint-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-tint);
+}
+
+.mr-stat-green {
+  border-color: color-mix(in srgb, var(--color-success) 16%, var(--color-border));
+  background: var(--color-success-surface);
+}
+
+.mr-stat-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.mr-stat-label {
+  color: var(--color-text-secondary);
+}
+
+.mr-stat-value {
+  color: var(--color-text);
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 40px;
+}
+
+.mr-stat-sub {
+  color: var(--color-text-secondary);
+}
+
+.mr-stat-icon {
+  display: grid;
+  order: 2; /* icon at the end (left in RTL), as in the reference */
+  color: var(--color-accent);
+}
+
+.mr-stat-green .mr-stat-icon {
+  color: var(--color-success);
+}
+
+/* ---- Monthly approval ---- */
+.mr-approval {
+  display: grid;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.mr-approval-row {
+  grid-template-columns: auto auto auto 1fr;
+}
+
+.mr-approval-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--color-success);
+  background: var(--color-success-surface);
+}
+
+.mr-approval-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.mr-approval-title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-body-line);
+}
+
+.mr-approval-status {
+  margin-inline-start: var(--space-2);
+}
+
+.mr-approval-note {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: var(--space-0-5);
+  margin: 0;
+}
+
+.mr-approval-note svg {
+  flex: 0 0 auto;
+  color: var(--color-accent);
+}
+
+/* ---- Sections ---- */
+.mr-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.mr-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.mr-section-title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-heading-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-heading-line);
+}
+
+.mr-card {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.mr-new-absence {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: var(--space-0-5);
+  padding: 0 var(--space-1-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  /* Green action text; mixed with the text color so it stays readable in the dark theme too. */
+  color: color-mix(in srgb, var(--color-primary-action) 70%, var(--color-text));
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .mr-new-absence:hover {
+    background: var(--color-surface-hover);
+  }
+}
+
+/* ---- Tables ---- */
+.mr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.mr-table th,
+.mr-table td {
+  height: 44px;
+  padding: 0 var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--text-label-line);
+  text-align: start;
+  white-space: nowrap;
+}
+
+.mr-table thead th {
+  height: 44px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  font-weight: var(--font-weight-medium);
+}
+
+.mr-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.mr-table td[dir='ltr'] {
+  text-align: right; /* LTR times, aligned with the RTL column */
+}
+
+.mr-note {
+  color: var(--color-text-secondary);
+}
+
+.mr-note-text {
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-text-secondary);
+}
+
+/* Absence days: light coral rows, never presented as working days. */
+.mr-row-absence > * {
+  background: color-mix(in srgb, var(--color-danger-surface) 80%, var(--color-surface));
+}
+
+.mr-row-absence .mr-note {
+  color: var(--color-danger-ink);
+  font-weight: var(--font-weight-medium);
+}
+
+.mr-col-toggle {
+  width: 56px;
+  text-align: center;
+}
+
+.mr-toggle {
+  display: inline-grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--easing);
+}
+
+.mr-toggle[aria-expanded='true'] {
+  transform: rotate(180deg);
+}
+
+@media (hover: hover) {
+  .mr-toggle:hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+  }
+}
+
+.mr-details-row > td {
+  height: auto;
+  padding: var(--space-1-5) var(--space-2) var(--space-2);
+  white-space: normal;
+}
+
+.mr-row-open > * {
+  border-bottom-color: transparent;
+}
+
+.mr-empty {
+  margin: 0;
+  padding: var(--space-4) var(--space-2);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.mr-table td.mr-empty {
+  height: auto;
+  padding: var(--space-4) var(--space-2);
+  color: var(--color-text-secondary);
+  text-align: center;
+  white-space: normal;
+}
+
+/* ---- Absence type ---- */
+.mr-absence-type {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text);
+}
+
+.mr-absence-icon {
+  display: grid;
+  color: var(--color-accent);
+}
+
+.mr-absence-type-tile .mr-absence-icon {
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--color-tint);
+}
+
+/* ---- Expanded day ---- */
+.mr-day-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.mr-detail-absence {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-1-5);
+}
+
+.mr-detail-note {
+  flex-basis: 100%;
+  color: var(--color-text-secondary);
+}
+
+.mr-sessions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mr-sessions li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-0-5) var(--space-1);
+}
+
+.mr-session-times {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.mr-manual {
+  padding: 2px var(--space-1);
+  border-radius: var(--radius-sm);
+  color: var(--color-warning-ink);
+  background: var(--color-warning-surface);
+}
+
+/* Desktop page width: the wide content column (as דיווחי עובדים). */
+.mr-page {
+  width: min(1120px, 100%);
+}

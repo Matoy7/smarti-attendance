@@ -4,6 +4,8 @@ import { AttendancePage } from '@/pages/AttendancePage'
 import { TeamReportsPage } from '@/pages/TeamReportsPage'
 import { MobileAttendance } from '@/mobile/MobileAttendance'
 import { MobileTeamReports } from '@/mobile/MobileTeamReports'
+import { MyReportsPage } from '@/pages/MyReportsPage'
+import { MobileMyReports } from '@/mobile/MobileMyReports'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useRoute } from '@/lib/router'
 import { NAV_SECTIONS } from '@/lib/navigation'
@@ -34,7 +36,7 @@ export default function App() {
   if (isMobile)
     return (
       <>
-        {route === 'team-reports' ? <MobileTeamReports /> : <MobileAttendance />}
+        {route === 'team-reports' ? <MobileTeamReports /> : route === 'my-reports' ? <MobileMyReports /> : <MobileAttendance />}
         <AbsenceForm variant="drawer" />
       </>
     )
@@ -42,7 +44,7 @@ export default function App() {
   return (
     <div className="app-shell" dir="rtl">
       <Sidebar />
-      <main className="main-content">{route === 'team-reports' ? <TeamReportsPage /> : <AttendancePage />}</main>
+      <main className="main-content">{route === 'team-reports' ? <TeamReportsPage /> : route === 'my-reports' ? <MyReportsPage /> : <AttendancePage />}</main>
       <AbsenceForm variant="modal" />
     </div>
   )

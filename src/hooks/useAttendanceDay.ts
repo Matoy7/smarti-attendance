@@ -7,7 +7,13 @@ import { useCallback, useRef, useState } from 'react'
  * Flow:  idle ──clock in──▶ working ──clock out──▶ summary ──back──▶ idle ──clock in──▶ working …
  * Sessions stay on the day's record after returning to idle, so the day's totals keep accumulating.
  */
-export type Session = { start: string; end: string | null } // ISO timestamps
+export type Session = {
+  start: string // ISO timestamps
+  end: string | null
+  /** The time was entered by hand (הכנסה ידנית של שעה), not punched */
+  manualStart?: boolean
+  manualEnd?: boolean
+}
 export type AttendanceStatus = 'idle' | 'working' | 'summary'
 
 type DayRecord = {
@@ -18,6 +24,8 @@ type DayRecord = {
 }
 
 const STORAGE_KEY = 'smartime.day.v1'
+/** Earlier days, kept when a new day starts: { 'YYYY-MM-DD': sessions } (הדיווחים שלי reads them). */
+const ARCHIVE_KEY = 'smartime.days.v1'
 const LEGACY_KEY = 'smartime.clockedInAt' // single open clock-in from the first version
 
 export const dayKey = (d: Date) =>
@@ -57,6 +65,37 @@ function persist(record: DayRecord): boolean {
   } catch {
     return false
   }
+}
+
+function readArchive(): Record<string, Session[]> {
+  try {
+    const raw = localStorage.getItem(ARCHIVE_KEY)
+    const parsed = raw ? JSON.parse(raw) : {}
+    return parsed && typeof parsed === 'object' ? parsed : {}
+  } catch {
+    return {}
+  }
+}
+
+/** Moves a finished day into the archive before a new day's record replaces it. False if the write fails. */
+function archive(record: DayRecord): boolean {
+  if (!record.sessions.length) return true
+  try {
+    const next = { ...readArchive(), [record.date]: record.sessions }
+    const raw = JSON.stringify(next)
+    localStorage.setItem(ARCHIVE_KEY, raw)
+    return localStorage.getItem(ARCHIVE_KEY) === raw
+  } catch {
+    return false
+  }
+}
+
+/** Every recorded day: the archive plus the current day record (sessions by the day they started on). */
+export function readAttendanceHistory(): Record<string, Session[]> {
+  const days = readArchive()
+  const current = read()
+  if (current?.sessions.length) days[current.date] = current.sessions
+  return days
 }
 
 /** A record belongs to "today" if it is dated today or still has a session running (e.g. past midnight). */
@@ -149,9 +188,13 @@ export function useAttendanceDay(now: Date) {
       throw new AttendanceError('conflict')
     }
     if (manualAt && manualTimeProblem('in', manualAt, today, now)) throw new AttendanceError('invalid')
+    const session: Session = manualAt ? { start: at.toISOString(), end: null, manualStart: true } : { start: at.toISOString(), end: null }
     const next: DayRecord = today
-      ? { ...today, summaryDismissed: false, sessions: [...today.sessions, { start: at.toISOString(), end: null }] }
-      : { date: dayKey(at), sessions: [{ start: at.toISOString(), end: null }] }
+      ? { ...today, summaryDismissed: false, sessions: [...today.sessions, session] }
+      : { date: dayKey(at), sessions: [session] }
+    // A new day replaces the stored record: keep the previous day first.
+    const previous = latest()
+    if (!today && previous && previous.date !== next.date && !archive(previous)) throw new AttendanceError('storage')
     if (!persist(next)) throw new AttendanceError('storage')
     apply(next)
     return at
@@ -169,7 +212,7 @@ export function useAttendanceDay(now: Date) {
     if (manualAt && manualTimeProblem('out', manualAt, current, now)) throw new AttendanceError('invalid')
     const next: DayRecord = {
       ...current,
-      sessions: current.sessions.map((s) => (s.end === null ? { ...s, end: at.toISOString() } : s)),
+      sessions: current.sessions.map((s) => (s.end === null ? { ...s, end: at.toISOString(), ...(manualAt ? { manualEnd: true } : {}) } : s)),
     }
     if (!persist(next)) throw new AttendanceError('storage')
     apply(next)

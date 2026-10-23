@@ -1,0 +1,204 @@
+/* הדיווחים שלי — mobile: stacked summary, compact daily list, absence cards (no horizontal overflow). */
+.m-mr {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.m-mr .mr-month {
+  width: 100%;
+}
+
+.m-mr-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-1-5);
+}
+
+.m-mr .mr-stat {
+  min-height: 0;
+  flex-direction: column;
+  padding: var(--space-1-5) var(--space-2);
+}
+
+.m-mr .mr-stat-icon {
+  order: 0;
+  align-self: flex-end;
+  margin-bottom: calc(-1 * var(--space-3)); /* icon in the corner, beside the label */
+}
+
+.m-mr .mr-stat-value {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+/* Approval: icon + title + status on one line, the note underneath. */
+.mr-approval-stack {
+  grid-template-columns: auto 1fr auto;
+  padding: var(--space-2);
+}
+
+.mr-approval-stack .mr-approval-icon {
+  width: 44px;
+  height: 44px;
+}
+
+.mr-approval-stack .mr-approval-status {
+  margin: 0;
+}
+
+.mr-approval-stack .mr-approval-note {
+  grid-column: 1 / -1;
+  justify-self: start;
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-border);
+}
+
+.m-mr-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.m-mr .mr-section-title {
+  font-size: var(--text-body-size);
+}
+
+/* ---- Daily list: date · in · out · total · chevron ---- */
+.m-mr-head,
+.m-mr-day {
+  display: grid;
+  grid-template-columns: minmax(64px, 1.25fr) repeat(3, minmax(0, 1fr)) 20px;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-1-5);
+}
+
+.m-mr-head {
+  height: 32px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+}
+
+.m-mr-days {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.m-mr-days > li + li {
+  border-top: 1px solid var(--color-border);
+}
+
+.m-mr-day {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  color: var(--color-text);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+}
+
+.m-mr-day > [dir='ltr'] {
+  text-align: right;
+}
+
+button.m-mr-day {
+  cursor: pointer;
+}
+
+.m-mr-date {
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.m-mr-chevron {
+  color: var(--color-text-tertiary);
+  transition: transform var(--duration-fast) var(--easing);
+}
+
+.m-mr-day[aria-expanded='true'] .m-mr-chevron {
+  transform: rotate(-90deg);
+}
+
+.m-mr-absence {
+  background: color-mix(in srgb, var(--color-danger-surface) 80%, var(--color-surface));
+}
+
+.m-mr-absence-tag {
+  color: var(--color-danger-ink);
+  font-weight: var(--font-weight-medium);
+}
+
+.m-mr-details {
+  padding: 0 var(--space-1-5) var(--space-1-5);
+}
+
+.m-mr-all {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-0-5);
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.m-mr-flip {
+  transform: rotate(180deg);
+}
+
+/* ---- Absences ---- */
+.mr-new-absence-link {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.m-mr-absences {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.m-mr-absence-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1-5) var(--space-2);
+}
+
+.m-mr-absence-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.m-mr-absence-copy strong {
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+.m-mr-absence-note {
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

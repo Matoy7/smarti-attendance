@@ -1,3 +1,5 @@
+import { USER } from './profile'
+
 /**
  * Employee attendance reports and their manager approval status.
  *
@@ -107,6 +109,8 @@ function demoStatus(employeeId: string, month: string, isCurrent: boolean): Appr
 }
 
 function demoRequestType(employeeId: string, month: string): RequestType {
+  // The signed-in user's row is her monthly attendance report (shown in הדיווחים שלי).
+  if (employeeId === USER.employeeId) return 'attendance'
   const fixed = FIXED_TYPE[month]?.[employeeId]
   if (fixed) return fixed
   // Most requests are the monthly attendance report; the rest are vacation / sick leave approvals.

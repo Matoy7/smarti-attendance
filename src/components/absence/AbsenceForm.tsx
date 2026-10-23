@@ -1,6 +1,7 @@
-import { useEffect, useId, useRef, useState, type ComponentType, type FormEvent, type MouseEvent, type SyntheticEvent } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent, type MouseEvent, type SyntheticEvent } from 'react'
 import { Button, IconButton } from '@/components/ui'
-import { AlertIcon, CheckCircleIcon, CloseIcon, HelmetIcon, MoreIcon, StethoscopeIcon, UmbrellaIcon } from '@/components/icons'
+import { AlertIcon, CheckCircleIcon, CloseIcon } from '@/components/icons'
+import { ABSENCE_ICON as ICONS, ABSENCE_LABEL as LABEL } from './absenceTypes'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import {
   ABSENCE_TYPES,
@@ -24,8 +25,6 @@ import { absenceStatus, useDecisions } from '@/lib/approvals'
 import { USER } from '@/lib/profile'
 import './absence.css'
 
-const ICONS: Record<AbsenceType, ComponentType<{ size?: number }>> = { sick: StethoscopeIcon, vacation: UmbrellaIcon, reserve: HelmetIcon, other: MoreIcon }
-const LABEL = Object.fromEntries(ABSENCE_TYPES.map((t) => [t.id, t.label])) as Record<AbsenceType, string>
 /** A report still counts against new ones unless the manager rejected it. */
 const isActive = (a: Absence) => absenceStatus(a) !== 'rejected'
 
