@@ -78,6 +78,7 @@
   --color-icon-tile-surface: var(--color-tint); /* IconTile badge */
   --color-accent: var(--palette-accent); /* selected-nav icon and indicator, logo */
   --color-brand-mark: var(--palette-accent);
+  --color-badge: var(--palette-accent); /* nav notification circle */
 
   /* Mobile layout roles (applied by .m-app, see mobile.css) — same palette as desktop */
   --color-primary-action-mobile: var(--palette-primary);

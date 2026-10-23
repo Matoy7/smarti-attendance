@@ -1,6 +1,8 @@
 import { Fragment } from 'react'
 import { visibleNavSections, type NavId } from '@/lib/navigation'
 import { navigate, useRoute } from '@/lib/router'
+import { useNavBadges } from '@/lib/notifications'
+import { NavBadge } from './NavBadge'
 
 /**
  * Grouped main navigation (איזור אישי / איזור מנהל). Used by the desktop
@@ -9,6 +11,7 @@ import { navigate, useRoute } from '@/lib/router'
 export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNavigate?: (id: NavId) => void }) {
   const sections = visibleNavSections()
   const current = useRoute()
+  const badges = useNavBadges()
   return (
     <>
       {sections.map((section, index) => (
@@ -35,6 +38,7 @@ export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNa
                     >
                       <Icon />
                       <span>{label}</span>
+                      <NavBadge badge={badges[id]} />
                     </button>
                   </li>
                 )

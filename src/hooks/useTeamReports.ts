@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
-import { APPROVAL_LABEL, formatMonth, loadTeamReports, monthKey, typeLabel, type ApprovalStatus, type TeamReport } from '@/lib/teamReports'
+import { APPROVAL_LABEL, formatMonth, monthKey, typeLabel, type ApprovalStatus, type TeamReport } from '@/lib/teamReports'
+import { decide as recordDecision, reportsFor, useDecisions } from '@/lib/approvals'
 import { downloadFile, toCsv } from '@/lib/exportCsv'
 
 export type TeamTab = 'all' | 'pending'
@@ -10,21 +11,18 @@ const normalize = (s: string) => s.trim().toLocaleLowerCase('he')
 /**
  * דיווחי עובדים — state and actions shared by the desktop table and the mobile list:
  * filters (search, month, department, tab), selection, and manager approve / reject.
- * Approval changes are kept in memory for now (demo data, no backend).
+ * Approval decisions live in the shared store (lib/approvals.ts), so the nav badges stay in sync.
  */
 export function useTeamReports() {
   const [month, setMonthState] = useState(() => monthKey(new Date()))
   const [department, setDepartmentState] = useState(ALL_DEPARTMENTS)
   const [query, setQueryState] = useState('')
   const [tab, setTabState] = useState<TeamTab>('all')
-  const [decisions, setDecisions] = useState<Record<string, ApprovalStatus>>({}) // "month:id" → status
+  const decisions = useDecisions()
   const [selected, setSelected] = useState<Set<string>>(() => new Set())
   const [announcement, setAnnouncement] = useState('')
 
-  const reports = useMemo<TeamReport[]>(
-    () => loadTeamReports(month).map((r) => ({ ...r, status: decisions[`${month}:${r.id}`] ?? r.status })),
-    [month, decisions],
-  )
+  const reports = useMemo<TeamReport[]>(() => reportsFor(month, decisions), [month, decisions])
 
   const filtered = useMemo(() => {
     const q = normalize(query)
@@ -66,11 +64,7 @@ export function useTeamReports() {
   const decide = useCallback(
     (ids: string[], status: Exclude<ApprovalStatus, 'pending'>) => {
       if (!ids.length) return
-      setDecisions((prev) => {
-        const next = { ...prev }
-        ids.forEach((id) => (next[`${month}:${id}`] = status))
-        return next
-      })
+      recordDecision(month, ids, status)
       setSelected((prev) => {
         const next = new Set(prev)
         ids.forEach((id) => next.delete(id))

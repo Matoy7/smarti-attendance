@@ -329,6 +329,25 @@
   color: var(--color-accent); /* selected navigation: orange icon, as in the desktop sidebar */
 }
 
+/* Bottom bar: the notification circle sits on the icon's top corner, ringed in the bar color. */
+.bottom-nav-icon {
+  position: relative;
+}
+
+.nav-badge.nav-badge-dot {
+  position: absolute;
+  top: -2px;
+  inset-inline-end: -4px;
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  box-shadow: 0 0 0 2px var(--color-nav-surface-mobile);
+}
+
+.bottom-nav-item.active .nav-badge-dot {
+  box-shadow: 0 0 0 2px var(--color-nav-active-mobile);
+}
+
 .bottom-nav-label {
   max-width: 100%;
   overflow: hidden;

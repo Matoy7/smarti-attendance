@@ -2,6 +2,8 @@ import type { Permission } from './permissions'
 
 /** Demo user and the default work location (no backend yet; a saved location overrides it, see lib/location.ts). */
 export const USER = {
+  /** Her own row in the employee data (lib/teamReports.ts) */
+  employeeId: 'e01',
   firstName: 'מיכל',
   fullName: 'מיכל לוי',
   role: 'מנהלת פרויקטים',

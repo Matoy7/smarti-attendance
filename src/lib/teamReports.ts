@@ -69,6 +69,8 @@ const EMPLOYEES: Employee[] = [
 
 /** October 2026 matches the approved mockup for the first eight rows. */
 const FIXED: Record<string, Record<string, ApprovalStatus>> = {
+  /** The signed-in demo user's September report was rejected: drives the הדיווחים שלי notification. */
+  '2026-09': { e01: 'rejected' },
   '2026-10': { e01: 'approved', e02: 'rejected', e03: 'pending', e04: 'approved', e05: 'approved', e06: 'pending', e07: 'approved', e08: 'approved' },
 }
 
