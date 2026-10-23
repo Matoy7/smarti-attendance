@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ALL_DEPARTMENTS, EMPTY_TAB_MESSAGE, TEAM_TABS, useTeamReports } from '@/hooks/useTeamReports'
-import { DEPARTMENTS, formatMonth, recentMonths, typeLabel, type TeamReport } from '@/lib/teamReports'
+import { DEPARTMENTS, employeeOf, formatMonth, recentMonths, typeLabel, type TeamReport } from '@/lib/teamReports'
 import { Button } from '@/components/ui'
 import { CalendarIcon, CheckIcon, DownloadIcon, MoreIcon, SearchIcon, XIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
@@ -123,7 +123,7 @@ export function MobileTeamReports() {
           <ul className="m-team-list">
             {shown.map((r) => (
               <li key={r.id} className="m-team-item row-link" onClick={(e) => onReportClick(e, r)}>
-                <EmployeeAvatar id={r.id} name={r.name} photo={r.photo} />
+                <EmployeeAvatar id={employeeOf(r)} name={r.name} photo={r.photo} />
                 <div className="m-team-copy">
                   {/* Keyboard entry point for the card; tapping anywhere on the card does the same. */}
                   <button type="button" className="emp-open m-team-name">

@@ -236,3 +236,30 @@ export const PencilFilledIcon = (p: IconProps) => (
     <path d="M10.98 4.85L15.15 9.02L7.04 17.13C6.82 17.35 6.55 17.5 6.25 17.58L2.73 18.49C2.24 18.62 1.8 18.17 1.92 17.68L2.84 14.16C2.92 13.86 3.07 13.58 3.29 13.37L10.98 4.85Z" />
   </Icon>
 )
+
+/** Stethoscope: sick leave (מחלה). */
+export const StethoscopeIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4.17 2.5H3.33V7.08A3.75 3.75 0 0 0 10.83 7.08V2.5H10" />
+    <path d="M7.08 10.83V12.92A4.58 4.58 0 0 0 16.25 12.92V10.83" />
+    <circle cx="16.25" cy="9.17" r="1.67" />
+  </Icon>
+)
+
+/** Beach umbrella: vacation (חופשה). */
+export const UmbrellaIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M2.5 9.17A7.5 7.5 0 0 1 17.5 9.17Z" />
+    <path d="M10 9.17V16.67" />
+    <path d="M3.33 17.5H16.67" />
+  </Icon>
+)
+
+/** Military helmet: reserve duty (מילואים). */
+export const HelmetIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M3.33 12.5V10.83A6.67 6.67 0 0 1 16.67 10.83V12.5" />
+    <path d="M1.67 12.5H18.33V14.17H1.67Z" />
+    <path d="M10 4.17V6.67" />
+  </Icon>
+)

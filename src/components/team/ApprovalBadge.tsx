@@ -1,5 +1,6 @@
 import { APPROVAL_LABEL, type ApprovalStatus } from '@/lib/teamReports'
 import { CheckIcon, ClockIcon, XIcon } from '@/components/icons'
+import './approval-badge.css'
 
 const ICON = { approved: CheckIcon, pending: ClockIcon, rejected: XIcon } as const
 

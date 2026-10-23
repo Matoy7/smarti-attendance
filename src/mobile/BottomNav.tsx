@@ -1,5 +1,6 @@
 import { BOTTOM_BAR_IDS, visibleNavSections } from '@/lib/navigation'
 import { navigate, useRoute } from '@/lib/router'
+import { openAbsenceForm } from '@/lib/absences'
 import { useNavBadges } from '@/lib/notifications'
 import { NavBadge } from '@/components/NavBadge'
 
@@ -14,7 +15,7 @@ export function BottomNav() {
   return (
     <nav className="bottom-nav" aria-label="ניווט ראשי">
       <ul className="bottom-nav-list">
-        {items.map(({ id, label, shortLabel, Icon }) => {
+        {items.map(({ id, label, shortLabel, Icon, opensDialog }) => {
           const active = id === current
           return (
             <li key={id}>
@@ -22,8 +23,9 @@ export function BottomNav() {
                 type="button"
                 className={`bottom-nav-item ${active ? 'active' : ''}`}
                 aria-current={active ? 'page' : undefined}
+                aria-haspopup={opensDialog ? 'dialog' : undefined}
                 data-destination={id}
-                onClick={() => navigate(id)}
+                onClick={() => (opensDialog ? openAbsenceForm() : navigate(id))}
               >
                 <span className="bottom-nav-icon">
                   <Icon size={24} />

@@ -1,0 +1,197 @@
+/*
+ * דיווח היעדרות — the form inside the shared sheet shell (src/styles/sheet.css) and field styles.
+ * Tokens only (dark theme applies).
+ */
+.absence-dialog.sheet-modal {
+  width: min(640px, calc(100vw - 2 * var(--space-4)));
+}
+
+.sheet-drawer .absence-body {
+  gap: var(--space-2);
+}
+
+.absence-fieldset {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.absence-fieldset legend {
+  margin-bottom: var(--space-1);
+  padding: 0;
+}
+
+/* ---- Type cards: real radio buttons, shown as clickable cards ---- */
+.absence-types {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1-5);
+}
+
+.sheet-drawer .absence-types {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.absence-type {
+  position: relative;
+  display: flex;
+  min-height: 88px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-1-5) var(--space-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--easing),
+    border-color var(--duration-fast) var(--easing),
+    box-shadow var(--duration-fast) var(--easing);
+}
+
+.sheet-drawer .absence-type {
+  min-height: 72px;
+}
+
+/* The radio stays in the accessibility tree and keyboard order; the card is its visual. */
+.absence-type input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.absence-type-icon {
+  display: grid;
+  color: var(--color-accent); /* orange accent icons */
+}
+
+.absence-type-label {
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-line);
+}
+
+@media (hover: hover) {
+  .absence-type:hover:not(.selected) {
+    border-color: color-mix(in srgb, var(--color-primary-action) 30%, var(--color-border));
+    background: var(--color-surface-hover);
+  }
+}
+
+.absence-type.selected {
+  border-color: var(--color-primary-action);
+  background: color-mix(in srgb, var(--color-primary-action) 9%, var(--color-surface));
+  box-shadow: 0 0 0 1px var(--color-primary-action);
+}
+
+.absence-type.selected .absence-type-label {
+  font-weight: var(--font-weight-semibold);
+}
+
+.absence-type:has(input:focus-visible) {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.absence-types[aria-invalid='true'] .absence-type {
+  border-color: var(--color-danger-border);
+}
+
+/* ---- Dates ---- */
+.absence-dates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-1-5) var(--space-2);
+}
+
+.absence-days {
+  margin: calc(-1 * var(--space-1)) 0 0;
+}
+
+.absence-note {
+  height: auto;
+  min-height: 88px;
+  padding-block: var(--space-1-5);
+  resize: vertical;
+  text-align: start;
+}
+
+/* ---- Footer: שלח דיווח leads ---- */
+.absence-footer .absence-submit {
+  min-width: 200px;
+}
+
+.sheet-drawer .absence-footer .absence-submit {
+  flex: 1 1 auto;
+}
+
+/* ---- Sent ---- */
+.absence-sent {
+  align-items: center;
+  gap: var(--space-1-5);
+  text-align: center;
+}
+
+.absence-sent h3,
+.absence-sent p {
+  margin: 0;
+}
+
+.absence-sent h3:focus {
+  outline: none;
+}
+
+.absence-sent-icon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border-radius: var(--radius-full);
+  color: var(--color-success);
+  background: var(--color-success-surface);
+}
+
+.absence-summary {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: var(--space-1) 0 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-subtle);
+  text-align: start;
+}
+
+.absence-summary > div {
+  display: flex;
+  min-height: var(--control-height-lg);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+}
+
+.absence-summary > div + div {
+  border-top: 1px solid var(--color-border);
+}
+
+.absence-summary dd {
+  margin: 0;
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.absence-summary-note {
+  overflow-wrap: anywhere;
+  text-align: end;
+}

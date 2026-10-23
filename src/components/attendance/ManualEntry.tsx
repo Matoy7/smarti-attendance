@@ -161,13 +161,13 @@ function ManualEntryDialog({ action, variant, checkManualTime, manualDates, manu
   }
 
   const field = (key: 'date' | 'time', label: string, input: ReactNode) => (
-    <div className="me-field">
-      <label className="me-label text-label" htmlFor={`${id}-${key}`}>
+    <div className="field">
+      <label className="field-label text-label" htmlFor={`${id}-${key}`}>
         {label}
       </label>
       {input}
       {errors[key] && (
-        <p id={`${id}-${key}-error`} className="me-error text-caption">
+        <p id={`${id}-${key}-error`} className="field-error text-caption">
           <AlertIcon size={16} />
           <span>{errors[key]}</span>
         </p>
@@ -198,7 +198,7 @@ function ManualEntryDialog({ action, variant, checkManualTime, manualDates, manu
               'תאריך',
               <input
                 id={`${id}-date`}
-                className="me-input"
+                className="field-input"
                 type="date"
                 dir="ltr"
                 required
@@ -216,7 +216,7 @@ function ManualEntryDialog({ action, variant, checkManualTime, manualDates, manu
               action === 'in' ? 'שעת כניסה' : 'שעת יציאה',
               <input
                 id={`${id}-time`}
-                className="me-input"
+                className="field-input"
                 type="time"
                 dir="ltr"
                 required
@@ -232,7 +232,7 @@ function ManualEntryDialog({ action, variant, checkManualTime, manualDates, manu
           </div>
 
           {errors.form && (
-            <p className="me-alert text-label" role="alert">
+            <p className="sheet-alert text-label" role="alert">
               <AlertIcon size={18} />
               <span>{errors.form}</span>
             </p>

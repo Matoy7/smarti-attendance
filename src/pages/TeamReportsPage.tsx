@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ALL_DEPARTMENTS, EMPTY_TAB_MESSAGE, TEAM_TABS, useTeamReports } from '@/hooks/useTeamReports'
-import { DEPARTMENTS, formatMonth, recentMonths, typeLabel } from '@/lib/teamReports'
+import { DEPARTMENTS, employeeOf, formatMonth, recentMonths, typeLabel } from '@/lib/teamReports'
 import { Button, Card } from '@/components/ui'
 import { CalendarIcon, CheckIcon, ChevronIcon, DownloadIcon, SearchIcon, XIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
@@ -156,7 +156,7 @@ export function TeamReportsPage() {
                     <th scope="row" className="col-name">
                       {/* The keyboard entry point for the row; a mouse click anywhere on the row does the same. */}
                       <button type="button" className="emp-open emp-cell">
-                        <EmployeeAvatar id={r.id} name={r.name} photo={r.photo} />
+                        <EmployeeAvatar id={employeeOf(r)} name={r.name} photo={r.photo} />
                         <span className="emp-name">{r.name}</span>
                       </button>
                     </th>

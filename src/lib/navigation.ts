@@ -15,6 +15,8 @@ export type NavItem = {
   /** Shorter label for the mobile bottom bar */
   shortLabel?: string
   Icon: ComponentType<{ size?: number }>
+  /** Opens a form over the current screen instead of navigating (דיווח היעדרות → lib/absences) */
+  opensDialog?: boolean
 }
 
 export type NavSection = {
@@ -31,7 +33,7 @@ export const NAV_SECTIONS: NavSection[] = [
     title: 'איזור אישי',
     items: [
       { id: 'attendance', label: 'דיווח נוכחות', shortLabel: 'נוכחות', Icon: ClockIcon },
-      { id: 'absences', label: 'דיווח היעדרות', shortLabel: 'היעדרויות', Icon: CalendarIcon },
+      { id: 'absences', label: 'דיווח היעדרות', shortLabel: 'היעדרויות', Icon: CalendarIcon, opensDialog: true },
       { id: 'my-reports', label: 'הדיווחים שלי', Icon: DocumentIcon },
       { id: 'settings', label: 'הגדרות', Icon: SettingsIcon },
     ],

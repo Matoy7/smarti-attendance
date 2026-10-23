@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { APPROVAL_LABEL, formatMonth, monthKey, typeLabel, type ApprovalStatus, type TeamReport } from '@/lib/teamReports'
 import { decide as recordDecision, reportsFor, useDecisions } from '@/lib/approvals'
+import { useAbsences } from '@/lib/absences'
 import { downloadFile, toCsv } from '@/lib/exportCsv'
 
 /** Views of the month's requests. They partition it: every request is in exactly one tab. */
@@ -34,10 +35,11 @@ export function useTeamReports() {
   const [query, setQueryState] = useState('')
   const [tab, setTabState] = useState<TeamTab>(TEAM_TABS[0].id)
   const decisions = useDecisions()
+  const absences = useAbsences()
   const [selected, setSelected] = useState<Set<string>>(() => new Set())
   const [announcement, setAnnouncement] = useState('')
 
-  const reports = useMemo<TeamReport[]>(() => reportsFor(month, decisions), [month, decisions])
+  const reports = useMemo<TeamReport[]>(() => reportsFor(month, decisions, absences), [month, decisions, absences])
 
   // Month (via reports), department and search apply to every tab; the tab splits what's left.
   const matching = useMemo(() => {

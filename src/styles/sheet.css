@@ -128,6 +128,95 @@
   transform: translateX(-50%);
 }
 
+/* ---- Form fields inside sheets (manual time entry, absence report) ---- */
+.field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field-label {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Inputs (native date / time pickers: the platform's own wheel / calendar on phones; textarea). */
+.field-input {
+  width: 100%;
+  height: var(--touch-target);
+  padding: 0 var(--space-1-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  font-family: inherit;
+  font-size: var(--text-body-size); /* ≥ 16px: no iOS zoom on focus */
+  font-variant-numeric: tabular-nums;
+  line-height: var(--text-body-line);
+  text-align: right; /* LTR value (digits), aligned with the RTL label above */
+  transition:
+    border-color var(--duration-fast) var(--easing),
+    box-shadow var(--duration-fast) var(--easing);
+}
+
+.field-input:focus {
+  border-color: var(--color-focus);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 25%, transparent);
+}
+
+.field-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.field-input[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+.field-input[aria-invalid='true']:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 22%, transparent);
+}
+
+.field-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-0-5);
+  margin: 0;
+  color: var(--color-danger-ink);
+}
+
+.field-error svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--color-danger);
+}
+
+/* Save failed / state changed: same restrained coral banner as the attendance card's errors. */
+.sheet-alert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+  padding: var(--space-1-5) var(--space-2);
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-md);
+  color: var(--color-danger-ink);
+  background: var(--color-danger-surface);
+}
+
+.sheet-alert svg {
+  flex: 0 0 auto;
+  color: var(--color-danger);
+}
+
 @keyframes sheet-fade {
   from {
     opacity: 0;

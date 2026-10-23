@@ -6,8 +6,11 @@
  */
 export type ApprovalStatus = 'approved' | 'pending' | 'rejected'
 
-/** What the employee asked the manager to approve: the monthly attendance report, a vacation or a sick leave. */
-export type RequestType = 'attendance' | 'vacation' | 'sick'
+/**
+ * What the employee asked the manager to approve: the monthly attendance report, or an absence
+ * (vacation, sick leave, reserve duty, other — see lib/absences.ts).
+ */
+export type RequestType = 'attendance' | 'vacation' | 'sick' | 'reserve' | 'other'
 
 export type Employee = {
   id: string
@@ -19,8 +22,13 @@ export type Employee = {
 }
 
 export type TeamReport = Employee & {
-  /** Report month, YYYY-MM */
+  /** Report month, YYYY-MM: the month the request is listed under */
   month: string
+  /** The month the request is about, when it differs from `month` (an absence submitted ahead) */
+  refMonth?: string
+  /** Set on submitted absences, whose `id` is the request's own id */
+  employeeId?: string
+  absence?: { from: string; to: string; note: string }
   status: ApprovalStatus
   requestType: RequestType
 }
@@ -35,6 +43,8 @@ export const REQUEST_TYPE_LABEL: Record<RequestType, string> = {
   attendance: 'אישור נוכחות',
   vacation: 'אישור חופשה',
   sick: 'אישור מחלה',
+  reserve: 'אישור מילואים',
+  other: 'אישור היעדרות',
 }
 
 const EMPLOYEES: Employee[] = [
@@ -108,7 +118,7 @@ function demoRequestType(employeeId: string, month: string): RequestType {
 export const shortMonth = (month: string) => `${month.slice(5, 7)}-${month.slice(2, 4)}`
 
 /** סוג column: what is being approved and for which month, e.g. "אישור נוכחות 10-26". Same in every view. */
-export const typeLabel = (r: TeamReport) => `${REQUEST_TYPE_LABEL[r.requestType]} ${shortMonth(r.month)}`
+export const typeLabel = (r: TeamReport) => `${REQUEST_TYPE_LABEL[r.requestType]} ${shortMonth(r.refMonth ?? r.month)}`
 
 export const monthKey = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 
@@ -125,6 +135,12 @@ export function loadTeamReports(month: string, now = new Date()): TeamReport[] {
   const isCurrent = month === monthKey(now)
   return EMPLOYEES.map((e) => ({ ...e, month, status: demoStatus(e.id, month, isCurrent), requestType: demoRequestType(e.id, month) }))
 }
+
+/** The employee a request belongs to (demo rows use the employee id as the request id). */
+export const employeeOf = (r: TeamReport) => r.employeeId ?? r.id
+
+/** An employee's details, for requests submitted in the app (absences). */
+export const findEmployee = (id: string) => EMPLOYEES.find((e) => e.id === id)
 
 /** Departments in the data, alphabetical (Hebrew collation). */
 export const DEPARTMENTS = [...new Set(EMPLOYEES.map((e) => e.department))].sort((a, b) => a.localeCompare(b, 'he'))
