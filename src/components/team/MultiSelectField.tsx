@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
 import { ChevronDownIcon } from '@/components/icons'
 
 type Props<T extends string> = {
@@ -15,12 +15,24 @@ type Props<T extends string> = {
 /**
  * Multi-select filter in the look of SelectField: a button that opens a checkbox list.
  * Nothing checked means no restriction. Escape / outside click close it; focus returns to the button.
+ * The list is fixed-positioned under the button, so a scrolling filter row can't clip it; scrolling
+ * closes it.
  */
 export function MultiSelectField<T extends string>({ label, allLabel, options, selected, onChange, className = '' }: Props<T>) {
   const [open, setOpen] = useState(false)
   const root = useRef<HTMLSpanElement>(null)
   const button = useRef<HTMLButtonElement>(null)
   const panelId = useId()
+  const [pos, setPos] = useState<CSSProperties | null>(null)
+
+  // Under the button, aligned to its start edge (right in RTL), kept inside the viewport.
+  useLayoutEffect(() => {
+    if (!open || !root.current) return setPos(null)
+    const b = root.current.getBoundingClientRect()
+    const right = Math.max(8, window.innerWidth - b.right)
+    // The app is RTL: the inline start edge is the right edge.
+    setPos({ position: 'fixed', top: b.bottom + 4, insetInlineStart: right, maxWidth: window.innerWidth - right - 8, minWidth: Math.min(b.width, window.innerWidth - right - 8) })
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -34,14 +46,26 @@ export function MultiSelectField<T extends string>({ label, allLabel, options, s
         button.current?.focus()
       }
     }
+    const onScroll = (e: Event) => {
+      if (!(e.target instanceof Node && root.current?.querySelector('.multi-select-panel')?.contains(e.target))) setOpen(false)
+    }
     document.addEventListener('pointerdown', onDown)
     document.addEventListener('keydown', onKey)
-    root.current?.querySelector<HTMLInputElement>('input')?.focus()
+    window.addEventListener('scroll', onScroll, true)
+    window.addEventListener('resize', onScroll)
     return () => {
       document.removeEventListener('pointerdown', onDown)
       document.removeEventListener('keydown', onKey)
+      window.removeEventListener('scroll', onScroll, true)
+      window.removeEventListener('resize', onScroll)
     }
   }, [open])
+
+  // Focus the first option once the list is placed (it's hidden until then).
+  const placed = pos !== null
+  useEffect(() => {
+    if (open && placed) root.current?.querySelector<HTMLInputElement>('.multi-select-panel input')?.focus()
+  }, [open, placed])
 
   const toggle = (value: T) => {
     const next = new Set(selected)
@@ -68,7 +92,7 @@ export function MultiSelectField<T extends string>({ label, allLabel, options, s
       </button>
       <ChevronDownIcon className="select-field-chevron" size={18} />
       {open && (
-        <div id={panelId} className="multi-select-panel" role="group" aria-label={label}>
+        <div id={panelId} className="multi-select-panel" role="group" aria-label={label} style={pos ?? { visibility: 'hidden' }}>
           {options.map((o) => (
             <label key={o.value} className="multi-select-option">
               <input type="checkbox" className="check" checked={selected.has(o.value)} onChange={() => toggle(o.value)} />
