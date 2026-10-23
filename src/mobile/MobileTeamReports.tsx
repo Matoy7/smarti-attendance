@@ -134,7 +134,7 @@ export function MobileTeamReports() {
                   </span>
                   <span className="m-team-type text-caption">
                     <span className="text-secondary">סוג: </span>
-                    {typeLabel(r, t.tab)}
+                    {typeLabel(r)}
                   </span>
                   <ApprovalBadge status={r.status} />
                 </div>
@@ -169,7 +169,7 @@ export function MobileTeamReports() {
         <ActionSheet title={acting.name} actions={sheetActions(acting)} onClose={() => setActing(null)}>
           <span className="action-sheet-context">
             <span className="text-caption text-secondary">
-              {typeLabel(acting, t.tab)} ·{' '}
+              {typeLabel(acting)} ·{' '}
               {acting.role} · {acting.department} · {formatMonth(acting.month)}
             </span>
             <ApprovalBadge status={acting.status} />

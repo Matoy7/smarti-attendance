@@ -74,6 +74,7 @@
 
 .m-segmented button {
   height: 44px; /* touch target */
+  white-space: nowrap; /* label and its (N) on one line */
   border: 0;
   border-radius: var(--radius-sm);
   color: var(--color-text-secondary);
@@ -85,27 +86,6 @@
   transition:
     background-color var(--duration-fast) var(--easing),
     color var(--duration-fast) var(--easing);
-}
-
-/*
- * Tab count on mobile: three labels with "(N)" don't fit one line on a phone, so every segment
- * stacks the same way: label, then the count in caption size underneath.
- */
-.m-segmented button:has(.tab-count) {
-  display: flex;
-  height: auto;
-  min-height: 52px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-0-5) var(--space-0-5);
-  line-height: var(--text-label-line);
-  white-space: nowrap;
-}
-
-.m-segmented .tab-count {
-  font-size: var(--text-caption-size);
-  line-height: var(--text-caption-line);
 }
 
 .m-segmented button.active {

@@ -162,7 +162,7 @@ export function TeamReportsPage() {
                     </th>
                     <td>{r.role}</td>
                     <td>{r.department}</td>
-                    <td className="col-type">{typeLabel(r, t.tab)}</td>
+                    <td className="col-type">{typeLabel(r)}</td>
                     <td className="col-status">
                       <ApprovalBadge status={r.status} />
                     </td>

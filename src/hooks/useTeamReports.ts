@@ -3,27 +3,21 @@ import { APPROVAL_LABEL, formatMonth, monthKey, typeLabel, type ApprovalStatus, 
 import { decide as recordDecision, reportsFor, useDecisions } from '@/lib/approvals'
 import { downloadFile, toCsv } from '@/lib/exportCsv'
 
-/**
- * Views of the month's reports. pending + processed partition the month (every report is in exactly
- * one of them); all is the full monthly report list.
- */
-export type TeamTab = 'pending' | 'processed' | 'all'
+/** Views of the month's requests. They partition it: every request is in exactly one tab. */
+export type TeamTab = 'pending' | 'processed'
 
 /** Tab order (right to left in RTL); the first is the default. Shared by desktop and mobile. */
 export const TEAM_TABS: { id: TeamTab; label: string }[] = [
-  { id: 'pending', label: 'בקשות לאישור' },
-  { id: 'processed', label: 'בקשות שטופלו' },
-  { id: 'all', label: 'דיווח חודשי' },
+  { id: 'pending', label: 'ממתינים לאישור' },
+  { id: 'processed', label: 'טופלו' }, // approved and rejected
 ]
 
-const inTab = (tab: TeamTab, status: ApprovalStatus) =>
-  tab === 'all' || (tab === 'pending' ? status === 'pending' : status !== 'pending')
+const inTab = (tab: TeamTab, status: ApprovalStatus) => (tab === 'pending' ? status === 'pending' : status !== 'pending')
 
 /** Empty-state line when a tab has nothing this month (no search or department filter applied). */
 export const EMPTY_TAB_MESSAGE: Record<TeamTab, string> = {
   pending: 'אין בקשות שממתינות לאישור בחודש זה.',
   processed: 'עדיין לא טופלו בקשות בחודש זה.',
-  all: 'אין דיווחים בחודש זה.',
 }
 export const ALL_DEPARTMENTS = 'all'
 
@@ -59,7 +53,7 @@ export function useTeamReports() {
 
   /** Rows each tab shows under the current filters: the (N) on the tabs. */
   const tabCounts = useMemo(() => {
-    const counts: Record<TeamTab, number> = { pending: 0, processed: 0, all: 0 }
+    const counts: Record<TeamTab, number> = { pending: 0, processed: 0 }
     for (const r of matching) for (const { id } of TEAM_TABS) if (inTab(id, r.status)) counts[id]++
     return counts
   }, [matching])
@@ -114,7 +108,7 @@ export function useTeamReports() {
   const exportCsv = () => {
     if (!filtered.length) return
     const header = ['שם עובד', 'תפקיד', 'מחלקה', 'סוג', 'סטטוס', 'חודש']
-    const rows = filtered.map((r) => [r.name, r.role, r.department, typeLabel(r, tab), APPROVAL_LABEL[r.status], formatMonth(r.month)])
+    const rows = filtered.map((r) => [r.name, r.role, r.department, typeLabel(r), APPROVAL_LABEL[r.status], formatMonth(r.month)])
     const view = TEAM_TABS.find((x) => x.id === tab)!.label
     const scope = department === ALL_DEPARTMENTS ? '' : ` - ${department}`
     downloadFile(`דיווחי עובדים - ${view}${scope} - ${formatMonth(month)}.csv`, toCsv([header, ...rows]))

@@ -6,8 +6,8 @@
  */
 export type ApprovalStatus = 'approved' | 'pending' | 'rejected'
 
-/** What the employee asked the manager to approve. */
-export type RequestType = 'vacation' | 'sick'
+/** What the employee asked the manager to approve: the monthly attendance report, a vacation or a sick leave. */
+export type RequestType = 'attendance' | 'vacation' | 'sick'
 
 export type Employee = {
   id: string
@@ -32,6 +32,7 @@ export const APPROVAL_LABEL: Record<ApprovalStatus, string> = {
 }
 
 export const REQUEST_TYPE_LABEL: Record<RequestType, string> = {
+  attendance: 'אישור נוכחות',
   vacation: 'אישור חופשה',
   sick: 'אישור מחלה',
 }
@@ -96,15 +97,18 @@ function demoStatus(employeeId: string, month: string, isCurrent: boolean): Appr
 }
 
 function demoRequestType(employeeId: string, month: string): RequestType {
-  return FIXED_TYPE[month]?.[employeeId] ?? (roll(`${employeeId}:${month}:type`) < 60 ? 'vacation' : 'sick')
+  const fixed = FIXED_TYPE[month]?.[employeeId]
+  if (fixed) return fixed
+  // Most requests are the monthly attendance report; the rest are vacation / sick leave approvals.
+  const r = roll(`${employeeId}:${month}:type`)
+  return r < 55 ? 'attendance' : r < 82 ? 'vacation' : 'sick'
 }
 
-/** "2026-10" → "דיווח 10-26": the monthly attendance report as a request type. */
-export const monthlyReportLabel = (month: string) => `דיווח ${month.slice(5, 7)}-${month.slice(2, 4)}`
+/** "2026-10" → "10-26" (MM-YY), the month a request refers to. */
+export const shortMonth = (month: string) => `${month.slice(5, 7)}-${month.slice(2, 4)}`
 
-/** סוג column: the monthly report in the monthly view, the request type in the request views (pending / processed). */
-export const typeLabel = (r: TeamReport, view: 'pending' | 'processed' | 'all') =>
-  view === 'all' ? monthlyReportLabel(r.month) : REQUEST_TYPE_LABEL[r.requestType]
+/** סוג column: what is being approved and for which month, e.g. "אישור נוכחות 10-26". Same in every view. */
+export const typeLabel = (r: TeamReport) => `${REQUEST_TYPE_LABEL[r.requestType]} ${shortMonth(r.month)}`
 
 export const monthKey = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 
