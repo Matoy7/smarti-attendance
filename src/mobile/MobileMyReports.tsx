@@ -37,7 +37,7 @@ export function MobileMyReports() {
           <SummaryCard tone="green" icon={<ChartIcon size={22} />} label="שעות עבודה בפועל" value={formatDuration(m.workedMs)} sub={`מתוך ${formatDuration(m.targetMs)} יעד`} />
         </div>
 
-        <MonthlyApproval month={m.month} status={m.approval} layout="stack" />
+        <MonthlyApproval month={m.month} status={m.approval} layout="stack" remindedOn={m.remindedOn} />
 
         <section className="m-mr-section" aria-labelledby="m-mr-days">
           <h2 id="m-mr-days" className="mr-section-title">

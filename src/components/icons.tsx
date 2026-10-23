@@ -304,3 +304,25 @@ export const PlusIcon = (p: IconProps) => (
     <path d="M10 4.17V15.83M4.17 10H15.83" />
   </Icon>
 )
+
+/** Minus: nothing yet (not submitted). */
+export const MinusIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 10H15" />
+  </Icon>
+)
+
+/** Bell: reminders / notifications. */
+export const BellIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 8.33A5 5 0 0 1 15 8.33C15 14.17 17.5 15.83 17.5 15.83H2.5S5 14.17 5 8.33Z" />
+    <path d="M8.56 17.5A1.67 1.67 0 0 0 11.44 17.5" />
+  </Icon>
+)
+
+/** Funnel: filters. */
+export const FilterIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M2.5 3.33H17.5L11.67 10.42V15.83L8.33 17.5V10.42L2.5 3.33Z" />
+  </Icon>
+)

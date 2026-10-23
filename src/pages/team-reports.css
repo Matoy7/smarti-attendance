@@ -16,8 +16,8 @@
 .search-field {
   position: relative;
   display: flex;
-  min-width: 240px;
-  flex: 1 1 280px;
+  min-width: 200px;
+  flex: 1 1 220px;
   align-items: center;
 }
 
@@ -73,7 +73,7 @@
 .select-field {
   position: relative;
   display: inline-flex;
-  min-width: 168px;
+  min-width: 148px;
   flex: 0 0 auto;
   align-items: center;
   color: var(--color-text-secondary);
@@ -429,4 +429,35 @@
 /* The chevron icon points left (next page in RTL); flipped for "previous". */
 .icon-flip {
   transform: scaleX(-1);
+}
+
+/* ---- Tabs row: tabs, "clear filters", and in טרם הוגש the remind-all action at the end ---- */
+.team-tabs-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.team-clear-filters {
+  color: var(--color-link);
+}
+
+.team-tabs-row .remind-all {
+  height: 44px;
+  margin-inline-start: auto;
+}
+
+.team-toolbar .multi-select {
+  min-width: 164px;
+}
+
+/* טרם הוגש table: the action column holds a labelled button (wider than the ⋯ column). */
+.team-table .col-remind {
+  width: 200px;
+}
+
+.missing-table td,
+.missing-table th {
+  height: 64px;
 }

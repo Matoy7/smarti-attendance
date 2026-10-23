@@ -39,7 +39,7 @@ export function MyReportsPage() {
         <SummaryCard tone="green" icon={<ChartIcon size={22} />} label="שעות עבודה בפועל" value={formatDuration(m.workedMs)} sub={`מתוך ${formatDuration(m.targetMs)} יעד`} />
       </div>
 
-      <MonthlyApproval month={m.month} status={m.approval} layout="row" />
+      <MonthlyApproval month={m.month} status={m.approval} layout="row" remindedOn={m.remindedOn} />
 
       <section className="mr-section" aria-labelledby="mr-days-title">
         <h2 id="mr-days-title" className="mr-section-title">

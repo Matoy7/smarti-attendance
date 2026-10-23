@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { ChevronIcon, DocumentCheckIcon, InfoIcon } from '@/components/icons'
+import { BellIcon, ChevronIcon, DocumentCheckIcon, InfoIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { ABSENCE_ICON, ABSENCE_LABEL } from '@/components/absence/absenceTypes'
 import { formatDate, formatDuration, timeOf, type DayRow } from '@/lib/myReports'
@@ -46,7 +46,7 @@ export function SummaryCard({ tone, icon, label, value, sub }: { tone: 'green' |
 }
 
 /** The month's attendance report approval: one status for the whole month. */
-export function MonthlyApproval({ month, status, layout }: { month: string; status: ApprovalStatus | null; layout: 'row' | 'stack' }) {
+export function MonthlyApproval({ month, status, layout, remindedOn }: { month: string; status: ApprovalStatus | null; layout: 'row' | 'stack'; remindedOn?: string }) {
   return (
     <section className={`mr-approval mr-approval-${layout}`} aria-labelledby="mr-approval-title">
       <span className="mr-approval-icon" aria-hidden="true">
@@ -58,7 +58,13 @@ export function MonthlyApproval({ month, status, layout }: { month: string; stat
         </h2>
         <span className="text-caption text-secondary">{formatMonth(month)}</span>
       </div>
-      <span className="mr-approval-status">{status ? <ApprovalBadge status={status} /> : <span className="text-caption text-tertiary">טרם הוגש</span>}</span>
+      <span className="mr-approval-status">{status ? <ApprovalBadge status={status} /> : <ApprovalBadge status="missing" />}</span>
+      {!status && remindedOn && (
+        <p className="mr-approval-reminder text-caption" role="status">
+          <BellIcon size={16} />
+          <span>המנהל/ת שלח/ה תזכורת להגיש את דוח הנוכחות לחודש זה ({formatDate(remindedOn)}).</span>
+        </p>
+      )}
       <p className="mr-approval-note text-caption text-secondary">
         <InfoIcon size={16} />
         <span>האישור מתייחס לדיווח החודשי כולו, ולא לכל יום בנפרד.</span>

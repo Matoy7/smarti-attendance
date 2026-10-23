@@ -44,3 +44,14 @@
 .approval-rejected svg {
   color: var(--color-danger);
 }
+
+/* Not submitted yet: neutral — nothing to approve or reject. */
+.approval-missing {
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.approval-missing svg {
+  color: var(--color-text-tertiary);
+}

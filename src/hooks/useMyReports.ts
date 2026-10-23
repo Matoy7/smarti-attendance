@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { readAttendanceHistory } from './useAttendanceDay'
 import { useNow } from './useNow'
-import { useAbsences } from '@/lib/absences'
+import { dayKey, useAbsences } from '@/lib/absences'
+import { reminderFor, useReminders } from '@/lib/reminders'
 import { absenceStatus, monthlyAttendanceStatus, useDecisions } from '@/lib/approvals'
 import { buildMonth } from '@/lib/myReports'
 import { monthKey, recentMonths } from '@/lib/teamReports'
@@ -18,6 +19,7 @@ export function useMyReports(user = USER) {
   const [month, setMonth] = useState(months[0])
   const absences = useAbsences()
   const decisions = useDecisions()
+  const reminders = useReminders()
 
   // Attendance is recorded on another screen or tab: re-read on return and on storage changes.
   const [version, setVersion] = useState(0)
@@ -56,6 +58,11 @@ export function useMyReports(user = USER) {
     next: index > 0 ? () => setMonth(months[index - 1]) : undefined,
     toCurrent: () => setMonth(months[0]),
     approval: monthlyAttendanceStatus(user.employeeId, month, decisions),
+    /** Day the manager last reminded the user to submit this month's report (when it's still missing) */
+    remindedOn: (() => {
+      const r = reminderFor(reminders, month, user.employeeId)
+      return r ? dayKey(new Date(r.sentAt)) : undefined
+    })(),
     ...model,
   }
 }

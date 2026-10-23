@@ -21,6 +21,10 @@ export type Employee = {
   department: string
   /** Photo under /public; employees without one get initials */
   photo?: string
+  /** First day of employment (YYYY-MM-DD); months before it don't apply to the employee */
+  startDate?: string
+  /** Not required to submit a monthly attendance report (e.g. a global-hours contract) */
+  reportExempt?: boolean
 }
 
 export type TeamReport = Employee & {
@@ -46,7 +50,7 @@ export const REQUEST_TYPE_LABEL: Record<RequestType, string> = {
   vacation: 'אישור חופשה',
   sick: 'אישור מחלה',
   reserve: 'אישור מילואים',
-  other: 'אישור היעדרות',
+  other: 'היעדרות אחרת',
 }
 
 const EMPLOYEES: Employee[] = [
@@ -75,9 +79,9 @@ const EMPLOYEES: Employee[] = [
   { id: 'e23', name: 'קרן אוחיון', role: 'מנהלת חשבונות', department: 'כספים' },
   { id: 'e24', name: 'בן אלמוג', role: 'תומך טכני', department: 'תפעול' },
   { id: 'e25', name: 'דנה פישר', role: 'מנהלת קהילה', department: 'שיווק' },
-  { id: 'e26', name: 'אריאל זילבר', role: 'ארכיטקט תוכנה', department: 'פיתוח' },
-  { id: 'e27', name: 'טל ביטון', role: 'בודק אוטומציה', department: 'בדיקות' },
-  { id: 'e28', name: 'מורן אשכנזי', role: 'מנהלת משרד', department: 'תפעול' },
+  { id: 'e26', name: 'אריאל זילבר', role: 'ארכיטקט תוכנה', department: 'פיתוח', reportExempt: true },
+  { id: 'e27', name: 'טל ביטון', role: 'בודק אוטומציה', department: 'בדיקות', startDate: '2026-10-11' },
+  { id: 'e28', name: 'מורן אשכנזי', role: 'מנהלת משרד', department: 'תפעול', startDate: '2026-08-16' },
 ]
 
 /** October 2026 matches the approved mockup for the first eight rows. */
@@ -114,8 +118,10 @@ function demoRequestType(employeeId: string, month: string): RequestType {
   const fixed = FIXED_TYPE[month]?.[employeeId]
   if (fixed) return fixed
   // Most requests are the monthly attendance report; the rest are vacation / sick leave approvals.
+  // An employee exempt from the monthly report never submits one.
   const r = roll(`${employeeId}:${month}:type`)
-  return r < 55 ? 'attendance' : r < 82 ? 'vacation' : 'sick'
+  const exempt = EMPLOYEES.find((e) => e.id === employeeId)?.reportExempt
+  return r < 55 && !exempt ? 'attendance' : r < 82 ? 'vacation' : 'sick'
 }
 
 /** "2026-10" → "10-26" (MM-YY), the month a request refers to. */
@@ -135,9 +141,24 @@ export function recentMonths(now = new Date(), count = 6): string[] {
   return Array.from({ length: count }, (_, i) => monthKey(new Date(now.getFullYear(), now.getMonth() - i, 1)))
 }
 
+/** Last day of a month, YYYY-MM-DD. */
+const monthEnd = (month: string) => {
+  const d = new Date(Number(month.slice(0, 4)), Number(month.slice(5, 7)), 0)
+  return `${month}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+/** Employed during the month (on any day of it). */
+export const isEmployedIn = (e: Employee, month: string) => !e.startDate || e.startDate <= monthEnd(month)
+
+/** Must submit a monthly attendance report for the month: employed then and not exempt. */
+export const requiresMonthlyReport = (e: Employee, month: string) => isEmployedIn(e, month) && !e.reportExempt
+
+/** The employees a month applies to. */
+export const employeesIn = (month: string) => EMPLOYEES.filter((e) => isEmployedIn(e, month))
+
 export function loadTeamReports(month: string, now = new Date()): TeamReport[] {
   const isCurrent = month === monthKey(now)
-  return EMPLOYEES.map((e) => ({ ...e, month, status: demoStatus(e.id, month, isCurrent), requestType: demoRequestType(e.id, month) }))
+  return employeesIn(month).map((e) => ({ ...e, month, status: demoStatus(e.id, month, isCurrent), requestType: demoRequestType(e.id, month) }))
 }
 
 /** The employee a request belongs to (demo rows use the employee id as the request id). */

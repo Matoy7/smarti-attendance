@@ -420,3 +420,18 @@
 .mr-page {
   width: min(1120px, 100%);
 }
+
+/* A manager's reminder for a month whose report wasn't submitted yet. */
+.mr-approval-reminder {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: var(--space-0-5);
+  margin: 0;
+  color: var(--color-outline-action-ink);
+}
+
+.mr-approval-reminder svg {
+  flex: 0 0 auto;
+  color: var(--color-accent);
+}

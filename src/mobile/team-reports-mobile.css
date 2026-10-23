@@ -73,8 +73,14 @@
 }
 
 .m-segmented button {
-  height: 44px; /* touch target */
-  white-space: nowrap; /* label and its (N) on one line */
+  display: flex;
+  min-height: 52px; /* touch target: label, then its (N) */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-0-5) 2px;
+  line-height: var(--text-label-line);
+  white-space: nowrap;
   border: 0;
   border-radius: var(--radius-sm);
   color: var(--color-text-secondary);
@@ -132,9 +138,11 @@
   gap: var(--space-0-5);
 }
 
-.m-team-type {
-  color: var(--color-text);
-  font-weight: var(--font-weight-medium);
+.m-team-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-0-5) var(--space-1);
 }
 
 .m-team-copy .approval {
@@ -256,4 +264,54 @@
 
 .action-sheet-item.tone-danger svg {
   color: var(--color-danger);
+}
+
+/* Three tabs on a phone: the count goes under the label, in every segment alike. */
+.m-segmented .tab-count {
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-line);
+}
+
+.m-team-count-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1);
+}
+
+.m-team-clear {
+  min-height: 44px;
+  color: var(--color-link);
+}
+
+.m-team .remind-all {
+  width: 100%;
+  height: var(--touch-target);
+}
+
+.m-missing-item {
+  cursor: default;
+}
+
+.m-missing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.m-missing-actions .remind-one {
+  height: var(--touch-target);
+}
+
+.m-team .multi-select-button {
+  font-size: var(--text-body-size); /* matches the other mobile fields */
+}
+
+/* Very narrow phones: one filter per row, so month and type values aren't cut off. */
+@media (max-width: 359px) {
+  .m-team-selects {
+    grid-template-columns: 1fr;
+  }
 }

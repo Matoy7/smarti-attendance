@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ALL_DEPARTMENTS, EMPTY_TAB_MESSAGE, TEAM_TABS, useTeamReports } from '@/hooks/useTeamReports'
+import { ALL_DEPARTMENTS, EMPTY_TAB_MESSAGE, STATUS_OPTIONS, TEAM_TABS, TYPE_OPTIONS, useTeamReports, type StatusFilter } from '@/hooks/useTeamReports'
 import { DEPARTMENTS, employeeOf, formatMonth, recentMonths, typeLabel } from '@/lib/teamReports'
 import { Button, Card } from '@/components/ui'
 import { CalendarIcon, CheckIcon, ChevronIcon, DownloadIcon, SearchIcon, XIcon } from '@/components/icons'
+import { RequestTypeBadge } from '@/components/team/RequestTypeBadge'
+import { MultiSelectField } from '@/components/team/MultiSelectField'
+import { RemindAll, RemindButton, ReminderBanner, ReminderSent, useReminderActions } from '@/components/team/reminders'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { EmployeeAvatar } from '@/components/team/EmployeeAvatar'
 import { RowActionsMenu } from '@/components/team/RowActionsMenu'
@@ -29,14 +32,18 @@ export function TeamReportsPage() {
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0])
   const months = useMemo(() => recentMonths(), [])
 
-  const pageCount = Math.max(1, Math.ceil(t.filtered.length / pageSize))
+  const missingTab = t.tab === 'missing'
+  const reminders = useReminderActions(t.remind, t.missing, t.month)
+  const listLength = missingTab ? t.missing.length : t.filtered.length
+  const pageCount = Math.max(1, Math.ceil(listLength / pageSize))
   const current = Math.min(page, pageCount)
-  const rows = t.filtered.slice((current - 1) * pageSize, current * pageSize)
-  const first = t.filtered.length ? (current - 1) * pageSize + 1 : 0
-  const last = Math.min(current * pageSize, t.filtered.length)
+  const rows = missingTab ? [] : t.filtered.slice((current - 1) * pageSize, current * pageSize)
+  const missingRows = missingTab ? t.missing.slice((current - 1) * pageSize, current * pageSize) : []
+  const first = listLength ? (current - 1) * pageSize + 1 : 0
+  const last = Math.min(current * pageSize, listLength)
 
   // Filters start again from page 1.
-  useEffect(() => setPage(1), [t.query, t.month, t.department, t.tab, pageSize])
+  useEffect(() => setPage(1), [t.query, t.month, t.department, t.status, t.types, t.tab, pageSize])
 
   const pageIds = rows.map((r) => r.id)
   const pageSelected = pageIds.filter((id) => t.selected.has(id)).length
@@ -80,28 +87,40 @@ export function TeamReportsPage() {
           onChange={t.setDepartment}
           options={[{ value: ALL_DEPARTMENTS, label: 'כל המחלקות' }, ...DEPARTMENTS.map((d) => ({ value: d, label: d }))]}
         />
+        <SelectField label="סטטוס" value={t.status} onChange={(v) => t.setStatus(v as StatusFilter)} options={STATUS_OPTIONS} />
+        <MultiSelectField label="סוג בקשה" allLabel="כל סוגי הבקשות" options={TYPE_OPTIONS} selected={t.types} onChange={t.setTypes} />
         <Button
           variant="secondary"
           className="team-export"
           icon={<DownloadIcon />}
           onClick={t.exportCsv}
-          disabled={!t.filtered.length}
+          disabled={!t.shownCount}
           title="הורדת הרשימה המוצגת כקובץ CSV (נפתח ב-Excel)"
         >
           ייצוא
         </Button>
       </div>
 
-      <div className="team-tabs" role="group" aria-label="תצוגה">
-        {TEAM_TABS.map(({ id, label }) => (
-          <button key={id} type="button" className={`team-tab ${t.tab === id ? 'active' : ''}`} aria-pressed={t.tab === id} onClick={() => t.setTab(id)}>
-            <TabLabel label={label} count={t.tabCounts[id]} />
-          </button>
-        ))}
+      <div className="team-tabs-row">
+        <div className="team-tabs" role="group" aria-label="תצוגה">
+          {TEAM_TABS.map(({ id, label }) => (
+            <button key={id} type="button" className={`team-tab ${t.tab === id ? 'active' : ''}`} aria-pressed={t.tab === id} onClick={() => t.setTab(id)}>
+              <TabLabel label={label} count={t.tabCounts[id]} />
+            </button>
+          ))}
+        </div>
+        {t.filtersActive && (
+          <Button variant="link" className="team-clear-filters text-label" onClick={t.clearFilters}>
+            ניקוי סינון
+          </Button>
+        )}
+        {missingTab && <RemindAll actions={reminders} rows={t.missing} month={t.month} variant="modal" />}
       </div>
 
+      {missingTab && <ReminderBanner banner={reminders.banner} onDismiss={reminders.dismiss} />}
+
       <Card className="team-card" aria-label="רשימת עובדים">
-        {selectedIds.length > 0 && (
+        {!missingTab && selectedIds.length > 0 && (
           <div className="bulk-bar" role="region" aria-label="פעולות על עובדים שנבחרו">
             <span className="text-label">נבחרו {selectedIds.length} עובדים</span>
             <Button variant="secondary" className="bulk-action bulk-approve" icon={<CheckIcon strokeWidth={2} />} onClick={() => t.approve(selectedIds)}>
@@ -116,75 +135,128 @@ export function TeamReportsPage() {
           </div>
         )}
 
-        <div className="table-scroll">
-          <table className="team-table">
-            <thead>
-              <tr>
-                <th className="col-check" scope="col">
-                  <input
-                    ref={headerCheck}
-                    type="checkbox"
-                    className="check"
-                    aria-label="בחירת כל העובדים בעמוד"
-                    checked={allOnPage}
-                    disabled={!pageIds.length}
-                    onChange={(e) => t.setMany(pageIds, e.target.checked)}
-                  />
-                </th>
-                <th scope="col">שם עובד</th>
-                <th scope="col">תפקיד</th>
-                <th scope="col">מחלקה</th>
-                <th scope="col" className="col-type">
-                  סוג
-                </th>
-                <th scope="col" className="col-status">
-                  סטטוס
-                </th>
-                <th scope="col" className="col-actions">
-                  פעולות
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r) => {
-                const checked = t.selected.has(r.id)
-                return (
-                  <tr key={r.id} className={`row-link ${checked ? 'selected' : ''}`.trim()} onClick={(e) => onReportClick(e, r)}>
-                    <td className="col-check">
-                      <input type="checkbox" className="check" aria-label={`בחירת ${r.name}`} checked={checked} onChange={() => t.toggle(r.id)} />
-                    </td>
+        {missingTab ? (
+          <div className="table-scroll">
+            <table className="team-table missing-table">
+              <thead>
+                <tr>
+                  <th scope="col">שם עובד</th>
+                  <th scope="col">תפקיד</th>
+                  <th scope="col">מחלקה</th>
+                  <th scope="col">חודש דיווח</th>
+                  <th scope="col" className="col-status">
+                    סטטוס
+                  </th>
+                  <th scope="col" className="col-remind">
+                    פעולות
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {missingRows.map((e) => (
+                  <tr key={e.id}>
                     <th scope="row" className="col-name">
-                      {/* The keyboard entry point for the row; a mouse click anywhere on the row does the same. */}
-                      <button type="button" className="emp-open emp-cell">
-                        <EmployeeAvatar id={employeeOf(r)} name={r.name} photo={r.photo} />
-                        <span className="emp-name">{r.name}</span>
-                      </button>
+                      <span className="emp-cell">
+                        <EmployeeAvatar id={e.id} name={e.name} photo={e.photo} />
+                        <span className="emp-name">{e.name}</span>
+                      </span>
                     </th>
-                    <td>{r.role}</td>
-                    <td>{r.department}</td>
-                    <td className="col-type">{typeLabel(r)}</td>
+                    <td>{e.role}</td>
+                    <td>{e.department}</td>
+                    <td>{formatMonth(e.month)}</td>
                     <td className="col-status">
-                      <ApprovalBadge status={r.status} />
+                      <ApprovalBadge status="missing" />
                     </td>
-                    <td className="col-actions">
-                      <RowActionsMenu name={r.name} status={r.status} onApprove={() => t.approve([r.id])} onReject={() => t.reject([r.id])} />
+                    <td className="col-remind">
+                      <span className="remind-cell">
+                        <RemindButton row={e} busy={reminders.busyId === e.id} disabled={reminders.busyId !== null} onClick={() => reminders.sendOne(e)} />
+                        <ReminderSent reminder={e.reminder} />
+                      </span>
                     </td>
                   </tr>
-                )
-              })}
-              {rows.length === 0 && (
+                ))}
+                {missingRows.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="team-empty">
+                      <strong className="text-body">{t.filtersActive ? 'לא נמצאו עובדים' : 'אין דוחות חסרים'}</strong>
+                      <span className="text-label text-tertiary">{t.filtersActive ? 'נסו לשנות את החיפוש או את הסינון.' : EMPTY_TAB_MESSAGE.missing}</span>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="table-scroll">
+            <table className="team-table">
+              <thead>
                 <tr>
-                  <td colSpan={7} className="team-empty">
-                    <strong className="text-body">לא נמצאו עובדים</strong>
-                    <span className="text-label text-tertiary">
-                      {!t.query && t.department === ALL_DEPARTMENTS ? EMPTY_TAB_MESSAGE[t.tab] : 'נסו לשנות את החיפוש או את הסינון.'}
-                    </span>
-                  </td>
+                  <th className="col-check" scope="col">
+                    <input
+                      ref={headerCheck}
+                      type="checkbox"
+                      className="check"
+                      aria-label="בחירת כל העובדים בעמוד"
+                      checked={allOnPage}
+                      disabled={!pageIds.length}
+                      onChange={(e) => t.setMany(pageIds, e.target.checked)}
+                    />
+                  </th>
+                  <th scope="col">שם עובד</th>
+                  <th scope="col">תפקיד</th>
+                  <th scope="col">מחלקה</th>
+                  <th scope="col" className="col-type">
+                    סוג
+                  </th>
+                  <th scope="col" className="col-status">
+                    סטטוס
+                  </th>
+                  <th scope="col" className="col-actions">
+                    פעולות
+                  </th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {rows.map((r) => {
+                  const checked = t.selected.has(r.id)
+                  return (
+                    <tr key={r.id} className={`row-link ${checked ? 'selected' : ''}`.trim()} onClick={(e) => onReportClick(e, r)}>
+                      <td className="col-check">
+                        <input type="checkbox" className="check" aria-label={`בחירת ${r.name}`} checked={checked} onChange={() => t.toggle(r.id)} />
+                      </td>
+                      <th scope="row" className="col-name">
+                        {/* The keyboard entry point for the row; a mouse click anywhere on the row does the same. */}
+                        <button type="button" className="emp-open emp-cell">
+                          <EmployeeAvatar id={employeeOf(r)} name={r.name} photo={r.photo} />
+                          <span className="emp-name">{r.name}</span>
+                        </button>
+                      </th>
+                      <td>{r.role}</td>
+                      <td>{r.department}</td>
+                      <td className="col-type">
+                        <RequestTypeBadge type={r.requestType} label={typeLabel(r)} />
+                      </td>
+                      <td className="col-status">
+                        <ApprovalBadge status={r.status} />
+                      </td>
+                      <td className="col-actions">
+                        <RowActionsMenu name={r.name} status={r.status} onApprove={() => t.approve([r.id])} onReject={() => t.reject([r.id])} />
+                      </td>
+                    </tr>
+                  )
+                })}
+                {rows.length === 0 && (
+                  <tr>
+                    <td colSpan={7} className="team-empty">
+                      <strong className="text-body">לא נמצאו עובדים</strong>
+                      <span className="text-label text-tertiary">{!t.filtersActive ? EMPTY_TAB_MESSAGE[t.tab] : 'נסו לשנות את החיפוש או את הסינון.'}</span>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         <footer className="team-footer">
           <div className="team-range">
@@ -193,10 +265,13 @@ export function TeamReportsPage() {
               label="עובדים בעמוד"
               value={String(pageSize)}
               onChange={(v) => setPageSize(Number(v))}
-              options={PAGE_SIZES.map((n) => ({ value: String(n), label: String(n) }))}
+              options={PAGE_SIZES.map((n) => ({
+                value: String(n),
+                label: String(n),
+              }))}
             />
             <span className="text-label text-secondary" aria-live="polite">
-              מציג {first}–{last} מתוך {t.filtered.length} עובדים
+              מציג {first}–{last} מתוך {listLength} עובדים
             </span>
           </div>
 

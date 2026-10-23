@@ -44,3 +44,136 @@
   font-variant-numeric: tabular-nums;
   opacity: 0.72;
 }
+
+/* ---- Multi-select filter (סוג בקשה): a button in the select field's look, opening a checkbox list ---- */
+.multi-select {
+  position: relative;
+}
+
+.multi-select-button {
+  width: 100%;
+  height: 44px;
+  overflow: hidden;
+  padding-inline: var(--space-1-5) calc(var(--space-1-5) + 18px + var(--space-1));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-line);
+  text-align: start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.multi-select-button:focus-visible {
+  border-color: var(--color-focus);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 25%, transparent);
+}
+
+.multi-select-value {
+  font-weight: var(--font-weight-semibold);
+}
+
+.multi-select.open .select-field-chevron {
+  transform: rotate(180deg);
+}
+
+.multi-select-panel {
+  position: absolute;
+  z-index: var(--z-drawer);
+  top: calc(100% + var(--space-0-5));
+  inset-inline-start: 0;
+  display: flex;
+  min-width: 100%;
+  flex-direction: column;
+  padding: var(--space-0-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-drawer);
+}
+
+.multi-select-option {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: var(--text-label-size);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .multi-select-option:hover {
+    background: var(--color-surface-hover);
+  }
+}
+
+.multi-select-clear {
+  min-height: 36px;
+  margin-top: var(--space-0-5);
+  padding: 0 var(--space-1);
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0;
+  color: var(--color-link);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  text-align: start;
+  cursor: pointer;
+}
+
+.multi-select-clear:disabled {
+  color: var(--color-text-tertiary);
+  cursor: default;
+}
+
+/* ---- טרם הוגש: reminders ---- */
+.remind-all svg,
+.remind-one svg {
+  width: 18px;
+  height: 18px;
+}
+
+.remind-cell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.remind-one {
+  height: 36px;
+  white-space: nowrap;
+}
+
+.reminder-sent {
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.reminder-banner {
+  margin: 0;
+}
+
+.confirm-dialog.sheet-modal {
+  width: min(460px, calc(100vw - 2 * var(--space-4)));
+}
+
+.confirm-body p {
+  margin: 0;
+}
+
+.confirm-body p + p {
+  margin-top: var(--space-1);
+}
