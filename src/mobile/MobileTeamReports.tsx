@@ -6,6 +6,7 @@ import { CalendarIcon, CheckIcon, DownloadIcon, MoreIcon, SearchIcon, XIcon } fr
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { EmployeeAvatar } from '@/components/team/EmployeeAvatar'
 import { SelectField } from '@/components/team/SelectField'
+import { TabLabel } from '@/components/team/TabLabel'
 import { ActionSheet, type SheetAction } from '@/components/team/ActionSheet'
 import { onReportClick } from '@/components/team/openReport'
 import { MobileShell } from './MobileShell'
@@ -109,7 +110,7 @@ export function MobileTeamReports() {
         <div className="m-segmented" role="group" aria-label="תצוגה">
           {TEAM_TABS.map(({ id, label }) => (
             <button key={id} type="button" className={t.tab === id ? 'active' : undefined} aria-pressed={t.tab === id} onClick={() => t.setTab(id)}>
-              {label}
+              <TabLabel label={label} count={t.tabCounts[id]} />
             </button>
           ))}
         </div>

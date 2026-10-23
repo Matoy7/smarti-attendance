@@ -45,15 +45,24 @@ export function useTeamReports() {
 
   const reports = useMemo<TeamReport[]>(() => reportsFor(month, decisions), [month, decisions])
 
-  const filtered = useMemo(() => {
+  // Month (via reports), department and search apply to every tab; the tab splits what's left.
+  const matching = useMemo(() => {
     const q = normalize(query)
     return reports.filter(
       (r) =>
-        inTab(tab, r.status) &&
         (department === ALL_DEPARTMENTS || r.department === department) &&
         (!q || [r.name, r.role, r.department].some((field) => normalize(field).includes(q))),
     )
-  }, [reports, tab, department, query])
+  }, [reports, department, query])
+
+  const filtered = useMemo(() => matching.filter((r) => inTab(tab, r.status)), [matching, tab])
+
+  /** Rows each tab shows under the current filters: the (N) on the tabs. */
+  const tabCounts = useMemo(() => {
+    const counts: Record<TeamTab, number> = { pending: 0, processed: 0, all: 0 }
+    for (const r of matching) for (const { id } of TEAM_TABS) if (inTab(id, r.status)) counts[id]++
+    return counts
+  }, [matching])
 
   const pendingCount = useMemo(() => reports.filter((r) => r.status === 'pending').length, [reports])
   const processedCount = reports.length - pendingCount
@@ -127,6 +136,7 @@ export function useTeamReports() {
     total: reports.length,
     pendingCount,
     processedCount,
+    tabCounts,
     selected,
     toggle,
     setMany,

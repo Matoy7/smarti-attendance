@@ -7,6 +7,7 @@ import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { EmployeeAvatar } from '@/components/team/EmployeeAvatar'
 import { RowActionsMenu } from '@/components/team/RowActionsMenu'
 import { SelectField } from '@/components/team/SelectField'
+import { TabLabel } from '@/components/team/TabLabel'
 import { onReportClick } from '@/components/team/openReport'
 import '@/components/team/team.css'
 import './team-reports.css'
@@ -94,7 +95,7 @@ export function TeamReportsPage() {
       <div className="team-tabs" role="group" aria-label="תצוגה">
         {TEAM_TABS.map(({ id, label }) => (
           <button key={id} type="button" className={`team-tab ${t.tab === id ? 'active' : ''}`} aria-pressed={t.tab === id} onClick={() => t.setTab(id)}>
-            {label}
+            <TabLabel label={label} count={t.tabCounts[id]} />
           </button>
         ))}
       </div>

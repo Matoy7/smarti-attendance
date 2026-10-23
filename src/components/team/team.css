@@ -83,3 +83,10 @@
   color: var(--color-text-secondary);
   background: var(--color-surface-hover);
 }
+
+/* Record count on the view tabs: same line and size as the label, regular weight, softer. */
+.tab-count {
+  font-weight: var(--font-weight-regular);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.72;
+}
