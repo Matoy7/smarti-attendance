@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ALL_DEPARTMENTS, useTeamReports, type TeamTab } from '@/hooks/useTeamReports'
+import { ALL_DEPARTMENTS, EMPTY_TAB_MESSAGE, TEAM_TABS, useTeamReports } from '@/hooks/useTeamReports'
 import { DEPARTMENTS, formatMonth, recentMonths, typeLabel, type TeamReport } from '@/lib/teamReports'
 import { Button } from '@/components/ui'
 import { CalendarIcon, CheckIcon, DownloadIcon, MoreIcon, SearchIcon, XIcon } from '@/components/icons'
@@ -14,10 +14,6 @@ import '@/pages/team-reports.css'
 import './team-reports-mobile.css'
 
 const BATCH = 8
-const TABS: { id: TeamTab; label: string }[] = [
-  { id: 'all', label: 'דיווח חודשי' },
-  { id: 'pending', label: 'בקשות לאישור' },
-]
 
 /**
  * דיווחי עובדים — mobile. Same data and actions as desktop (useTeamReports), in mobile patterns:
@@ -111,7 +107,7 @@ export function MobileTeamReports() {
         </div>
 
         <div className="m-segmented" role="group" aria-label="תצוגה">
-          {TABS.map(({ id, label }) => (
+          {TEAM_TABS.map(({ id, label }) => (
             <button key={id} type="button" className={t.tab === id ? 'active' : undefined} aria-pressed={t.tab === id} onClick={() => t.setTab(id)}>
               {label}
             </button>
@@ -151,9 +147,7 @@ export function MobileTeamReports() {
           <div className="m-team-empty">
             <strong className="text-body">לא נמצאו עובדים</strong>
             <span className="text-label text-tertiary">
-              {t.tab === 'pending' && !t.query && t.department === ALL_DEPARTMENTS
-                ? 'אין דיווחים שממתינים לאישור בחודש זה.'
-                : 'נסו לשנות את החיפוש או את הסינון.'}
+              {!t.query && t.department === ALL_DEPARTMENTS ? EMPTY_TAB_MESSAGE[t.tab] : 'נסו לשנות את החיפוש או את הסינון.'}
             </span>
           </div>
         )}

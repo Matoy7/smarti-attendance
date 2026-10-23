@@ -3,7 +3,28 @@ import { APPROVAL_LABEL, formatMonth, monthKey, typeLabel, type ApprovalStatus, 
 import { decide as recordDecision, reportsFor, useDecisions } from '@/lib/approvals'
 import { downloadFile, toCsv } from '@/lib/exportCsv'
 
-export type TeamTab = 'all' | 'pending'
+/**
+ * Views of the month's reports. pending + processed partition the month (every report is in exactly
+ * one of them); all is the full monthly report list.
+ */
+export type TeamTab = 'pending' | 'processed' | 'all'
+
+/** Tab order (right to left in RTL); the first is the default. Shared by desktop and mobile. */
+export const TEAM_TABS: { id: TeamTab; label: string }[] = [
+  { id: 'pending', label: 'בקשות לאישור' },
+  { id: 'processed', label: 'בקשות שטופלו' },
+  { id: 'all', label: 'דיווח חודשי' },
+]
+
+const inTab = (tab: TeamTab, status: ApprovalStatus) =>
+  tab === 'all' || (tab === 'pending' ? status === 'pending' : status !== 'pending')
+
+/** Empty-state line when a tab has nothing this month (no search or department filter applied). */
+export const EMPTY_TAB_MESSAGE: Record<TeamTab, string> = {
+  pending: 'אין בקשות שממתינות לאישור בחודש זה.',
+  processed: 'עדיין לא טופלו בקשות בחודש זה.',
+  all: 'אין דיווחים בחודש זה.',
+}
 export const ALL_DEPARTMENTS = 'all'
 
 const normalize = (s: string) => s.trim().toLocaleLowerCase('he')
@@ -17,7 +38,7 @@ export function useTeamReports() {
   const [month, setMonthState] = useState(() => monthKey(new Date()))
   const [department, setDepartmentState] = useState(ALL_DEPARTMENTS)
   const [query, setQueryState] = useState('')
-  const [tab, setTabState] = useState<TeamTab>('all')
+  const [tab, setTabState] = useState<TeamTab>(TEAM_TABS[0].id)
   const decisions = useDecisions()
   const [selected, setSelected] = useState<Set<string>>(() => new Set())
   const [announcement, setAnnouncement] = useState('')
@@ -28,13 +49,14 @@ export function useTeamReports() {
     const q = normalize(query)
     return reports.filter(
       (r) =>
-        (tab === 'all' || r.status === 'pending') &&
+        inTab(tab, r.status) &&
         (department === ALL_DEPARTMENTS || r.department === department) &&
         (!q || [r.name, r.role, r.department].some((field) => normalize(field).includes(q))),
     )
   }, [reports, tab, department, query])
 
   const pendingCount = useMemo(() => reports.filter((r) => r.status === 'pending').length, [reports])
+  const processedCount = reports.length - pendingCount
 
   // Any filter change starts a fresh result set: selection no longer refers to what's shown.
   const resetView = () => setSelected(new Set())
@@ -84,7 +106,7 @@ export function useTeamReports() {
     if (!filtered.length) return
     const header = ['שם עובד', 'תפקיד', 'מחלקה', 'סוג', 'סטטוס', 'חודש']
     const rows = filtered.map((r) => [r.name, r.role, r.department, typeLabel(r, tab), APPROVAL_LABEL[r.status], formatMonth(r.month)])
-    const view = tab === 'pending' ? 'בקשות לאישור' : 'דיווח חודשי'
+    const view = TEAM_TABS.find((x) => x.id === tab)!.label
     const scope = department === ALL_DEPARTMENTS ? '' : ` - ${department}`
     downloadFile(`דיווחי עובדים - ${view}${scope} - ${formatMonth(month)}.csv`, toCsv([header, ...rows]))
     setAnnouncement(`הקובץ יוצא: ${rows.length} עובדים`)
@@ -104,6 +126,7 @@ export function useTeamReports() {
     filtered,
     total: reports.length,
     pendingCount,
+    processedCount,
     selected,
     toggle,
     setMany,
