@@ -36,9 +36,13 @@ export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNa
                         onNavigate?.(id)
                       }}
                     >
-                      <Icon />
+                      {/* Desktop: the notification dot sits on the icon's corner; the mobile menu keeps it at the item's end. */}
+                      <span className="nav-item-icon">
+                        <Icon />
+                        {tone === 'dark' && <NavBadge badge={badges[id]} className="nav-badge-icon" part="dot" />}
+                      </span>
                       <span>{label}</span>
-                      <NavBadge badge={badges[id]} />
+                      {tone === 'dark' ? <NavBadge badge={badges[id]} part="text" /> : <NavBadge badge={badges[id]} />}
                     </button>
                   </li>
                 )

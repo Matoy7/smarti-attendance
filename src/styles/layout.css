@@ -157,7 +157,7 @@
   background: var(--color-accent);
 }
 
-/* Notification circle (secondary color, no number) at the item's end. */
+/* Notification circle (secondary color, no number). Shown only when something needs attention. */
 .nav-badge {
   width: 10px;
   height: 10px;
@@ -165,6 +165,32 @@
   margin-inline-start: auto;
   border-radius: var(--radius-full);
   background: var(--color-badge);
+}
+
+.nav-item-icon {
+  position: relative;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+}
+
+/* Desktop sidebar: an 8px dot on the icon's top corner, ringed in the sidebar color so it reads apart from the icon. */
+.nav-badge.nav-badge-icon {
+  position: absolute;
+  top: -3px;
+  inset-inline-end: -3px;
+  width: 8px;
+  height: 8px;
+  margin: 0;
+  box-shadow: 0 0 0 2px var(--color-sidebar);
+}
+
+.nav-item-dark:hover .nav-badge-icon {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--palette-surface) 6%, var(--color-sidebar)); /* = the hover background, opaque */
+}
+
+.nav-item-dark.active .nav-badge-icon {
+  box-shadow: 0 0 0 2px var(--color-sidebar-active);
 }
 
 .sidebar-footer {
