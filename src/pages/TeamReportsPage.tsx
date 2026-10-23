@@ -33,6 +33,7 @@ export function TeamReportsPage() {
   const months = useMemo(() => recentMonths(), [])
 
   const missingTab = t.tab === 'missing'
+  const showStatus = t.tab === 'processed'
   const reminders = useReminderActions(t.remind, t.missing, t.month)
   const listLength = missingTab ? t.missing.length : t.filtered.length
   const pageCount = Math.max(1, Math.ceil(listLength / pageSize))
@@ -208,9 +209,12 @@ export function TeamReportsPage() {
                   <th scope="col" className="col-type">
                     סוג
                   </th>
-                  <th scope="col" className="col-status">
-                    סטטוס
-                  </th>
+                  {/* Everything in ממתינים לאישור is pending: the status column only appears in טופלו. */}
+                  {showStatus && (
+                    <th scope="col" className="col-status">
+                      סטטוס
+                    </th>
+                  )}
                   <th scope="col" className="col-actions">
                     פעולות
                   </th>
@@ -236,9 +240,11 @@ export function TeamReportsPage() {
                       <td className="col-type">
                         <RequestTypeBadge type={r.requestType} label={typeLabel(r)} />
                       </td>
-                      <td className="col-status">
-                        <ApprovalBadge status={r.status} />
-                      </td>
+                      {showStatus && (
+                        <td className="col-status">
+                          <ApprovalBadge status={r.status} />
+                        </td>
+                      )}
                       <td className="col-actions">
                         <RowActionsMenu name={r.name} status={r.status} onApprove={() => t.approve([r.id])} onReject={() => t.reject([r.id])} />
                       </td>
@@ -247,7 +253,7 @@ export function TeamReportsPage() {
                 })}
                 {rows.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="team-empty">
+                    <td colSpan={showStatus ? 7 : 6} className="team-empty">
                       <strong className="text-body">לא נמצאו עובדים</strong>
                       <span className="text-label text-tertiary">{!t.filtersActive ? EMPTY_TAB_MESSAGE[t.tab] : 'נסו לשנות את החיפוש או את הסינון.'}</span>
                     </td>

@@ -185,7 +185,8 @@ export function MobileTeamReports() {
                   </span>
                   <span className="m-team-badges">
                     <RequestTypeBadge type={r.requestType} label={typeLabel(r)} />
-                    <ApprovalBadge status={r.status} />
+                    {/* In ממתינים לאישור every card is pending: the status shows in טופלו only. */}
+                    {t.tab === 'processed' && <ApprovalBadge status={r.status} />}
                   </span>
                 </div>
                 <button type="button" className="m-team-more" data-acts-for={r.id} aria-label={`פעולות עבור ${r.name}`} aria-haspopup="dialog" onClick={() => setActing(r)}>
