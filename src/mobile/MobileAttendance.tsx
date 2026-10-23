@@ -6,14 +6,16 @@ import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { LocationRow } from '@/components/attendance/LocationRow'
 import { AttendanceFeedback } from '@/components/attendance/AttendanceFeedback'
+import { ManualEntry } from '@/components/attendance/ManualEntry'
 import { MobileShell } from './MobileShell'
 
 const TITLE_ID = 'm-state-title'
 
 /** Attendance — mobile. States: before clock-in → working → day summary (shared with desktop). */
 export function MobileAttendance() {
-  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, backToAttendance, pending, feedback, dismissFeedback, announcement } =
-    useAttendanceFlow()
+  const flow = useAttendanceFlow()
+  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, backToAttendance, pending, feedback, dismissFeedback, announcement } = flow
+  const manual = { checkManualTime: flow.checkManualTime, manualDates: flow.manualDates, manualEntry: flow.manualEntry }
   const time = toTimeOfDay(now)
 
   return (
@@ -36,9 +38,7 @@ export function MobileAttendance() {
               <PunchButton onClick={clockIn} loading={pending === 'in'} icon={<LoginIcon size={52} strokeWidth={1.5} />}>
                 {pending === 'in' ? 'מדווח…' : 'דווח כניסה'}
               </PunchButton>
-              <Button variant="link" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null}>
-                הכנסה ידנית של שעה
-              </Button>
+              <ManualEntry action="in" variant="drawer" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null} {...manual} />
             </>
           )}
 
@@ -48,9 +48,7 @@ export function MobileAttendance() {
               <PunchButton onClick={clockOut} loading={pending === 'out'} icon={<LogoutIcon size={52} strokeWidth={1.5} />}>
                 {pending === 'out' ? 'מדווח…' : 'דווח יציאה'}
               </PunchButton>
-              <Button variant="link" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null}>
-                הכנסה ידנית של שעה
-              </Button>
+              <ManualEntry action="out" variant="drawer" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null} {...manual} />
             </>
           )}
 

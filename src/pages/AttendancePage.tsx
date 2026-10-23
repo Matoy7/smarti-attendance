@@ -7,14 +7,16 @@ import { WorkingStatus } from '@/components/attendance/WorkingStatus'
 import { DaySummary } from '@/components/attendance/DaySummary'
 import { LocationRow } from '@/components/attendance/LocationRow'
 import { AttendanceFeedback } from '@/components/attendance/AttendanceFeedback'
+import { ManualEntry } from '@/components/attendance/ManualEntry'
 import './attendance.css'
 
 const TITLE_ID = 'attendance-title'
 
 /** Attendance (נוכחות) — desktop. States: before clock-in → working → day summary. */
 export function AttendancePage() {
-  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, backToAttendance, pending, feedback, dismissFeedback, announcement } =
-    useAttendanceFlow()
+  const flow = useAttendanceFlow()
+  const { now, status, firstIn, lastOut, workedMs, clockIn, clockOut, backToAttendance, pending, feedback, dismissFeedback, announcement } = flow
+  const manual = { checkManualTime: flow.checkManualTime, manualDates: flow.manualDates, manualEntry: flow.manualEntry }
   const time = toTimeOfDay(now)
   const busy = pending !== null
 
@@ -48,9 +50,7 @@ export function AttendancePage() {
                 >
                   {pending === 'in' ? 'מדווח כניסה…' : 'דווח כניסה'}
                 </Button>
-                <Button variant="link" className="manual-entry text-body" disabled={busy}>
-                  הכנסה ידנית של שעה
-                </Button>
+                <ManualEntry action="in" variant="modal" className="manual-entry text-body" disabled={busy} {...manual} />
               </>
             )}
 
@@ -66,9 +66,7 @@ export function AttendancePage() {
                 >
                   {pending === 'out' ? 'מדווח יציאה…' : 'דווח יציאה'}
                 </Button>
-                <Button variant="link" className="manual-entry text-body" disabled={busy}>
-                  הכנסה ידנית של שעה
-                </Button>
+                <ManualEntry action="out" variant="modal" className="manual-entry text-body" disabled={busy} {...manual} />
               </>
             )}
 

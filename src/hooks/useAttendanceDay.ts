@@ -20,11 +20,11 @@ type DayRecord = {
 const STORAGE_KEY = 'smartime.day.v1'
 const LEGACY_KEY = 'smartime.clockedInAt' // single open clock-in from the first version
 
-const dayKey = (d: Date) =>
+export const dayKey = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 
 /** Why an attendance action was not recorded. */
-export type AttendanceErrorReason = 'storage' | 'conflict'
+export type AttendanceErrorReason = 'storage' | 'conflict' | 'invalid'
 
 export class AttendanceError extends Error {
   constructor(readonly reason: AttendanceErrorReason) {
@@ -66,6 +66,47 @@ function currentRecord(record: DayRecord | null, now: Date): DayRecord | null {
   return record.date === dayKey(now) || open ? record : null
 }
 
+/** Why a manually entered time can't be recorded (see manualTimeProblem). */
+export type ManualTimeProblem =
+  | { field: 'date'; code: 'date-range'; min: string; max: string }
+  | { field: 'time'; code: 'future' }
+  | { field: 'time'; code: 'before-last-out'; bound: Date }
+  | { field: 'time'; code: 'before-clock-in'; bound: Date }
+  | { field: 'form'; code: 'state' }
+
+const startOfDay = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate())
+
+/** Dates a manual entry may use (YYYY-MM-DD, inclusive): a clock-in today or yesterday; a clock-out from the clock-in's day to today. */
+export function manualDateRange(action: 'in' | 'out', record: DayRecord | null, now: Date): { min: string; max: string } {
+  const max = dayKey(now)
+  const open = record?.sessions.find((s) => s.end === null)
+  if (action === 'out' && open) return { min: dayKey(new Date(open.start)), max }
+  const yesterday = startOfDay(now)
+  yesterday.setDate(yesterday.getDate() - 1)
+  return { min: dayKey(yesterday), max }
+}
+
+/**
+ * Checks a manually entered clock-in / clock-out time against the day record. Shared by the form
+ * (inline errors) and the recorder (which re-checks against the freshest record before saving).
+ * - not in the future
+ * - clock-in: today or yesterday, after the day's last clock-out (sessions never overlap)
+ * - clock-out: after the running session's clock-in
+ */
+export function manualTimeProblem(action: 'in' | 'out', at: Date, stored: DayRecord | null, now: Date): ManualTimeProblem | null {
+  const record = currentRecord(stored, now)
+  const open = record?.sessions.find((s) => s.end === null) ?? null
+  if ((action === 'in') === Boolean(open)) return { field: 'form', code: 'state' } // clock-in while working, or clock-out while not
+  const { min, max } = manualDateRange(action, record, now)
+  const day = dayKey(at)
+  if (day < min || day > max) return { field: 'date', code: 'date-range', min, max }
+  if (at.getTime() > now.getTime()) return { field: 'time', code: 'future' }
+  if (action === 'out' && open && at.getTime() <= new Date(open.start).getTime()) return { field: 'time', code: 'before-clock-in', bound: new Date(open.start) }
+  const lastEnd = record?.sessions.at(-1)?.end
+  if (action === 'in' && lastEnd && at.getTime() <= new Date(lastEnd).getTime()) return { field: 'time', code: 'before-last-out', bound: new Date(lastEnd) }
+  return null
+}
+
 export function workedMs(sessions: Session[], now: Date): number {
   return sessions.reduce((sum, s) => {
     const end = s.end ? new Date(s.end).getTime() : now.getTime()
@@ -94,17 +135,20 @@ export function useAttendanceDay(now: Date) {
   }, [])
 
   /**
-   * Records a clock-in. Resolves with its time once the record is saved and verified;
-   * rejects with an AttendanceError and leaves the state unchanged otherwise.
+   * Records a clock-in, now or at a manually entered time (`manualAt`, checked by manualTimeProblem).
+   * Resolves with its time once the record is saved and verified; rejects with an AttendanceError
+   * and leaves the state unchanged otherwise.
    * Async so a server-backed implementation can replace it without touching the UI.
    */
-  const clockIn = useCallback(async (): Promise<Date> => {
-    const at = new Date()
-    const today = currentRecord(latest(), at)
+  const clockIn = useCallback(async (manualAt?: Date): Promise<Date> => {
+    const now = new Date()
+    const at = manualAt ?? now
+    const today = currentRecord(latest(), now)
     if (today?.sessions.some((s) => s.end === null)) {
       apply(today) // already clocked in (e.g. in another tab): show the real state
       throw new AttendanceError('conflict')
     }
+    if (manualAt && manualTimeProblem('in', manualAt, today, now)) throw new AttendanceError('invalid')
     const next: DayRecord = today
       ? { ...today, summaryDismissed: false, sessions: [...today.sessions, { start: at.toISOString(), end: null }] }
       : { date: dayKey(at), sessions: [{ start: at.toISOString(), end: null }] }
@@ -113,14 +157,16 @@ export function useAttendanceDay(now: Date) {
     return at
   }, [apply, latest])
 
-  /** Records a clock-out, with the same confirmation contract as clockIn. */
-  const clockOut = useCallback(async (): Promise<Date> => {
-    const at = new Date()
+  /** Records a clock-out (now or at `manualAt`), with the same confirmation contract as clockIn. */
+  const clockOut = useCallback(async (manualAt?: Date): Promise<Date> => {
+    const now = new Date()
+    const at = manualAt ?? now
     const current = latest()
     if (!current?.sessions.some((s) => s.end === null)) {
       apply(current ?? null) // already clocked out elsewhere
       throw new AttendanceError('conflict')
     }
+    if (manualAt && manualTimeProblem('out', manualAt, current, now)) throw new AttendanceError('invalid')
     const next: DayRecord = {
       ...current,
       sessions: current.sessions.map((s) => (s.end === null ? { ...s, end: at.toISOString() } : s)),
@@ -139,6 +185,11 @@ export function useAttendanceDay(now: Date) {
     apply(next)
   }, [apply])
 
+  /** Checks a manual time against the freshest record (form validation). */
+  const checkManualTime = useCallback((action: 'in' | 'out', at: Date) => manualTimeProblem(action, at, latest(), new Date()), [latest])
+  /** Allowed dates for a manual entry right now. */
+  const manualDates = useCallback((action: 'in' | 'out') => manualDateRange(action, currentRecord(latest(), new Date()), new Date()), [latest])
+
   return {
     status,
     /** Start of the session currently running */
@@ -152,5 +203,7 @@ export function useAttendanceDay(now: Date) {
     clockIn,
     clockOut,
     backToAttendance,
+    checkManualTime,
+    manualDates,
   }
 }
