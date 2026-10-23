@@ -45,7 +45,7 @@ export default function App() {
   return (
     <div className="app-shell" dir="rtl">
       <Sidebar />
-      <main className={`main-content ${route === 'attendance' ? 'main-attendance' : ''}`.trim()}>{page}</main>
+      <main className="main-content">{page}</main>
     </div>
   )
 }

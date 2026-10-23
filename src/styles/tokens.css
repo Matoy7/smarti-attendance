@@ -138,10 +138,13 @@
   --color-warning-ink: var(--palette-accent-ink); /* 5.3:1 on its surface */
 
   /* Radius */
+  /* Corners: main frames (cards, panels, tables, sheets) are square; smaller frames inside them
+     (buttons, fields, tiles, banners, tabs) are barely rounded; circles use --radius-full. */
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px; /* cards, drawer */
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --radius-xl: 0; /* main frames */
+  --radius-nav: 16px; /* mobile bottom navigation's top corners (matched reference) */
   --radius-full: 9999px;
 
   /* Elevation (dark at low alpha) */
@@ -293,20 +296,4 @@
     --duration-medium: 0ms;
     --duration-slow: 0ms;
   }
-}
-
-/*
- * Attendance screen (דיווח נוכחות) — warm editorial refinement, desktop and mobile:
- * square corners for its cards, buttons and fields. Circles (--radius-full: the clock-in orb,
- * round icon buttons, avatars) stay circular. Scoped to the screen's content, so the sidebar,
- * mobile top bar and bottom navigation keep their shapes.
- */
-.attendance-screen,
-.m-app-attendance .m-main {
-  --radius-sm: 0;
-  --radius-md: 0;
-  --radius-lg: 0;
-  --radius-xl: 0;
-  --radius-button: 0;
-  --font-clock: 'Playfair Display Clock', var(--font-sans);
 }

@@ -218,7 +218,7 @@
   font-size: var(--text-label-size);
   line-height: var(--text-label-line);
   border: 1.5px solid var(--color-outline-action-border);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-md);
   color: var(--color-outline-action-ink);
   background: transparent;
   font-weight: var(--font-weight-semibold);
@@ -282,7 +282,7 @@
 /* ---- Bottom navigation ---- */
 .bottom-nav {
   --color-focus: var(--color-accent); /* green focus ring would vanish on the green bar */
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-radius: var(--radius-nav) var(--radius-nav) 0 0;
   position: fixed;
   inset-inline: 0;
   bottom: 0;
@@ -551,22 +551,21 @@
 }
 
 /*
- * Attendance (דיווח נוכחות) on mobile — the approved warm ivory paper background (beige shapes and
- * thin orange curves at the corners, clean center), the serif clock, and square corners (tokens in
- * tokens.css). Light theme only for the background.
+ * App background on mobile (every screen, light theme): the approved warm ivory paper artwork
+ * for phones. Drawn on a fixed layer behind the content, so long screens scroll over it and the
+ * corner shapes stay at the screen's corners (no stretching on tall pages; works on iOS too).
  */
-:root:not([data-theme='dark']) .m-app.m-app-attendance {
-  background: url('../assets/bg/bg-mobile.webp') center / cover no-repeat fixed, #fcf5eb;
+:root:not([data-theme='dark']) .m-app {
+  position: relative;
+  isolation: isolate;
+  background: #fcf5eb;
 }
 
-.m-app-attendance .time-display {
-  font-family: var(--font-clock);
-  font-weight: 600;
-  font-variant-numeric: lining-nums;
-  letter-spacing: 0;
-}
-
-/* The manual-entry outline was a pill: square like the other rectangular controls. */
-.m-app-attendance .m-manual-entry.btn-link {
-  border-radius: 0;
+:root:not([data-theme='dark']) .m-app::before {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background: url('../assets/bg/bg-mobile.webp') center / cover no-repeat;
+  pointer-events: none;
 }

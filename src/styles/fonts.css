@@ -1,17 +1,4 @@
 /*
- * Playfair Display 600 (SIL OFL, see assets/fonts/PlayfairDisplay-OFL.txt), subset to the digits
- * and colon: the serif of the attendance clock only (pages/attendance.css). ~2.5 KB.
- */
-@font-face {
-  font-family: 'Playfair Display Clock';
-  src: url('../assets/fonts/playfair-display-digits-600.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  unicode-range: U+0030-003A;
-}
-
-/*
  * Heebo (variable, SIL OFL), self-hosted. One family covering weights
  * 100–900; components pick weights through the --font-weight-* tokens.
  */

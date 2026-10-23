@@ -265,3 +265,16 @@
 .page-header p {
   margin: 0;
 }
+
+/*
+ * App background (every screen, light theme): the approved warm ivory paper — beige organic
+ * shapes with thin orange curves at the top-left and bottom-right corners, clean center. The two
+ * corner pieces are cut from the dashboard artwork (matted: only shapes and curves are drawn) and
+ * laid on its ivory, so they keep their proportions at any window width. Dark keeps its canvas.
+ */
+:root:not([data-theme='dark']) .main-content {
+  background:
+    url('../assets/bg/bg-desktop-tl.webp') left top / clamp(150px, 17vw, 260px) auto no-repeat,
+    url('../assets/bg/bg-desktop-br.webp') right bottom / clamp(260px, 30vw, 460px) auto no-repeat,
+    #fef9f3;
+}
