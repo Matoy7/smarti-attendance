@@ -12,14 +12,14 @@ const ICON: Record<RequestType, ComponentType<{ size?: number }>> = {
 }
 
 /**
- * What a request is for, e.g. "אישור נוכחות 10-26": one soft-orange pill for every type (the
- * product accent), told apart by icon and text — never by traffic-light colors, which belong to
- * the approval status badge next to it.
+ * What a request is for, e.g. "אישור נוכחות 10-26": a pill with its own color per type (from the
+ * product palette), plus a per-type icon and the text, so types are told apart at a glance and
+ * never by color alone. Status badges are square-cornered, so the two don't read as one.
  */
 export function RequestTypeBadge({ type, label }: { type: RequestType; label: string }) {
   const Icon = ICON[type]
   return (
-    <span className="request-type">
+    <span className={`request-type request-type-${type}`}>
       <Icon size={14} />
       {label}
     </span>

@@ -1,18 +1,22 @@
 /*
- * Request type badge: a pill (status badges are square-cornered and colored by status) in the
- * product orange — soft orange surface, orange-ink text, orange icon. Same for every type.
+ * Request type badge: a pill (status badges are square-cornered) with one color per type, all
+ * from the product palette — no new hues. Each type sets --type-hue; surface, border and text are
+ * mixed from it against the theme's surface / text, so the same rules work in light and dark.
+ *   אישור נוכחות  green (primary)     אישור חופשה  orange (accent)     אישור מחלה  coral (danger)
+ *   אישור מילואים olive (accent+green) היעדרות אחרת neutral
  */
 .request-type {
+  --type-hue: var(--palette-accent);
   display: inline-flex;
   height: 26px;
   flex: 0 0 auto;
   align-items: center;
   gap: var(--space-0-5);
   padding: 0 var(--space-1-5);
-  border: 1px solid var(--color-tint-border);
+  border: 1px solid color-mix(in srgb, var(--type-hue) 40%, var(--color-surface));
   border-radius: var(--radius-full);
-  color: var(--color-outline-action-ink);
-  background: var(--color-tint);
+  color: color-mix(in srgb, var(--type-hue) var(--type-ink, 55%), var(--color-text));
+  background: color-mix(in srgb, var(--type-hue) var(--type-tint, 14%), var(--color-surface));
   font-size: var(--text-caption-size);
   font-weight: var(--font-weight-medium);
   line-height: 1;
@@ -21,5 +25,44 @@
 
 .request-type svg {
   flex: 0 0 auto;
-  color: var(--color-accent);
+  color: color-mix(in srgb, var(--type-hue) 80%, var(--color-text));
+}
+
+.request-type-attendance {
+  --type-hue: var(--palette-primary);
+}
+
+.request-type-vacation {
+  --type-hue: var(--palette-accent);
+  --type-ink: 40%; /* orange is light: more ink keeps the text ≥ 4.5:1 */
+}
+
+.request-type-vacation svg {
+  color: color-mix(in srgb, var(--type-hue) 65%, var(--color-text));
+}
+
+.request-type-sick {
+  --type-hue: var(--palette-danger);
+}
+
+.request-type-reserve {
+  --type-hue: color-mix(in srgb, var(--palette-accent) 62%, var(--palette-primary)); /* khaki */
+  --type-tint: 20%;
+}
+
+/* Anything else: neutral, outlined with a dashed border on the plain surface. */
+.request-type-other {
+  --type-hue: var(--color-text-secondary);
+  --type-tint: 0%;
+  border-style: dashed;
+}
+
+/* Dark theme: the palette green is too deep to read on dark surfaces — use its lifted tone. */
+:root[data-theme='dark'] .request-type-attendance {
+  --type-hue: color-mix(in srgb, var(--dark-primary) 70%, var(--palette-surface));
+  --type-tint: 22%;
+}
+
+:root[data-theme='dark'] .request-type {
+  --type-ink: 35%;
 }
