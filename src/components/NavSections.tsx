@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import { visibleNavSections, type NavId } from '@/lib/navigation'
 import { navigate, useRoute } from '@/lib/router'
-import { openAbsenceForm } from '@/lib/absences'
 import { useNavBadges } from '@/lib/notifications'
 import { NavBadge } from './NavBadge'
 
@@ -23,7 +22,7 @@ export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNa
               {section.title}
             </h2>
             <ul className="nav-section-list">
-              {section.items.map(({ id, label, Icon, opensDialog }) => {
+              {section.items.map(({ id, label, Icon }) => {
                 const active = id === current
                 return (
                   <li key={id}>
@@ -31,11 +30,9 @@ export function NavSections({ tone, onNavigate }: { tone: 'dark' | 'light'; onNa
                       type="button"
                       className={`nav-item nav-item-${tone} ${active ? 'active' : ''}`}
                       aria-current={active ? 'page' : undefined}
-                      aria-haspopup={opensDialog ? 'dialog' : undefined}
                       data-destination={id}
                       onClick={() => {
-                        if (opensDialog) openAbsenceForm()
-                        else navigate(id)
+                        navigate(id)
                         onNavigate?.(id)
                       }}
                     >

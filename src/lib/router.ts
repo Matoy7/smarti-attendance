@@ -10,7 +10,7 @@ import { USER } from './profile'
  */
 
 /** Destinations that have a screen. Other nav items stay inert until their screen exists. */
-const SCREENS = new Set<NavId>(['attendance', 'my-reports', 'team-reports'])
+const SCREENS = new Set<NavId>(['attendance', 'absences', 'my-reports', 'team-reports'])
 const HOME: NavId = 'attendance'
 
 /** Whether `id` has a screen the current user may open (respects the section's permission). */
@@ -34,9 +34,27 @@ export function useRoute(): NavId {
   return useSyncExternalStore(subscribe, () => parse(window.location.hash))
 }
 
+/** In-app navigations this page load, so "back" knows whether the previous entry is one of our screens. */
+let inAppSteps = 0
+
 /** Go to a screen; ignores destinations without one. */
 export function navigate(id: NavId) {
   if (!isRoutable(id)) return
   const hash = `#/${id}`
-  if (window.location.hash !== hash) window.location.hash = hash
+  if (window.location.hash === hash) return
+  inAppSteps++
+  window.location.hash = hash
+}
+
+/**
+ * Back to the previous screen (browser history), or to `fallback` when the page was opened
+ * directly (a deep link or a reload), so "back" never leaves the app.
+ */
+export function goBack(fallback: NavId = HOME) {
+  if (inAppSteps > 0) {
+    inAppSteps--
+    window.history.back()
+  } else if (isRoutable(fallback)) {
+    window.location.replace(`#/${fallback}`) // replaces the deep-linked entry: nothing to come "back" to
+  }
 }

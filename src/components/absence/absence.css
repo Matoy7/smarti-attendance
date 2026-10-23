@@ -1,12 +1,75 @@
 /*
- * דיווח היעדרות — the form inside the shared sheet shell (src/styles/sheet.css) and field styles.
+ * דיווח היעדרות — the page (desktop: a card in the dashboard content area, like דיווח נוכחות;
+ * mobile: a card in the mobile shell). Field styles are the shared ones (.field…, src/styles/sheet.css).
  * Tokens only (dark theme applies).
  */
-.absence-dialog.sheet-modal {
-  width: min(640px, calc(100vw - 2 * var(--space-4)));
+
+/* ---- Page ---- */
+.absence-back {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--space-0-5);
+  margin-inline-start: calc(-1 * var(--space-1));
+  padding: 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
 }
 
-.sheet-drawer .absence-body {
+@media (hover: hover) {
+  .absence-back:hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+  }
+}
+
+.absence-page .page-header p {
+  margin: 0;
+}
+
+.absence-card .card-body {
+  padding: var(--space-4);
+}
+
+.m-absence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.m-absence-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.m-absence-header h1 {
+  margin: 0;
+}
+
+.m-absence-header .absence-back {
+  min-height: 44px; /* touch target */
+}
+
+.m-absence-card {
+  padding: var(--space-2);
+}
+
+/* ---- Form ---- */
+.absence-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.absence-mobile {
   gap: var(--space-2);
 }
 
@@ -32,7 +95,7 @@
   gap: var(--space-1-5);
 }
 
-.sheet-drawer .absence-types {
+.absence-mobile .absence-types {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -57,7 +120,7 @@
     box-shadow var(--duration-fast) var(--easing);
 }
 
-.sheet-drawer .absence-type {
+.absence-mobile .absence-type {
   min-height: 72px;
 }
 
@@ -126,28 +189,42 @@
   text-align: start;
 }
 
-/* ---- Footer: שלח דיווח leads ---- */
-.absence-footer .absence-submit {
-  min-width: 200px;
+/* ---- Actions: שלח דיווח leads (the punch button's size on desktop); full width on mobile ---- */
+.absence-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-1-5);
+  padding-top: var(--space-1);
 }
 
-.sheet-drawer .absence-footer .absence-submit {
-  flex: 1 1 auto;
+.absence-desktop .absence-submit {
+  min-width: min(var(--punch-action-width), 100%);
+}
+
+.absence-mobile .absence-actions {
+  flex-direction: column-reverse;
+  padding-top: 0;
+}
+
+.absence-mobile .absence-action {
+  width: 100%;
 }
 
 /* ---- Sent ---- */
 .absence-sent {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-1-5);
   text-align: center;
 }
 
-.absence-sent h3,
+.absence-sent h2,
 .absence-sent p {
   margin: 0;
 }
 
-.absence-sent h3:focus {
+.absence-sent h2:focus {
   outline: none;
 }
 
@@ -194,4 +271,26 @@
 .absence-summary-note {
   overflow-wrap: anywhere;
   text-align: end;
+}
+
+/* Mobile: the date fields stack when two don't fit with their full value (e.g. 320px phones). */
+.absence-mobile .absence-dates {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+/* Mobile confirmation: each label above its value, so dates never wrap beside the label. */
+.absence-mobile .absence-summary > div {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  padding-block: var(--space-1);
+}
+
+.absence-mobile .absence-summary-note {
+  text-align: start;
+}
+
+.absence-nowrap {
+  white-space: nowrap;
 }

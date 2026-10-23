@@ -10,7 +10,8 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 import { useRoute } from '@/lib/router'
 import { NAV_SECTIONS } from '@/lib/navigation'
 import { APP_NAME } from '@/lib/app'
-import { AbsenceForm } from '@/components/absence/AbsenceForm'
+import { AbsencePage } from '@/pages/AbsencePage'
+import { MobileAbsence } from '@/mobile/MobileAbsence'
 
 /** After in-app navigation: top of the page, tab title, and focus on the new screen's heading. */
 function useRouteChangeEffects(route: string) {
@@ -32,20 +33,19 @@ export default function App() {
   const route = useRoute()
   useRouteChangeEffects(route)
 
-  // דיווח היעדרות opens over whichever screen is showing.
-  if (isMobile)
-    return (
-      <>
-        {route === 'team-reports' ? <MobileTeamReports /> : route === 'my-reports' ? <MobileMyReports /> : <MobileAttendance />}
-        <AbsenceForm variant="drawer" />
-      </>
-    )
+  if (isMobile) {
+    if (route === 'team-reports') return <MobileTeamReports />
+    if (route === 'my-reports') return <MobileMyReports />
+    if (route === 'absences') return <MobileAbsence />
+    return <MobileAttendance />
+  }
+
+  const page = route === 'team-reports' ? <TeamReportsPage /> : route === 'my-reports' ? <MyReportsPage /> : route === 'absences' ? <AbsencePage /> : <AttendancePage />
 
   return (
     <div className="app-shell" dir="rtl">
       <Sidebar />
-      <main className="main-content">{route === 'team-reports' ? <TeamReportsPage /> : route === 'my-reports' ? <MyReportsPage /> : <AttendancePage />}</main>
-      <AbsenceForm variant="modal" />
+      <main className="main-content">{page}</main>
     </div>
   )
 }

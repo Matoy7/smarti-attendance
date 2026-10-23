@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useMyReports } from '@/hooks/useMyReports'
+import { navigate } from '@/lib/router'
 import { ChartIcon, ChevronDownIcon, ChevronIcon, PlusIcon, TargetIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { ABSENCE_LABEL } from '@/components/absence/absenceTypes'
 import { AbsenceTypeLabel, DayDetails, MonthNav, MonthlyApproval, SummaryCard, absenceDates, dayNote, dayTimes } from '@/components/myReports/parts'
-import { openAbsenceForm } from '@/lib/absences'
 import { formatDate, formatDuration, weekdayLetter } from '@/lib/myReports'
 import { MobileShell } from './MobileShell'
 import './my-reports-mobile.css'
@@ -117,7 +117,7 @@ export function MobileMyReports() {
             <h2 id="m-mr-absences" className="mr-section-title">
               דיווחי היעדרות
             </h2>
-            <button type="button" className="mr-new-absence mr-new-absence-link" aria-haspopup="dialog" onClick={openAbsenceForm}>
+            <button type="button" className="mr-new-absence mr-new-absence-link" onClick={() => navigate('absences')}>
               <PlusIcon size={16} />
               דיווח היעדרות חדש
             </button>

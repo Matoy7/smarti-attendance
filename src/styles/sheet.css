@@ -128,7 +128,7 @@
   transform: translateX(-50%);
 }
 
-/* ---- Form fields inside sheets (manual time entry, absence report) ---- */
+/* ---- Form fields (manual time entry sheet, absence report page) ---- */
 .field {
   display: flex;
   min-width: 0;

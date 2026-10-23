@@ -168,34 +168,3 @@ export async function submitAbsence(input: AbsenceInput, employeeId: string, isA
   listeners.forEach((l) => l())
   return absence
 }
-
-// ---- form visibility (opened from the דיווח היעדרות nav item) ----
-let formOpen = false
-let returnFocus: HTMLElement | null = null
-const formListeners = new Set<() => void>()
-const emitForm = () => formListeners.forEach((l) => l())
-
-export function openAbsenceForm() {
-  returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
-  formOpen = true
-  emitForm()
-}
-
-export function closeAbsenceForm() {
-  formOpen = false
-  emitForm()
-  const target = returnFocus
-  returnFocus = null
-  // After the dialog has closed (the page is inert while it is modal).
-  requestAnimationFrame(() => target?.isConnected && target.focus())
-}
-
-export function useAbsenceFormOpen(): boolean {
-  return useSyncExternalStore(
-    (l) => {
-      formListeners.add(l)
-      return () => formListeners.delete(l)
-    },
-    () => formOpen,
-  )
-}

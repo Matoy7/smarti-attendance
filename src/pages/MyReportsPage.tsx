@@ -1,9 +1,9 @@
 import { Fragment, useState } from 'react'
 import { useMyReports } from '@/hooks/useMyReports'
+import { navigate } from '@/lib/router'
 import { CalendarIcon, ChartIcon, ChevronDownIcon, PlusIcon, TargetIcon } from '@/components/icons'
 import { ApprovalBadge } from '@/components/team/ApprovalBadge'
 import { AbsenceTypeLabel, DayDetails, MonthNav, MonthlyApproval, SummaryCard, absenceDates, dayNote, dayTimes } from '@/components/myReports/parts'
-import { openAbsenceForm } from '@/lib/absences'
 import { formatDate, formatDuration, weekdayLetter } from '@/lib/myReports'
 
 /** הדיווחים שלי — desktop. A month of the user's attendance and absence reports. */
@@ -115,7 +115,7 @@ export function MyReportsPage() {
           <h2 id="mr-absences-title" className="mr-section-title">
             דיווחי היעדרות
           </h2>
-          <button type="button" className="mr-new-absence" aria-haspopup="dialog" onClick={openAbsenceForm}>
+          <button type="button" className="mr-new-absence" onClick={() => navigate('absences')}>
             <PlusIcon size={18} />
             דיווח היעדרות חדש
           </button>
