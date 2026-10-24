@@ -2,6 +2,7 @@
 
 .app-shell {
   display: flex;
+  min-height: 100vh;
   min-height: 100dvh;
   background: var(--color-canvas-desktop);
 }
@@ -14,6 +15,7 @@
   z-index: var(--z-sidebar);
   display: flex;
   width: var(--sidebar-width);
+  height: 100vh;
   height: 100dvh;
   flex: 0 0 var(--sidebar-width);
   flex-direction: column;

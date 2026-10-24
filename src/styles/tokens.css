@@ -182,7 +182,7 @@
   --topbar-height: 64px;
   --bottom-nav-height: 64px;
   --drawer-width: min(320px, 85vw);
-  --punch-action-size: 180px; /* mobile attendance orb */
+  --punch-action-size: clamp(150px, 46vw, 210px); /* mobile attendance orb: 180px on a 390px phone, scales with width */
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
 
@@ -274,8 +274,8 @@
 /* The mobile layout renders at ≤760px (keep in sync with MOBILE_QUERY in src/hooks/useIsMobile.ts); the type scale steps down there. */
 @media (max-width: 760px) {
   :root {
-    --text-display-size: 60px;
-    --text-display-line: 64px;
+    --text-display-size: clamp(52px, 15.4vw, 72px); /* 60px on a 390px phone, scales with width */
+    --text-display-line: clamp(56px, 16.4vw, 76px);
     --text-title-size: 26px;
     --text-title-line: 32px;
   }

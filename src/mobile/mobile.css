@@ -12,10 +12,19 @@
   --color-link-underline: var(--color-link-underline-mobile);
 
   /* Vertical rhythm of the attendance card: follows the viewport height (18px on a 667px phone, 24px from ~860px). */
+  --m-gap: clamp(var(--space-2), 2.8vh, var(--space-3)); /* fallback: browsers without dvh */
   --m-gap: clamp(var(--space-2), 2.8dvh, var(--space-3));
+  /*
+   * Attendance card's main gaps (date → clock, clock → button, button group → location): grow
+   * with the screen height from 16px (short phones) to at most 56px, so the card is as tall as its
+   * content — no stretching and no empty bands on tall phones. ≈ 24px at 667px, 52px at 844px.
+   */
+  --m-space: clamp(var(--space-2), calc((100vh - 620px) * 0.16 + var(--space-2)), 56px); /* fallback: no dvh */
+  --m-space: clamp(var(--space-2), calc((100dvh - 620px) * 0.16 + var(--space-2)), 56px);
 
   /* Column: top bar, then content filling the rest of the viewport (the bottom nav is fixed over its padding). */
   display: flex;
+  min-height: 100vh; /* fallback: browsers without dvh */
   min-height: 100dvh;
   flex-direction: column;
   color: var(--color-text);
@@ -79,20 +88,27 @@
 }
 
 /*
- * Attendance: the card fills the available height. The state's main readout (clock / working timer /
- * day summary) centers in the free space, which keeps the action button, manual entry and location
- * at the bottom of the card — in thumb reach, just above the bottom nav.
+ * Attendance: the card is as tall as its content, with its main gaps scaled to the screen height
+ * (--m-space, capped), and sits centered between the top bar and the bottom nav. Elements keep a
+ * consistent rhythm on every phone instead of spreading out on tall screens.
  */
-.m-main-fit > .m-punch-card {
-  flex: 1 0 auto;
+.m-main-fit {
+  justify-content: center; /* any height left over is shared above and below the card */
 }
 
-.m-main-fit .m-state {
-  flex: 1 0 auto;
+/* The clock-in screen (few elements) gets the scaled gaps; the fuller working / summary states keep
+   the compact rhythm so they still fit one screen. */
+.m-main-fit .m-state-idle,
+.m-main-fit .m-state-idle .punch-orb,
+.m-main-fit .m-punch-card:has(.m-state-idle) .m-location {
+  margin-top: var(--m-space);
 }
 
-.m-main-fit .m-state > :is(.m-clock, .working-status, .day-summary) {
-  margin-block: auto;
+/* The clock-in / clock-out button and its manual-entry link move together. */
+.m-punch-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .m-punch-card {

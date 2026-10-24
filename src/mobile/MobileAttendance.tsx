@@ -35,20 +35,24 @@ export function MobileAttendance() {
           {status === 'idle' && (
             <>
               <TimeDisplay className="m-clock" value={time} dateTime={time} />
-              <PunchButton onClick={clockIn} loading={pending === 'in'} icon={<LoginIcon size={52} strokeWidth={1.5} />}>
-                {pending === 'in' ? 'מדווח…' : 'דווח כניסה'}
-              </PunchButton>
-              <ManualEntry action="in" variant="drawer" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null} {...manual} />
+              <div className="m-punch-actions">
+                <PunchButton onClick={clockIn} loading={pending === 'in'} icon={<LoginIcon size={52} strokeWidth={1.5} />}>
+                  {pending === 'in' ? 'מדווח…' : 'דווח כניסה'}
+                </PunchButton>
+                <ManualEntry action="in" variant="drawer" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null} {...manual} />
+              </div>
             </>
           )}
 
           {status === 'working' && firstIn && (
             <>
               <WorkingStatus firstIn={firstIn} now={now} workedMs={workedMs} titleId={TITLE_ID} />
-              <PunchButton onClick={clockOut} loading={pending === 'out'} icon={<LogoutIcon size={52} strokeWidth={1.5} />}>
-                {pending === 'out' ? 'מדווח…' : 'דווח יציאה'}
-              </PunchButton>
-              <ManualEntry action="out" variant="drawer" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null} {...manual} />
+              <div className="m-punch-actions">
+                <PunchButton onClick={clockOut} loading={pending === 'out'} icon={<LogoutIcon size={52} strokeWidth={1.5} />}>
+                  {pending === 'out' ? 'מדווח…' : 'דווח יציאה'}
+                </PunchButton>
+                <ManualEntry action="out" variant="drawer" className="m-manual-entry" icon={<KeyboardIcon />} disabled={pending !== null} {...manual} />
+              </div>
             </>
           )}
 
