@@ -123,6 +123,7 @@
   align-self: stretch;
   flex-direction: column;
   gap: var(--space-0-5);
+  text-align: center; /* the date sits centered above the clock */
 }
 
 .m-card-header h1,
@@ -227,13 +228,13 @@
 
 /* "הכנסה ידנית של שעה": outlined pill under the orb, keyboard icon at the start (right). */
 .m-manual-entry.btn-link {
-  min-height: 44px; /* minimum tap size; the reference pill is slimmer */
+  min-height: 44px; /* minimum tap size */
   margin-top: var(--m-gap);
   gap: var(--space-1);
   padding: 0 20px;
   font-size: var(--text-label-size);
   line-height: var(--text-label-line);
-  border: 1.5px solid var(--color-outline-action-border);
+  border: 0; /* a text action (icon + label), no frame */
   border-radius: var(--radius-md);
   color: var(--color-outline-action-ink);
   background: transparent;
